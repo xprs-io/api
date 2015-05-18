@@ -9,6 +9,22 @@ If you are part of those that can contribute to this project, you must respect
 a set of standard practices when doing so. They exists to simplify that we get
 the most out of our tools, and that you can easily browse this respoitory.
 
+##Initial Setup
+Please ensure that all the client-side git hooks are installed and up to date
+by running this this simple command at the root of your repository:
+```bash
+# Windows
+mklink /H ".git/hooks/pre-commit" "./hooks/pre-commit"
+
+# Linux
+ln "./hooks/pre-commit" ".git/hooks/pre-commit"
+```
+
+##Basic rules
+1. Never commit directly to master. (Enforced by hooks)
+2. Ensure that all tests passes before pushing. (TODO: Enforce by hooks)
+3. Prefer pull requests when merging to a branch that you do not control.
+
 ##Git Commit Messages
 
 We will eventually automate the production of a change log for each of our
@@ -24,7 +40,7 @@ formulated.
 <footer>
 ```
 
-## Message subject (first line)
+### Message subject (first line)
 The type and scope should always be lowercase as shown below. There is no
 character limit but keep in mind that subjects longer than 80 characters are a
 sign of a commit that tries to do too much.

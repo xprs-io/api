@@ -1,0 +1,11 @@
+#!/bin/bash
+# Stops accidental commits to master.
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+ 
+if [[ "$BRANCH" == "master" ]]; then
+	echo "Commits are disabled on the $BRANCH branch."
+	echo "You can bypass this check by using -n."
+	exit 1
+fi
+ 
+exit 0
