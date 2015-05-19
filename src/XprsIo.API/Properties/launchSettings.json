@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "IIS Express": {
+      "commandName" : "IISExpress",
+      "launchBrowser": false,
+      "launchUrl": "api",
+      "environmentVariables" : {
+        "ASPNET_ENV": "Development"
+      }
+    }
+  }
+}
