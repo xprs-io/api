@@ -54,6 +54,43 @@
         "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/Microsoft.CSharp.dll"
       ]
     },
+    "RavenDB.Client/3.0.3660": {
+      "serviceable": false,
+      "sha": "FlkR1cWM1QX8ZDM19ElujrijY+2NYo0xr3sySTqmXq73QRKM+L/7cvBhwGEHH7tLuxGg2NlD2pk1asC7wU2bGA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [
+            "System.ComponentModel.Composition"
+          ],
+          "runtimeAssemblies": [
+            "lib/net45/Raven.Abstractions.dll",
+            "lib/net45/Raven.Client.Lightweight.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/Raven.Abstractions.dll",
+            "lib/net45/Raven.Client.Lightweight.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "RavenDB.Client.3.0.3660.nupkg",
+        "RavenDB.Client.3.0.3660.nupkg.sha512",
+        "RavenDB.Client.nuspec",
+        "lib/net45/Raven.Abstractions.dll",
+        "lib/net45/Raven.Abstractions.pdb",
+        "lib/net45/Raven.Abstractions.xml",
+        "lib/net45/Raven.Client.Lightweight.dll",
+        "lib/net45/Raven.Client.Lightweight.pdb",
+        "lib/net45/Raven.Client.Lightweight.XML"
+      ]
+    },
     "System.Collections/4.0.10-beta-22816": {
       "serviceable": false,
       "sha": "tkVBx0CH/Xunk18S9LvNzPRqbXdIzsHbcGRtePrZCNZ9EUNuXK0dzzUl5q0KUgsQmeyUCDSw+7mwyG/pDGSpAA==",
