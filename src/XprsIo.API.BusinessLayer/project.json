@@ -7,18 +7,19 @@
     "licenseUrl": "",
 
     "dependencies": {
-        "XprsIo.API.DataAccessLayer": "1.0.0-*"
+        "XprsIo.API.DataAccessLayer": "1.0.0-*",
+        "SimpleInjector": "2.8.0"
     },
 
     "frameworks": {
         "dnx451": { },
-        "dnxcore50": {
-            "dependencies": {
-                "System.Collections": "4.0.10-beta-22816",
-                "System.Linq": "4.0.0-beta-22816",
-                "System.Threading": "4.0.10-beta-22816",
-                "Microsoft.CSharp": "4.0.0-beta-22816"
-            }
-        }
+        //"dnxcore50": {
+        //    "dependencies": {
+        //        "System.Collections": "4.0.10-beta-22816",
+        //        "System.Linq": "4.0.0-beta-22816",
+        //        "System.Threading": "4.0.10-beta-22816",
+        //        "Microsoft.CSharp": "4.0.0-beta-22816"
+        //    }
+        //}
     }
 }
