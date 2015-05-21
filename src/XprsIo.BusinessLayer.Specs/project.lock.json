@@ -8,11 +8,39 @@
       "Machine.Specifications.Runner.Console >= 0.9.0",
       "XprsIo.API.BusinessLayer >= 1.0.0-*",
       "Moq >= 4.2.1502.911",
-      "SimpleInjector >= 2.8.0"
+      "SimpleInjector >= 2.8.0",
+      "JetBrains.Annotations >= 9.1.1"
     ],
     "DNX,Version=v4.5.1": []
   },
   "libraries": {
+    "JetBrains.Annotations/9.1.1": {
+      "serviceable": false,
+      "sha": "i84y3oJSleEkruG3tjjiN7yf+rLoU5G2edxkZIBnncke9xodzmhZq1DNjn/A1lZJIEJfKZ0sBP2AlvqG8sw+sw==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net20/JetBrains.Annotations.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net20/JetBrains.Annotations.dll"
+          ]
+        }
+      },
+      "files": [
+        "JetBrains.Annotations.9.1.1.nupkg",
+        "JetBrains.Annotations.9.1.1.nupkg.sha512",
+        "JetBrains.Annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.dll",
+        "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.xml",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.dll",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.xml"
+      ]
+    },
     "Machine.Specifications/0.9.1": {
       "serviceable": false,
       "sha": "oRZnbZp+LeBYEiOJ8r21roNTj6X76jvB3aTTpK78TCb5KhlXm2ZIM9sDadFFg4h3NtqzQYh27rlJplApsDQCjA==",

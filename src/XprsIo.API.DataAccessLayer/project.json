@@ -8,7 +8,8 @@
 
     "dependencies": {
         "RavenDB.Client": "3.0.3660",
-        "SimpleInjector": "2.8.0"
+        "SimpleInjector": "2.8.0",
+        "JetBrains.Annotations": "9.1.1"
     },
 
     "frameworks": {

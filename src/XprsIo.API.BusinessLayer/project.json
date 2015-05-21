@@ -8,7 +8,8 @@
 
     "dependencies": {
         "XprsIo.API.DataAccessLayer": "1.0.0-*",
-        "SimpleInjector": "2.8.0"
+        "SimpleInjector": "2.8.0",
+        "JetBrains.Annotations": "9.1.1"
     },
 
     "frameworks": {

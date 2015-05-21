@@ -12,7 +12,8 @@
         "Machine.Specifications.Runner.Console": "0.9.0",
         "XprsIo.API": "1.0.0-*",
         "Moq": "4.2.1502.911",
-        "SimpleInjector": "2.8.0"
+        "SimpleInjector": "2.8.0",
+        "JetBrains.Annotations": "9.1.1"
     },
 
     "frameworks": {

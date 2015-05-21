@@ -9,7 +9,8 @@
         "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
         "XprsIo.API.BusinessLayer": "1.0.0-*",
         "SimpleInjector": "2.8.0",
-        "SimpleInjector.Extensions.ExecutionContextScoping": "2.8.0"
+        "SimpleInjector.Extensions.ExecutionContextScoping": "2.8.0",
+        "JetBrains.Annotations": "9.1.1"
     },
 
     "commands": {
