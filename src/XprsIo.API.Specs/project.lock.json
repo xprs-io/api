@@ -3,16 +3,127 @@
   "version": -9998,
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.AspNet.Mvc >= 6.0.0-beta4",
-      "Microsoft.AspNet.Server.IIS >= 1.0.0-beta4",
-      "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta4",
-      "Microsoft.AspNet.StaticFiles >= 1.0.0-beta4",
-      "XprsIo.API.BusinessLayer >= 1.0.0-*"
+      "Machine.Specifications >= 0.9.1",
+      "Machine.Specifications.Should >= 0.7.2",
+      "Machine.Specifications.Runner.Console >= 0.9.0",
+      "XprsIo.API >= 1.0.0-*"
     ],
     "DNX,Version=v4.5.1": [],
-    "DNXCore,Version=v5.0": []
+    "DNXCore,Version=v5.0": [
+      "System.Collections >= 4.0.10-beta-22816",
+      "System.Linq >= 4.0.0-beta-22816",
+      "System.Threading >= 4.0.10-beta-22816",
+      "Microsoft.CSharp >= 4.0.0-beta-22816"
+    ]
   },
   "libraries": {
+    "Machine.Specifications/0.9.1": {
+      "serviceable": false,
+      "sha": "oRZnbZp+LeBYEiOJ8r21roNTj6X76jvB3aTTpK78TCb5KhlXm2ZIM9sDadFFg4h3NtqzQYh27rlJplApsDQCjA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net45/Machine.Specifications.Clr4.dll",
+            "lib/net45/Machine.Specifications.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/Machine.Specifications.Clr4.dll",
+            "lib/net45/Machine.Specifications.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "Machine.Specifications.0.9.1.nupkg",
+        "Machine.Specifications.0.9.1.nupkg.sha512",
+        "Machine.Specifications.nuspec",
+        "lib/net20/Machine.Specifications.dll",
+        "lib/net40/Machine.Specifications.Clr4.dll",
+        "lib/net40/Machine.Specifications.dll",
+        "lib/net45/Machine.Specifications.Clr4.dll",
+        "lib/net45/Machine.Specifications.dll",
+        "tools/history.txt",
+        "tools/install.ps1",
+        "tools/License.txt"
+      ]
+    },
+    "Machine.Specifications.Runner.Console/0.9.0": {
+      "serviceable": false,
+      "sha": "Hfr0Z5Yng1UeLITYJJbXWz2kd+Mpe0hpR6L2JhStv4q33S7cK2KXfaZaX24CAiev42nbwByfEnw6SKcNUJR3zQ==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "License.txt",
+        "Machine.Specifications.Runner.Console.0.9.0.nupkg",
+        "Machine.Specifications.Runner.Console.0.9.0.nupkg.sha512",
+        "Machine.Specifications.Runner.Console.nuspec",
+        "tools/CommandLine.dll",
+        "tools/Machine.Specifications.Reporting.dll",
+        "tools/Machine.Specifications.Reporting.Templates.dll",
+        "tools/Machine.Specifications.Runner.Utility.dll",
+        "tools/mspec-clr4.exe",
+        "tools/mspec-clr4.exe.config",
+        "tools/mspec-x86-clr4.exe",
+        "tools/mspec-x86-clr4.exe.config",
+        "tools/mspec-x86.exe",
+        "tools/mspec.exe",
+        "tools/Spark.dll"
+      ]
+    },
+    "Machine.Specifications.Should/0.7.2": {
+      "serviceable": false,
+      "sha": "DJsRM4SPz3oB2d5FRRMiBM8RbbmIwuL2MpBw2XxV0W3rSQLKcVdR7flczhzg7VyptWqUjq4qAKSZBNCZXXRyJg==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Machine.Specifications": "[0.7, 1.0)"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net45/Machine.Specifications.Should.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/Machine.Specifications.Should.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "Machine.Specifications": "[0.7, 1.0)"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "License.txt",
+        "Machine.Specifications.Should.0.7.2.nupkg",
+        "Machine.Specifications.Should.0.7.2.nupkg.sha512",
+        "Machine.Specifications.Should.nuspec",
+        "lib/net20/Machine.Specifications.Should.dll",
+        "lib/net40/Machine.Specifications.Should.dll",
+        "lib/net45/Machine.Specifications.Should.dll"
+      ]
+    },
     "Microsoft.AspNet.Authentication/1.0.0-beta4": {
       "serviceable": true,
       "sha": "bF++RlseLYrzDjtzrwNsLlftnj65Gctg6AkW6QMmk3W5EcNCktynbfjZrAn/1JRr7jri5XAJ546kvoayYKMjEg==",
