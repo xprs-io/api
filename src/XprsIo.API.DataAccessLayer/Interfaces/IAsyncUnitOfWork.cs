@@ -12,20 +12,12 @@
 // limitations under the License.&#xD;
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Linq;
-using XprsIo.API.DataAccessLayer.SementicTypes;
+using System.Threading.Tasks;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IRepository<TEntity>
+    public interface IAsyncUnitOfWork
     {
-        TEntity Load(PrimaryKey key);
-
-        IQueryable<TEntity> Query();
-
-        void Store(TEntity entity);
-
-        void Delete(TEntity entity);
-        void Delete(PrimaryKey key);
+        Task SaveChangesAsync();
     }
 }

@@ -12,13 +12,10 @@
 // limitations under the License.&#xD;
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Threading.Tasks;
-
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
     public interface IUnitOfWork
     {
         void SaveChanges();
-        Task SaveChangesAsync();
     }
 }

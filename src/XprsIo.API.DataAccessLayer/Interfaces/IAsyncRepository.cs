@@ -13,19 +13,20 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using System.Linq;
+using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.SementicTypes;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IRepository<TEntity>
+    public interface IAsyncRepository<TEntity>
     {
-        TEntity Load(PrimaryKey key);
+        Task<TEntity> LoadAsync(PrimaryKey key);
 
         IQueryable<TEntity> Query();
+        
+        Task StoreAsync(TEntity entity);
 
-        void Store(TEntity entity);
-
-        void Delete(TEntity entity);
-        void Delete(PrimaryKey key);
+        Task DeleteAsync(TEntity entity);
+        Task DeleteAsync(PrimaryKey entity);
     }
 }
