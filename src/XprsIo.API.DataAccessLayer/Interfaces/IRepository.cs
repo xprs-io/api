@@ -13,6 +13,7 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using System.Linq;
+using JetBrains.Annotations;
 using XprsIo.API.DataAccessLayer.SementicTypes;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
@@ -23,9 +24,9 @@ namespace XprsIo.API.DataAccessLayer.Interfaces
 
         IQueryable<TEntity> Query();
 
-        void Store(TEntity entity);
+        void Store([NotNull] TEntity entity);
 
-        void Delete(TEntity entity);
+        void Delete([NotNull] TEntity entity);
         void Delete(PrimaryKey key);
     }
 }

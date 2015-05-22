@@ -12,6 +12,7 @@
 // limitations under the License.&#xD;
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
@@ -19,5 +20,6 @@ namespace XprsIo.API.DataAccessLayer.Interfaces
     public interface IAsyncUnitOfWork
     {
         Task SaveChangesAsync();
+        Task SaveChangesAsync(CancellationToken ct);
     }
 }
