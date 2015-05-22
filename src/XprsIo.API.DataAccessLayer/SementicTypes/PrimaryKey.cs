@@ -16,7 +16,7 @@ using JetBrains.Annotations;
 
 namespace XprsIo.API.DataAccessLayer.SementicTypes
 {
-    public class PrimaryKey
+    public struct PrimaryKey
     {
         private readonly string _str;
         private readonly ValueType _value;
@@ -30,16 +30,18 @@ namespace XprsIo.API.DataAccessLayer.SementicTypes
             }
 
             _str = value;
+            _value = default(ValueType);
         }
 
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null" />.</exception>
-        public PrimaryKey(ValueType value)
+        public PrimaryKey([NotNull] ValueType value)
         {
             if (value == null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
 
+            _str = null;
             _value = value;
         }
 
