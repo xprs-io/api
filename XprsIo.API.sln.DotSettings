@@ -11,4 +11,5 @@ distributed under the License is distributed on an "AS IS" BASIS,&amp;#xD;&#xD;
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&amp;#xD;&#xD;
 See the License for the specific language governing permissions and&amp;#xD;&#xD;
 limitations under the License.&amp;#xD;&#xD;
-//////////////////////////////////////////////////////////////////////////////////</s:String></wpf:ResourceDictionary>
+//////////////////////////////////////////////////////////////////////////////////</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=9e6d2c67_002De620_002D4420_002Db272_002D8bcdce870b40/@EntryIndexedValue">&lt;Policy&gt;&lt;Descriptor Staticness="No" AccessRightKinds="Internal, Public" Description="Test Subject"&gt;&lt;ElementKinds&gt;&lt;Kind Name="TEST_TYPE" /&gt;&lt;/ElementKinds&gt;&lt;/Descriptor&gt;&lt;Policy Inspect="True" Prefix="When_" Suffix="" Style="AaBb" /&gt;&lt;/Policy&gt;</s:String></wpf:ResourceDictionary>
