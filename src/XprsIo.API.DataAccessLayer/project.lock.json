@@ -5,7 +5,7 @@
     "": [
       "RavenDB.Client >= 3.0.3660",
       "SimpleInjector >= 2.8.0",
-      "JetBrains.Annotations >= 9.1.1",
+      "JetBrains.Annotations >= 8.0.5",
       "FluffIt >= 0.1.1.14"
     ],
     "DNX,Version=v4.5.1": []
@@ -35,9 +35,9 @@
         "lib/wp8/FluffIt.WinPRT.dll"
       ]
     },
-    "JetBrains.Annotations/9.1.1": {
+    "JetBrains.Annotations/8.0.5.0": {
       "serviceable": false,
-      "sha": "i84y3oJSleEkruG3tjjiN7yf+rLoU5G2edxkZIBnncke9xodzmhZq1DNjn/A1lZJIEJfKZ0sBP2AlvqG8sw+sw==",
+      "sha": "idPSTIz+uKd0B8p51AD9bU+SCd3cmrddbRiHVu5F52r308EoEK3WMm4SizZkYemPsQFmwl3XsFlybZvTI71hTA==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {},
@@ -51,8 +51,8 @@
         }
       },
       "files": [
-        "JetBrains.Annotations.9.1.1.nupkg",
-        "JetBrains.Annotations.9.1.1.nupkg.sha512",
+        "JetBrains.Annotations.8.0.5.0.nupkg",
+        "JetBrains.Annotations.8.0.5.0.nupkg.sha512",
         "JetBrains.Annotations.nuspec",
         "lib/net20/JetBrains.Annotations.dll",
         "lib/net20/JetBrains.Annotations.xml",

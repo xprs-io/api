@@ -9,7 +9,7 @@
     "dependencies": {
         "RavenDB.Client": "3.0.3660",
         "SimpleInjector": "2.8.0",
-        "JetBrains.Annotations": "9.1.1",
+        "JetBrains.Annotations": "8.0.5",
         "FluffIt": "0.1.1.14"
     },
 
