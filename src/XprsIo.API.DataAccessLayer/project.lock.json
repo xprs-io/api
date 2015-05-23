@@ -5,11 +5,36 @@
     "": [
       "RavenDB.Client >= 3.0.3660",
       "SimpleInjector >= 2.8.0",
-      "JetBrains.Annotations >= 9.1.1"
+      "JetBrains.Annotations >= 9.1.1",
+      "FluffIt >= 0.1.1.14"
     ],
     "DNX,Version=v4.5.1": []
   },
   "libraries": {
+    "FluffIt/0.1.1.14": {
+      "serviceable": false,
+      "sha": "UpxY1XF8V9lka7nYcABM4Qw89faU9jr4bupM0pLN8U6W3RLoNvinvhud4B46pDiJqI7euxvavc2UN8RR3vGQvA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net45/FluffIt.WPF.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/FluffIt.WPF.dll"
+          ]
+        }
+      },
+      "files": [
+        "FluffIt.0.1.1.14.nupkg",
+        "FluffIt.0.1.1.14.nupkg.sha512",
+        "FluffIt.nuspec",
+        "lib/net45/FluffIt.WPF.dll",
+        "lib/netcore451/FluffIt.WinRT.dll",
+        "lib/wp8/FluffIt.WinPRT.dll"
+      ]
+    },
     "JetBrains.Annotations/9.1.1": {
       "serviceable": false,
       "sha": "i84y3oJSleEkruG3tjjiN7yf+rLoU5G2edxkZIBnncke9xodzmhZq1DNjn/A1lZJIEJfKZ0sBP2AlvqG8sw+sw==",
