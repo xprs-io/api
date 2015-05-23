@@ -13,7 +13,8 @@
         "XprsIo.API.DataAccessLayer": "1.0.0-*",
         "Moq": "4.2.1502.911",
         "SimpleInjector": "2.8.0",
-        "JetBrains.Annotations": "9.1.1"
+        "JetBrains.Annotations": "9.1.1",
+        "FluffIt": "0.1.1.14"
     },
 
     "frameworks": {

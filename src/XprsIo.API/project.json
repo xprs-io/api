@@ -10,7 +10,8 @@
         "XprsIo.API.BusinessLayer": "1.0.0-*",
         "SimpleInjector": "2.8.0",
         "SimpleInjector.Extensions.ExecutionContextScoping": "2.8.0",
-        "JetBrains.Annotations": "9.1.1"
+        "JetBrains.Annotations": "9.1.1",
+        "FluffIt": "0.1.1.14"
     },
 
     "commands": {

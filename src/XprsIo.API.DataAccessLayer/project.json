@@ -7,10 +7,10 @@
     "licenseUrl": "",
 
     "dependencies": {
-      "RavenDB.Client": "3.0.3660",
-      "SimpleInjector": "2.8.0",
-      "JetBrains.Annotations": "9.1.1",
-      "FluffIt": "0.1.1.14"
+        "RavenDB.Client": "3.0.3660",
+        "SimpleInjector": "2.8.0",
+        "JetBrains.Annotations": "9.1.1",
+        "FluffIt": "0.1.1.14"
     },
 
     "frameworks": {
