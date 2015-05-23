@@ -18,15 +18,15 @@ using XprsIo.API.DataAccessLayer.SementicTypes;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IRepository<TEntity>
+    public interface IRepository<TPrimaryKey, TEntity>
     {
-        TEntity Load(PrimaryKey key);
+        TEntity Load(PrimaryKey<TPrimaryKey> key);
 
         IQueryable<TEntity> Query();
 
         void Store([NotNull] TEntity entity);
 
         void Delete([NotNull] TEntity entity);
-        void Delete(PrimaryKey key);
+        void Delete(PrimaryKey<TPrimaryKey> key);
     }
 }

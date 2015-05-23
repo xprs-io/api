@@ -12,47 +12,32 @@
 // limitations under the License.&#xD;
 // //////////////////////////////////////////////////////////////////////////////////
 using System;
+using System.Collections;
+using System.Linq;
+using FluffIt;
 using JetBrains.Annotations;
 
 namespace XprsIo.API.DataAccessLayer.SementicTypes
 {
-    public struct PrimaryKey
+    public struct PrimaryKey<TPrimaryKey>
     {
-        private readonly string _str;
-        private readonly ValueType _value;
+        private TPrimaryKey Value { get; }
 
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null" />.</exception>
-        public PrimaryKey([NotNull] string value)
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is an IEnumerable and there is no element in the collection.</exception>
+        public PrimaryKey([NotNull] TPrimaryKey value)
         {
             if (value == null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
-
-            _str = value;
-            _value = default(ValueType);
-        }
-
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null" />.</exception>
-        public PrimaryKey([NotNull] ValueType value)
-        {
-            if (value == null)
+            
+            if (value.As<IEnumerable>()?.Cast<object>().Any() ?? false)
             {
-                throw new ArgumentNullException(nameof(value));
+                throw new ArgumentOutOfRangeException(nameof(value), "The value parameter must contain at least 1 element.");
             }
-
-            _str = null;
-            _value = value;
-        }
-
-        public override string ToString()
-        {
-            return _str ?? _value.ToString();
-        }
-
-        public object ToObject()
-        {
-            return _str ?? (object)_value;
+            
+            Value = value;
         }
     }
 }
