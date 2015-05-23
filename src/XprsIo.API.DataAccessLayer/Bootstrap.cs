@@ -13,6 +13,8 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using SimpleInjector;
+using XprsIo.API.DataAccessLayer.Interfaces;
+using XprsIo.API.DataAccessLayer.Raven;
 
 namespace XprsIo.API.DataAccessLayer
 {
@@ -20,7 +22,8 @@ namespace XprsIo.API.DataAccessLayer
     {
         public static void InitializeContainer(Container container)
         {
-
+            container.Register<IRavenContext, RavenContext>();
+            container.Register<IAsyncRavenContext, AsyncRavenContext>();
         }
     }
 }
