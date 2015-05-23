@@ -20,10 +20,10 @@ using XprsIo.API.DataAccessLayer.SementicTypes;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IAsyncRepository<TEntity>
+    public interface IAsyncRepository<TPrimaryKey, TEntity>
     {
-        Task<TEntity> LoadAsync(PrimaryKey key);
-        Task<TEntity> LoadAsync(PrimaryKey key, CancellationToken ct);
+        Task<TEntity> LoadAsync(PrimaryKey<TPrimaryKey> key);
+        Task<TEntity> LoadAsync(PrimaryKey<TPrimaryKey> key, CancellationToken ct);
 
         IQueryable<TEntity> Query();
         
@@ -32,7 +32,7 @@ namespace XprsIo.API.DataAccessLayer.Interfaces
 
         Task DeleteAsync([NotNull] TEntity entity);
         Task DeleteAsync([NotNull] TEntity entity, CancellationToken ct);
-        Task DeleteAsync(PrimaryKey entity);
-        Task DeleteAsync(PrimaryKey entity, CancellationToken ct);
+        Task DeleteAsync(PrimaryKey<TPrimaryKey> entity);
+        Task DeleteAsync(PrimaryKey<TPrimaryKey> entity, CancellationToken ct);
     }
 }
