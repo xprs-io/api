@@ -19,7 +19,7 @@ using JetBrains.Annotations;
 
 namespace XprsIo.API.DataAccessLayer.SementicTypes
 {
-    public struct PrimaryKey<TPrimaryKey>
+    public class PrimaryKey<TPrimaryKey>
     {
         private TPrimaryKey Value { get; }
 
