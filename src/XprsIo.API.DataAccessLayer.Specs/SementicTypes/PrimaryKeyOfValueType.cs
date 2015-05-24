@@ -24,7 +24,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
     public class When_PrimaryKey_of_IEnumerable_of_int_is_an_empty_enumerable_value
     {
         private Because of = () => _exception = Catch.Exception(() => new PrimaryKey<IEnumerable<int>>(Enumerable.Empty<int>()));
-        private It should_fail = () => _exception.ShouldBeAssignableTo(typeof(ArgumentOutOfRangeException));
+        private It should_throw = () => _exception.ShouldBeAssignableTo(typeof(ArgumentOutOfRangeException));
 
         private static Exception _exception;
     }
@@ -34,7 +34,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
     {
         private Establish context = () => _subject = new PrimaryKey<int>(42);
         private Because of = () => _value = _subject.Value;
-        private It should_fail = () => _value.ShouldEqual(42);
+        private It should_return_an_unchanged_value = () => _value.ShouldEqual(42);
 
         private static PrimaryKey<int> _subject;
         private static int _value;

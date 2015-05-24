@@ -24,20 +24,18 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
     public class When_PrimaryKey_of_string_is_a_null_value
     {
         private Because of = () => _exception = Catch.Exception(() =>new PrimaryKey<string>(null));
-        private It should_fail = () => _exception.ShouldBeAssignableTo(typeof (ArgumentNullException));
+        private It should_throw = () => _exception.ShouldBeAssignableTo(typeof (ArgumentNullException));
 
-        private static Exception _exception; 
+        private static Exception _exception;
     }
 
     [Subject(typeof(PrimaryKey<>), Categories.SemanticTypes)]
     public class When_PrimaryKey_of_string_is_empty
     {
-        private Establish context = () => _subject = new PrimaryKey<string>(string.Empty);
-        private Because of = () => _value = _subject.Value;
-        private It should_fail = () => _value.ShouldBeEmpty();
+        private Because of = () => _exception = Catch.Exception(() => new PrimaryKey<string>(string.Empty));
+        private It should_throw = () => _exception.ShouldBeAssignableTo(typeof(ArgumentOutOfRangeException));
 
-        private static PrimaryKey<string> _subject;
-        private static string _value;
+        private static Exception _exception;
     }
 
     [Subject(typeof(PrimaryKey<>), Categories.SemanticTypes)]
@@ -45,7 +43,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
     {
         private Establish context = () => _subject = new PrimaryKey<string>("foo");
         private Because of = () => _value = _subject.Value;
-        private It should_fail = () => _value.ShouldEqual("foo");
+        private It should_return_an_unchanged_value = () => _value.ShouldEqual("foo");
 
         private static PrimaryKey<string> _subject;
         private static string _value;
@@ -56,7 +54,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
     {
         private Establish context = () => _source = Enumerable.Empty<string>();
         private Because of = () => _exception = Catch.Exception(() => new PrimaryKey<IEnumerable<string>>(_source));
-        private It should_fail = () => _exception.ShouldBeAssignableTo(typeof(ArgumentOutOfRangeException));
+        private It should_throw = () => _exception.ShouldBeAssignableTo(typeof(ArgumentOutOfRangeException));
 
         private static IEnumerable<string> _source;
         private static Exception _exception;
@@ -71,7 +69,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
             _subject = new PrimaryKey<IEnumerable<string>>(_source);
         };
         private Because of = () => _value = _subject.Value;
-        private It should_fail = () => _value.ShouldBeTheSameAs(_subject);
+        private It should_return_an_unchanged_value = () => _value.ShouldBeTheSameAs(_subject);
 
         private static IEnumerable<string> _source;
         private static PrimaryKey<IEnumerable<string>> _subject;
@@ -87,7 +85,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
             _subject = new PrimaryKey<IEnumerable<string>>(_source);
         };
         private Because of = () => _value = _subject.Value;
-        private It should_fail = () => _value.ShouldBeTheSameAs(_subject);
+        private It should_return_an_unchanged_value = () => _value.ShouldBeTheSameAs(_subject);
 
         private static IEnumerable<string> _source;
         private static PrimaryKey<IEnumerable<string>> _subject;
@@ -103,7 +101,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.SementicTypes
             _subject = new PrimaryKey<IEnumerable<string>>(_source);
         };
         private Because of = () => _value = _subject.Value;
-        private It should_fail = () => _value.ShouldBeTheSameAs(_subject);
+        private It should_return_an_unchanged_value = () => _value.ShouldBeTheSameAs(_subject);
 
         private static IEnumerable<string> _source;
         private static PrimaryKey<IEnumerable<string>> _subject;
