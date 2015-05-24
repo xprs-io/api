@@ -21,7 +21,7 @@ namespace XprsIo.API.DataAccessLayer.SementicTypes
 {
     public class PrimaryKey<TPrimaryKey>
     {
-        private TPrimaryKey Value { get; }
+        public TPrimaryKey Value { get; }
 
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is an IEnumerable and there is no element in the collection.</exception>
