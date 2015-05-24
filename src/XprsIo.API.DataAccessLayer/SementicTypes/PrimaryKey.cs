@@ -32,7 +32,7 @@ namespace XprsIo.API.DataAccessLayer.SementicTypes
                 throw new ArgumentNullException(nameof(value));
             }
             
-            if (value.As<IEnumerable>()?.Cast<object>().Any() ?? false)
+            if (value.As<IEnumerable>()?.Cast<object>().None() ?? false)
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "The value parameter must contain at least 1 element.");
             }
