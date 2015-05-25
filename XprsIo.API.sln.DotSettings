@@ -12,9 +12,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;
 See the License for the specific language governing permissions and&#xD;
 limitations under the License.&#xD;
 //////////////////////////////////////////////////////////////////////////////////</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=863DD138858B994ABCBA9F49B7854AA4/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=863DD138858B994ABCBA9F49B7854AA4/AbsolutePath/@EntryValue">C:\Users\Etienne\Dropbox\Library\MSpec.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=863DD138858B994ABCBA9F49B7854AA4/RelativePath/@EntryValue">..\..\..\..\Users\Etienne\Dropbox\Library\MSpec.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File863DD138858B994ABCBA9F49B7854AA4/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File863DD138858B994ABCBA9F49B7854AA4/RelativePriority/@EntryValue">1</s:Double>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=A0178CF223A7294CB69D837D4CDEE2D5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=A0178CF223A7294CB69D837D4CDEE2D5/AbsolutePath/@EntryValue">C:\Users\Yakigato\Source\Repositories\XprsIo\api\MSpec.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=A0178CF223A7294CB69D837D4CDEE2D5/RelativePath/@EntryValue">..\MSpec.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA0178CF223A7294CB69D837D4CDEE2D5/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA0178CF223A7294CB69D837D4CDEE2D5/RelativePriority/@EntryValue">1</s:Double>
+	
+	
+	
+	
+	
 	</wpf:ResourceDictionary>
