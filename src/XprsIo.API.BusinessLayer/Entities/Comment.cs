@@ -11,10 +11,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
+using System;
+
 namespace XprsIo.API.BusinessLayer.Entities
 {
     public class Comment
     {
-         
+        public int Id { get; }
+        public int ParticipantId { get; }
+        public int ContributionId { get; }
+
+        public string Title { get; }
+        public string Text { get; }
+
+        public DateTimeOffset Created { get; }
+        public DateTimeOffset Modified { get; }
+
+        public Participant Participant { get; }
+        public Contribution Contribution { get; }
+
+        public Comment(
+            int id,
+            int participantId,
+            int contributionId,
+            string title,
+            string text,
+            DateTimeOffset created,
+            DateTimeOffset modified,
+            Participant participant = null,
+            Contribution contribution = null)
+        {
+            Id = id;
+            ParticipantId = participantId;
+            ContributionId = contributionId;
+            Title = title;
+            Text = text;
+            Created = created;
+            Modified = modified;
+            Participant = participant;
+            Contribution = contribution;
+        }
     }
 }

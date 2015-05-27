@@ -13,24 +13,34 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using System;
-using XprsIo.API.BusinessLayer.Enums;
 
 namespace XprsIo.API.BusinessLayer.Entities
 {
-    public class Subscription
+    public class Like
     {
-        public int Id { get; }
-        public SubscriptionType Type { get; }
+        public int Id { get; } 
+        public int ParticipantId { get; }
+        public int ContributionId { get; }
 
         public DateTimeOffset Created { get; }
-        public DateTimeOffset? Expire { get; }
 
-        public Subscription(int id, SubscriptionType type, DateTimeOffset created, DateTimeOffset? expire)
+        public Participant Participant { get; }
+        public Contribution Contribution { get; }
+
+        public Like(
+            int id,
+            int participantId,
+            int contributionId,
+            DateTimeOffset created,
+            Participant participant = null,
+            Contribution contribution = null)
         {
             Id = id;
-            Type = type;
+            ParticipantId = participantId;
+            ContributionId = contributionId;
             Created = created;
-            Expire = expire;
+            Participant = participant;
+            Contribution = contribution;
         }
     }
 }

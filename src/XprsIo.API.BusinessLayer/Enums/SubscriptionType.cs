@@ -11,26 +11,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
-
-using System;
-using XprsIo.API.BusinessLayer.Enums;
-
-namespace XprsIo.API.BusinessLayer.Entities
+namespace XprsIo.API.BusinessLayer.Enums
 {
-    public class Subscription
+    public enum SubscriptionType
     {
-        public int Id { get; }
-        public SubscriptionType Type { get; }
-
-        public DateTimeOffset Created { get; }
-        public DateTimeOffset? Expire { get; }
-
-        public Subscription(int id, SubscriptionType type, DateTimeOffset created, DateTimeOffset? expire)
-        {
-            Id = id;
-            Type = type;
-            Created = created;
-            Expire = expire;
-        }
+        
     }
 }

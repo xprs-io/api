@@ -11,10 +11,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
 namespace XprsIo.API.BusinessLayer.Entities
 {
     public class Owner
     {
-         
+        public int Id { get; }
+        public int ParticipantId { get; }
+
+        public float Share { get; }
+
+        public Participant Participant { get; }
+
+        public Owner(int id, int participantId, float share, Participant participant = null)
+        {
+            Id = id;
+            ParticipantId = participantId;
+            Share = share;
+            Participant = participant;
+        }
     }
 }

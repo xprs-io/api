@@ -11,10 +11,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
+using System;
+
 namespace XprsIo.API.BusinessLayer.Entities
 {
     public class Version
     {
-         
+        public int Id { get; }
+        public int MilestoneId { get; }
+
+        public string Description { get; }
+        public string FileDescriptor { get; }
+
+        public DateTimeOffset Created { get; }
+
+        public Milestone Milestone { get; }
+
+        public Version(
+            int id,
+            int milestoneId,
+            string description,
+            string fileDescriptor,
+            DateTimeOffset created,
+            Milestone milestone = null)
+        {
+            Id = id;
+            MilestoneId = milestoneId;
+            Description = description;
+            FileDescriptor = fileDescriptor;
+            Created = created;
+            Milestone = milestone;
+        }
     }
 }

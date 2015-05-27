@@ -11,10 +11,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
+using System;
+using System.Collections.Generic;
+
 namespace XprsIo.API.BusinessLayer.Entities
 {
     public class Tag
     {
-         
+        public int Id { get; }
+        public int ParentId { get; }
+        public IEnumerable<int> ChildIds { get; }
+
+        public string Name { get; }
+
+        public Tag Parent { get; }
+        public IEnumerable<Tag> Children { get; }
+
+        /// <exception cref="ArgumentNullException"><paramref name="childIds"/> is <see langword="null" />.</exception>
+        public Tag(
+            int id,
+            int parentId,
+            IEnumerable<int> childIds,
+            string name,
+            Tag parent = null,
+            IEnumerable<Tag> children = null)
+        {
+            if (childIds == null)
+            {
+                throw new ArgumentNullException(nameof(childIds));
+            }
+
+            Id = id;
+            ParentId = parentId;
+            ChildIds = childIds;
+            Name = name;
+            Parent = parent;
+            Children = children;
+        }
     }
 }
