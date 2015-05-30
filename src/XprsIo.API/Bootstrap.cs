@@ -13,7 +13,13 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using Microsoft.AspNet.Builder;
+using Raven.Client;
+using Raven.Client.Document;
 using SimpleInjector;
+using XprsIo.API.BusinessLayer.Interfaces;
+using XprsIo.API.BusinessLayer.Services;
+using XprsIo.API.DataAccessLayer.Interfaces;
+using XprsIo.API.DataAccessLayer.Raven;
 
 namespace XprsIo.API
 {
@@ -21,7 +27,23 @@ namespace XprsIo.API
     {
         public static void InitializeContainer(Container container, IApplicationBuilder app)
         {
-            
+            // RavenDB
+            container.RegisterSingle<IDocumentStore>(() => new DocumentStore
+            {
+                // TODO: Configure store
+            });
+            container.RegisterSingle<IContextFactory<IRavenContext>, RavenContextFactory>();
+            container.RegisterSingle<IAsyncContextFactory<IAsyncRavenContext>, AsyncRavenContextFactory>();
+
+            // BusinessLayer
+            container.RegisterSingle<ICommentsService, CommentsService>();
+            container.RegisterSingle<ICommunitiesService, CommunitiesService>();
+            container.RegisterSingle<IContributionsService, ContributionsService>();
+            container.RegisterSingle<IMembersService, MembersService>();
+            container.RegisterSingle<IParticipantsService, ParticipantsService>();
+            container.RegisterSingle<ISubscriptionsService, SubscriptionsService>();
+            container.RegisterSingle<ITagsService, TagsService>();
+            container.RegisterSingle<IUsersService, UsersService>();
         }
     }
 }
