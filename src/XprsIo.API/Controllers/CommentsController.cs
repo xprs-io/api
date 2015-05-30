@@ -11,10 +11,47 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNet.Mvc;
+using XprsIo.API.BusinessLayer.Entities;
+
 namespace XprsIo.API.Controllers
 {
+    [Route("api/[controller]")]
     public class CommentsController
     {
-         
+        private const string RouteById = "{id:int}";
+
+        [HttpPost]
+        public IActionResult Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public IEnumerable<Comment> Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet(RouteById)]
+        public IEnumerable<Comment> Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut(RouteById)]
+        public IActionResult Update(int id, [FromBody] Comment user)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete(RouteById)]
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

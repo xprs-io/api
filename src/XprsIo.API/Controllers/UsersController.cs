@@ -20,7 +20,7 @@ using XprsIo.API.BusinessLayer.Entities;
 namespace XprsIo.API.Controllers
 {
     [Route("api/[controller]")]
-    public class CommunitiesController
+    public class UsersController
     {
         private const string RouteById = "{id:int}";
 
@@ -31,19 +31,19 @@ namespace XprsIo.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Community> Read()
+        public IEnumerable<User> Read()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet(RouteById)]
-        public IEnumerable<Community> Read(int id)
+        public IEnumerable<User> Read(int id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut(RouteById)]
-        public IActionResult Update(int id, [FromBody] Community user)
+        public IActionResult Update(int id, [FromBody] User user)
         {
             throw new NotImplementedException();
         }
