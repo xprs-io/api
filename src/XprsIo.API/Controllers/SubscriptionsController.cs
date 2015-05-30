@@ -22,6 +22,36 @@ namespace XprsIo.API.Controllers
     [Route("api/[controller]")]
     public class SubscriptionsController
     {
-        
+        private const string RouteById = "{id:int}";
+
+        [HttpPost]
+        public IActionResult Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public IEnumerable<Subscription> Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet(RouteById)]
+        public IEnumerable<Subscription> Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut(RouteById)]
+        public IActionResult Update(int id, [FromBody] Subscription user)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete(RouteById)]
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
