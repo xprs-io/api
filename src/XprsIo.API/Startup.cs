@@ -45,8 +45,6 @@ namespace XprsIo.API
         private void InitializeApplication(IApplicationBuilder app)
         {
             Bootstrap.InitializeContainer(_container, app);
-            BusinessLayer.Bootstrap.InitializeContainer(_container);
-            DataAccessLayer.Bootstrap.InitializeContainer(_container);
         }
 
         private void RegisterControllers(IApplicationBuilder app)
