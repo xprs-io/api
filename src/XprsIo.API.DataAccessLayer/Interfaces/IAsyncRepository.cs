@@ -16,23 +16,20 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using XprsIo.API.DataAccessLayer.SementicTypes;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IAsyncRepository<TPrimaryKey, TEntity>
+    public interface IAsyncRepository<in TPrimaryKey, TEntity>
     {
-        Task<TEntity> LoadAsync(PrimaryKey<TPrimaryKey> key);
-        Task<TEntity> LoadAsync(PrimaryKey<TPrimaryKey> key, CancellationToken ct);
+        Task<TEntity> LoadAsync([NotNull] TPrimaryKey key);
+        Task<TEntity> LoadAsync([NotNull]TPrimaryKey key, CancellationToken ct);
 
         IQueryable<TEntity> Query();
         
         Task StoreAsync([NotNull] TEntity entity);
         Task StoreAsync([NotNull] TEntity entity, CancellationToken ct);
 
-        Task DeleteAsync([NotNull] TEntity entity);
-        Task DeleteAsync([NotNull] TEntity entity, CancellationToken ct);
-        Task DeleteAsync(PrimaryKey<TPrimaryKey> entity);
-        Task DeleteAsync(PrimaryKey<TPrimaryKey> entity, CancellationToken ct);
+        void DeleteAsync([NotNull] TEntity entity);
+        void DeleteAsync([NotNull] TPrimaryKey key);
     }
 }

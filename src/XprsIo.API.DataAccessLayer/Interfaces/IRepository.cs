@@ -14,19 +14,18 @@
 
 using System.Linq;
 using JetBrains.Annotations;
-using XprsIo.API.DataAccessLayer.SementicTypes;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IRepository<TPrimaryKey, TEntity>
+    public interface IRepository<in TPrimaryKey, TEntity>
     {
-        TEntity Load(PrimaryKey<TPrimaryKey> key);
+        TEntity Load([NotNull] TPrimaryKey key);
 
         IQueryable<TEntity> Query();
 
         void Store([NotNull] TEntity entity);
 
         void Delete([NotNull] TEntity entity);
-        void Delete(PrimaryKey<TPrimaryKey> key);
+        void Delete([NotNull] TPrimaryKey key);
     }
 }
