@@ -10,11 +10,11 @@
         "Machine.Specifications": "0.9.1",
         "Machine.Specifications.Should": "0.7.2",
         "Machine.Specifications.Runner.Console": "0.9.0",
-        "XprsIo.API.DataAccessLayer": "1.0.0-*",
         "Moq": "4.2.1502.911",
         "SimpleInjector": "2.8.0",
         "JetBrains.Annotations": "8.0.5",
-        "FluffIt": "0.1.1.14"
+        "FluffIt": "0.1.1.14",
+        "XprsIo.API.DataAccessLayer": "1.0.0-*"
     },
 
     "frameworks": {
