@@ -12,23 +12,30 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Threading;
+using System.Threading.Tasks;
 using Raven.Client;
-using XprsIo.API.DataAccessLayer.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 
-namespace XprsIo.API.DataAccessLayer.Raven
+namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-    public class RavenContext : IRavenContext
+    public class AsyncRavenContext : IAsyncRavenContext
     {
-        private readonly IDocumentSession _session;
+        private readonly IAsyncDocumentSession _session;
 
-        public RavenContext(IDocumentSession session)
+        public AsyncRavenContext(IAsyncDocumentSession session)
         {
             _session = session;
         }
 
-        public void SaveChanges()
+        public Task SaveChangesAsync()
         {
-            _session.SaveChanges();
+            return _session.SaveChangesAsync();
+        }
+
+        public Task SaveChangesAsync(CancellationToken ct)
+        {
+            return _session.SaveChangesAsync(ct);
         }
 
         public void Dispose()

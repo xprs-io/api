@@ -12,23 +12,13 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using Raven.Client;
+using System;
 using XprsIo.API.DataAccessLayer.Interfaces;
 
-namespace XprsIo.API.DataAccessLayer.Raven
+namespace XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces
 {
-    public class AsyncRavenContextFactory : IAsyncContextFactory<IAsyncRavenContext>
+    public interface IAsyncRavenContext : IAsyncUnitOfWork, IDisposable
     {
-        private readonly IDocumentStore _store;
-
-        public AsyncRavenContextFactory(IDocumentStore store)
-        {
-            _store = store;
-        }
-
-        public IAsyncRavenContext GetAsyncContext()
-        {
-            return new AsyncRavenContext(_store.OpenAsyncSession());
-        }
+         
     }
 }
