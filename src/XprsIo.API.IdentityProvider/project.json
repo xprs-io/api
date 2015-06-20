@@ -1,0 +1,27 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "",
+  "authors": [ "" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "Microsoft.AspNet.Identity": "3.0.0-beta4",
+    "JetBrains.Annotations": "8.0.5",
+    "FluffIt": "0.1.1.14",
+    "XprsIo.API.DataAccessLayer": "1.0.0-*"
+  },
+
+  "frameworks": {
+    "dnx451": { },
+    //"dnxcore50": {
+    //    "dependencies": {
+    //        "System.Collections": "4.0.10-beta-22816",
+    //        "System.Linq": "4.0.0-beta-22816",
+    //        "System.Threading": "4.0.10-beta-22816",
+    //        "Microsoft.CSharp": "4.0.0-beta-22816"
+    //    }
+    //}
+  }
+}
