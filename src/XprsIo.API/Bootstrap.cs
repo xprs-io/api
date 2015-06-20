@@ -19,7 +19,8 @@ using SimpleInjector;
 using XprsIo.API.BusinessLayer.Interfaces;
 using XprsIo.API.BusinessLayer.Services;
 using XprsIo.API.DataAccessLayer.Interfaces;
-using XprsIo.API.DataAccessLayer.Raven;
+using XprsIo.API.DataAccessLayer.Providers.Raven;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 
 namespace XprsIo.API
 {
