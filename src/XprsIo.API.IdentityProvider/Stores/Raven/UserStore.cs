@@ -24,6 +24,12 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
+	/// <summary>
+	/// An ASP.NET Identity Framework 3.0 UserStore implementation for a
+	/// RavenDB database. This class is only a facade. It handles boilerplate
+	/// exception handling and delegates control over to a set of specialized
+	/// services.
+	/// </summary>
 	public class UserStore :
 		IUserRoleStore<IdentityUser>,
 		IUserClaimStore<IdentityUser>,
