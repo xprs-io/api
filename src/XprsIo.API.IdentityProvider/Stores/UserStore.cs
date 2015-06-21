@@ -20,7 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
-using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores
 {
@@ -37,12 +37,50 @@ namespace XprsIo.API.IdentityProvider.Stores
 		IUserTwoFactorStore<IdentityUser>,
 		IUserLockoutStore<IdentityUser>
 	{
-		private readonly IAsyncRavenContext _context;
+		private readonly IUserService _userService;
+		private readonly IRoleService _roleService;
+		private readonly IUserRoleService _userRoleService;
+		private readonly IUserClaimService _userClaimService;
+		private readonly IUserPasswordService _userPasswordService;
+		private readonly IUserSecurityStampService _userSecurityStampService;
+		private readonly IUserEmailService _userEmailService;
+		private readonly IUserPhoneNumberService _userPhoneNumberService;
+		private readonly IQueryableRoleService _queryableRoleService;
+		private readonly IQueryableUserService _queryableUserService;
+		private readonly IUserLoginService _userLoginService;
+		private readonly IUserTwoFactorService _userTwoFactorService;
+		private readonly IUserLockoutService _userLockoutService;
+
 		private bool _isDisposed;
 
-		public UserStore(IAsyncRavenContext context)
+		public UserStore(
+			IRoleService roleService,
+			IUserService userService,
+			IUserRoleService userRoleService,
+			IUserClaimService userClaimService,
+			IUserPasswordService userPasswordService,
+			IUserSecurityStampService userSecurityStampService,
+			IUserEmailService userEmailService,
+			IUserPhoneNumberService userPhoneNumberService,
+			IQueryableRoleService queryableRoleService,
+			IQueryableUserService queryableUserService,
+			IUserLoginService userLoginService,
+			IUserTwoFactorService userTwoFactorService,
+			IUserLockoutService userLockoutService)
 		{
-			_context = context;
+			_userService = userService;
+			_roleService = roleService;
+			_userRoleService = userRoleService;
+			_userClaimService = userClaimService;
+			_userPasswordService = userPasswordService;
+			_userSecurityStampService = userSecurityStampService;
+			_userEmailService = userEmailService;
+			_userPhoneNumberService = userPhoneNumberService;
+			_queryableRoleService = queryableRoleService;
+			_queryableUserService = queryableUserService;
+			_userLoginService = userLoginService;
+			_userTwoFactorService = userTwoFactorService;
+			_userLockoutService = userLockoutService;
 		}
 
 		#region Implementation of IDisposable
@@ -54,12 +92,12 @@ namespace XprsIo.API.IdentityProvider.Stores
 
 		#endregion
 
-		#region Implementation of IUserStore<IdentityUser>
+		#region Implementation of IUserService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetUserIdAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -69,14 +107,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			return Task.FromResult(user.Id);
+			return _userService.GetUserIdAsync(user, cancellationToken);
 		}
-
-		/// <exception cref="InvalidOperationException">Invalid user id</exception>
+		
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -86,22 +123,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			var usernamePos = user.Id.IndexOf('/');
-
-			if (usernamePos < 0)
-			{
-				throw new InvalidOperationException("Invalid user id");
-			}
-
-			var username = user.Id.Remove(0, usernamePos + 1);
-
-			return Task.FromResult(username);
+			return _userService.GetUserNameAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -111,13 +139,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userService.SetUserNameAsync(user, userName, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -127,13 +155,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userService.GetNormalizedUserNameAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetNormalizedUserNameAsync(IdentityUser user, string normalizedName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -143,13 +171,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userService.SetNormalizedUserNameAsync(user, normalizedName, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -159,13 +187,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userService.CreateAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityResult> UpdateAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -175,13 +203,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userService.UpdateAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -191,13 +219,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userService.DeleteAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -207,13 +235,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.CreateAsync(role, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -223,13 +251,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.UpdateAsync(role, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -239,13 +267,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.DeleteAsync(role, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -255,13 +283,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.GetRoleIdAsync(role, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -271,13 +299,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.GetRoleNameAsync(role, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -287,13 +315,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.SetRoleNameAsync(role, roleName, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -303,13 +331,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.GetNormalizedRoleNameAsync(role, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="role"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetNormalizedRoleNameAsync(IdentityRole role, string normalizedName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -319,57 +347,57 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(role));
 			}
 
-			throw new NotImplementedException();
+			return _roleService.SetNormalizedRoleNameAsync(role, normalizedName, cancellationToken);
 		}
 		
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		Task<IdentityRole> IRoleStore<IdentityRole>.FindByIdAsync(string roleId, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _roleService.FindByIdAsync(roleId, cancellationToken);
 		}
 
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		Task<IdentityRole> IRoleStore<IdentityRole>.FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _roleService.FindByNameAsync(normalizedRoleName, cancellationToken);
 		}
 
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		Task<IdentityUser> IUserStore<IdentityUser>.FindByIdAsync(string userId, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _userService.FindByIdAsync(userId, cancellationToken);
 		}
 
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		Task<IdentityUser> IUserStore<IdentityUser>.FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _userService.FindByNameAsync(normalizedUserName, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserRoleStore<IdentityUser>
+		#region Implementation of IUserRoleService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -379,13 +407,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userRoleService.AddToRoleAsync(user, roleName, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -395,13 +423,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userRoleService.RemoveFromRoleAsync(user, roleName, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -411,13 +439,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userRoleService.GetRolesAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -427,28 +455,28 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userRoleService.IsInRoleAsync(user, roleName, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _userRoleService.GetUsersInRoleAsync(roleName, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserClaimStore<IdentityUser>
+		#region Implementation of IUserClaimService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -458,14 +486,14 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userClaimService.GetClaimsAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="claims"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -479,7 +507,7 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(claims));
 			}
 
-			throw new NotImplementedException();
+			return _userClaimService.AddClaimsAsync(user, claims, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
@@ -487,7 +515,7 @@ namespace XprsIo.API.IdentityProvider.Stores
 		/// <exception cref="ArgumentNullException"><paramref name="claim"/> is <see langword="null" />.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="newClaim"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task ReplaceClaimAsync(IdentityUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -505,14 +533,14 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(newClaim));
 			}
 
-			throw new NotImplementedException();
+			return _userClaimService.ReplaceClaimAsync(user, claim, newClaim, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="claims"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -526,13 +554,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(claims));
 			}
 
-			throw new NotImplementedException();
+			return _userClaimService.RemoveClaimsAsync(user, claims, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="claim"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -542,17 +570,17 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(claim));
 			}
 
-			throw new NotImplementedException();
+			return _userClaimService.GetUsersForClaimAsync(claim, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserPasswordStore<IdentityUser>
+		#region Implementation of IUserPasswordService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -562,13 +590,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPasswordService.SetPasswordHashAsync(user, passwordHash, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -578,13 +606,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPasswordService.GetPasswordHashAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -594,17 +622,17 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPasswordService.HasPasswordAsync(user, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserSecurityStampStore<IdentityUser>
+		#region Implementation of IUserSecurityStampService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -614,13 +642,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userSecurityStampService.SetSecurityStampAsync(user, stamp, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -630,17 +658,17 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userSecurityStampService.GetSecurityStampAsync(user, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserEmailStore<IdentityUser>
+		#region Implementation of IUserEmailService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -650,13 +678,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userEmailService.SetEmailAsync(user, email, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -666,13 +694,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userEmailService.GetEmailAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -682,13 +710,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userEmailService.GetEmailConfirmedAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -698,24 +726,24 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userEmailService.SetEmailConfirmedAsync(user, confirmed, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _userEmailService.FindByEmailAsync(normalizedEmail, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -725,13 +753,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userEmailService.GetNormalizedEmailAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetNormalizedEmailAsync(IdentityUser user, string normalizedEmail, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -741,17 +769,17 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userEmailService.SetNormalizedEmailAsync(user, normalizedEmail, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserPhoneNumberStore<IdentityUser>
+		#region Implementation of IUserPhoneNumberService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -761,13 +789,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPhoneNumberService.SetPhoneNumberAsync(user, phoneNumber, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -777,13 +805,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPhoneNumberService.GetPhoneNumberAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<bool> GetPhoneNumberConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -793,13 +821,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPhoneNumberService.GetPhoneNumberConfirmedAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -809,48 +837,48 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userPhoneNumberService.SetPhoneNumberConfirmedAsync(user, confirmed, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IQueryableRoleStore<IdentityRole>
+		#region Implementation of IQueryableRoleService<IdentityRole>
 		
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public IQueryable<IdentityRole> Roles
 		{
 			get
 			{
 				ThrowIfDisposed();
 
-				throw new NotImplementedException();
+				return _queryableRoleService.Roles;
 			}
 		}
 
 		#endregion
 
-		#region Implementation of IQueryableUserStore<IdentityUser>
+		#region Implementation of IQueryableUserService<IdentityUser>
 
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public IQueryable<IdentityUser> Users
 		{
 			get
 			{
 				ThrowIfDisposed();
 
-				throw new NotImplementedException();
+				return _queryableUserService.Users;
 			}
 		}
 
 		#endregion
 
-		#region Implementation of IUserLoginStore<IdentityUser>
+		#region Implementation of IUserLoginService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="login"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -864,13 +892,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(login));
 			}
 
-			throw new NotImplementedException();
+			return _userLoginService.AddLoginAsync(user, login, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task RemoveLoginAsync(IdentityUser user, string loginProvider, string providerKey, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -880,13 +908,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLoginService.RemoveLoginAsync(user, loginProvider, providerKey, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -896,28 +924,28 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLoginService.GetLoginsAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<IdentityUser> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ThrowIfDisposed();
 
-			throw new NotImplementedException();
+			return _userLoginService.FindByLoginAsync(loginProvider, providerKey, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserTwoFactorStore<IdentityUser>
+		#region Implementation of IUserTwoFactorService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -927,13 +955,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userTwoFactorService.SetTwoFactorEnabledAsync(user, enabled, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -943,17 +971,17 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userTwoFactorService.GetTwoFactorEnabledAsync(user, cancellationToken);
 		}
 
 		#endregion
 
-		#region Implementation of IUserLockoutStore<IdentityUser>
+		#region Implementation of IUserLockoutService<IdentityUser>
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<DateTimeOffset?> GetLockoutEndDateAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -963,13 +991,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.GetLockoutEndDateAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetLockoutEndDateAsync(IdentityUser user, DateTimeOffset? lockoutEnd, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -979,13 +1007,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.SetLockoutEndDateAsync(user, lockoutEnd, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<int> IncrementAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -995,13 +1023,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.IncrementAccessFailedCountAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task ResetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -1011,13 +1039,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.ResetAccessFailedCountAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<int> GetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -1027,13 +1055,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.GetAccessFailedCountAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task<bool> GetLockoutEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -1043,13 +1071,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.GetLockoutEnabledAsync(user, cancellationToken);
 		}
 
 		/// <exception cref="OperationCanceledException">The token has had cancellation requested.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="user"/> is <see langword="null" />.</exception>
 		/// <exception cref="ObjectDisposedException">The associated <see cref="T:System.Threading.CancellationTokenSource" /> has been disposed.</exception>
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		public Task SetLockoutEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
@@ -1059,12 +1087,12 @@ namespace XprsIo.API.IdentityProvider.Stores
 				throw new ArgumentNullException(nameof(user));
 			}
 
-			throw new NotImplementedException();
+			return _userLockoutService.SetLockoutEnabledAsync(user, enabled, cancellationToken);
 		}
 
 		#endregion
 		
-		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserStore" /> has been disposed.</exception>
+		/// <exception cref="ObjectDisposedException">The associated <see cref="T:XprsIO.API.IdentityProvider.Stores.UserService" /> has been disposed.</exception>
 		private void ThrowIfDisposed()
 		{
 			if (_isDisposed)
