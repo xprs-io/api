@@ -20,12 +20,23 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
 	public class IdentityUser
 	{
+		private const string RavenIndexName = "IdentityUsers/";
+
 		public string Id { get; set; }
 
+		/// <exception cref="InvalidOperationException" accessor="get">Invalid user id</exception>
 		[JsonIgnore]
 		public string UserName
 		{
-			get { return Id; }
+			get
+			{
+				if (Id == null || !Id.StartsWith(RavenIndexName))
+				{
+					throw new InvalidOperationException("Invalid user id");
+				}
+
+				return Id.Remove(0, RavenIndexName.Length);
+			}
 			set { Id = value; }
 		}
 

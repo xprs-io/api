@@ -15,6 +15,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
@@ -38,21 +39,13 @@ namespace XprsIo.API.IdentityProvider.Stores.Services
 		/// <exception cref="InvalidOperationException">Invalid user id</exception>
 		public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			var usernamePos = user.Id.IndexOf('/');
-
-			if (usernamePos < 0)
-			{
-				throw new InvalidOperationException("Invalid user id");
-			}
-
-			var username = user.Id.Remove(0, usernamePos + 1);
-
-			return Task.FromResult(username);
+			return Task.FromResult(user.UserName);
 		}
 		
 		public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			user.UserName = userName;
+			return TaskEx.Completed;
 		}
 		
 		public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
