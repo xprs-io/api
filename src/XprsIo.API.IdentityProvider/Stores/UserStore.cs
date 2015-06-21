@@ -24,7 +24,7 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores
 {
-	public class UserStore : IUserStore<IdentityUser>,
+	public class UserStore :
 		IUserRoleStore<IdentityUser>,
 		IUserClaimStore<IdentityUser>,
 		IUserPasswordStore<IdentityUser>,
