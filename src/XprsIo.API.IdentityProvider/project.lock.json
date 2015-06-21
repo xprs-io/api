@@ -5,15 +5,15 @@
     "": [
       "Microsoft.AspNet.Identity >= 3.0.0-beta4",
       "JetBrains.Annotations >= 8.0.5",
-      "FluffIt >= 0.1.1.14",
+      "FluffIt >= 0.1.1.16",
       "XprsIo.API.DataAccessLayer >= 1.0.0-*"
     ],
     "DNX,Version=v4.5.1": []
   },
   "libraries": {
-    "FluffIt/0.1.1.14": {
+    "FluffIt/0.1.1.16": {
       "serviceable": false,
-      "sha": "UpxY1XF8V9lka7nYcABM4Qw89faU9jr4bupM0pLN8U6W3RLoNvinvhud4B46pDiJqI7euxvavc2UN8RR3vGQvA==",
+      "sha": "hCW0oCPYgbyN7rH2GkNSNkmf5yRUw4v8EEZJi+netBwQfLSbI3dxuN0lc1jSerLg3fY0Ex3MOyYjvUrppStn/A==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {},
@@ -27,8 +27,8 @@
         }
       },
       "files": [
-        "FluffIt.0.1.1.14.nupkg",
-        "FluffIt.0.1.1.14.nupkg.sha512",
+        "FluffIt.0.1.1.16.nupkg",
+        "FluffIt.0.1.1.16.nupkg.sha512",
         "FluffIt.nuspec",
         "lib/net45/FluffIt.WPF.dll",
         "lib/netcore451/FluffIt.WinRT.dll",
