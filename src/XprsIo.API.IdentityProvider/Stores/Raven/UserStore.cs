@@ -22,7 +22,7 @@ using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores
+namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
 	public class UserStore :
 		IUserRoleStore<IdentityUser>,

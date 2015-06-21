@@ -12,29 +12,45 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserSecurityStampService : IUserSecurityStampService
+	public class UserRoleService : IUserRoleService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public UserSecurityStampService(IAsyncRavenContext context)
+		public UserRoleService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
+		public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}

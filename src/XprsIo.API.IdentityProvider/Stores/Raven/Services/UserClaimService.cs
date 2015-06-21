@@ -12,39 +12,46 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserPhoneNumberService : IUserPhoneNumberService
+	public class UserClaimService : IUserClaimService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public UserPhoneNumberService(IAsyncRavenContext context)
+		public UserClaimService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken)
+		public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<bool> GetPhoneNumberConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task ReplaceClaimAsync(IdentityUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
+		public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}

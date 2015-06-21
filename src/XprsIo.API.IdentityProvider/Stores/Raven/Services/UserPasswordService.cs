@@ -12,46 +12,34 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserClaimService : IUserClaimService
+	public class UserPasswordService : IUserPasswordService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public UserClaimService(IAsyncRavenContext context)
+		public UserPasswordService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+		public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task ReplaceClaimAsync(IdentityUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
+		public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}

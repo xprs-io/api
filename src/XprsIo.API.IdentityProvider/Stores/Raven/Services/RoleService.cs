@@ -14,52 +14,68 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserEmailService : IUserEmailService
+	public class RoleService : IRoleService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public UserEmailService(IAsyncRavenContext context)
+		public RoleService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
+		public Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
+		public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+		public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task SetNormalizedEmailAsync(IdentityUser user, string normalizedEmail, CancellationToken cancellationToken)
+		public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task SetNormalizedRoleNameAsync(IdentityRole role, string normalizedName, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}

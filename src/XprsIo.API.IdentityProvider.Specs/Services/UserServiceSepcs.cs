@@ -3,7 +3,7 @@ using System.Threading;
 using Machine.Specifications;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
-using XprsIo.API.IdentityProvider.Stores.Services;
+using XprsIo.API.IdentityProvider.Stores.Raven.Services;
 
 namespace XprsIo.API.IdentityProvider.Specs.Services
 {

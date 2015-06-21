@@ -12,36 +12,22 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Threading;
-using System.Threading.Tasks;
+using System.Linq;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserPasswordService : IUserPasswordService
+	public class QueryableUserService : IQueryableUserService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public UserPasswordService(IAsyncRavenContext context)
+		public QueryableUserService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+		public IQueryable<IdentityUser> Users { get; }
 	}
 }

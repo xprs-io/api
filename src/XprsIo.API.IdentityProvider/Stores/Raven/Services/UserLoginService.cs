@@ -12,29 +12,41 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserTwoFactorService : IUserTwoFactorService
+	public class UserLoginService : IUserLoginService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public UserTwoFactorService(IAsyncRavenContext context)
+		public UserLoginService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
+		public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
+		public Task RemoveLoginAsync(IdentityUser user, string loginProvider, string providerKey, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IdentityUser> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}

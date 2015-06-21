@@ -12,22 +12,31 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class QueryableUserService : IQueryableUserService
+	public class UserSecurityStampService : IUserSecurityStampService
 	{
 		private readonly IAsyncRavenContext _context;
 
-		public QueryableUserService(IAsyncRavenContext context)
+		public UserSecurityStampService(IAsyncRavenContext context)
 		{
 			_context = context;
 		}
 
-		public IQueryable<IdentityUser> Users { get; }
+		public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
