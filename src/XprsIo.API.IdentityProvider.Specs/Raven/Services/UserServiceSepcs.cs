@@ -5,7 +5,7 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Raven.Services;
 
-namespace XprsIo.API.IdentityProvider.Specs.Services
+namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 {
 	[Subject(typeof (UserService))]
 	public class When_GetUserId

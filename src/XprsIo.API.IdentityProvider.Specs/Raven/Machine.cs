@@ -18,7 +18,7 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Raven.Services;
 
-namespace XprsIo.API.IdentityProvider.Specs
+namespace XprsIo.API.IdentityProvider.Specs.Raven
 {
 	public static class Machine
 	{
