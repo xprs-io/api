@@ -2,6 +2,7 @@
 using System.Threading;
 using Machine.Specifications;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Extensions;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Raven.Services;
 
@@ -45,7 +46,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 		private It should_be_the_raven_id_without_the_index_name =
 			() => { _result.ShouldEqual("1"); };
 		private It should_be_equal_to_the_username =
-			() => { _user.UserName.ShouldEqual("1"); };
+			() => { _user.GetUserName().ShouldEqual("1"); };
 
 		private static IdentityUser _user;
 		private static string _result;
@@ -90,7 +91,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 		private It should_be_the_raven_id_without_the_index_name =
 			() => { _user.Id.ShouldEqual("IdentityUsers/2"); };
 		private It should_be_equal_to_the_username =
-			() => { _user.UserName.ShouldEqual("2"); };
+			() => { _user.GetUserName().ShouldEqual("2"); };
 
 		private static IdentityUser _user;
 	}
