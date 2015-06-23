@@ -14,7 +14,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
@@ -31,7 +30,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// </summary>
 		/// <param name="role"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancellationToken);
+		Task CreateAsync(IdentityRole role, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Update a role
@@ -39,7 +38,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// </summary>
 		/// <param name="role"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancellationToken);
+		Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// DeleteAsync a role
@@ -47,7 +46,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// </summary>
 		/// <param name="role"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancellationToken);
+		Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Returns a role's id

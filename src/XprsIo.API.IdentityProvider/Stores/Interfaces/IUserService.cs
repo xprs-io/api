@@ -60,9 +60,9 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// Set the normalized user name
 		/// 
 		/// </summary>
-		/// <param name="user"/><param name="normalizedName"/><param name="cancellationToken"/>
+		/// <param name="user"/><param name="normalizedUserName"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task SetNormalizedUserNameAsync(IdentityUser user, string normalizedName, CancellationToken cancellationToken);
+		Task SetNormalizedUserNameAsync(IdentityUser user, string normalizedUserName, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Insert a new user
@@ -70,7 +70,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// </summary>
 		/// <param name="user"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task<Microsoft.AspNet.Identity.IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken);
+		Task CreateAsync(IdentityUser user, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// UpdateAsync a user
@@ -78,7 +78,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// </summary>
 		/// <param name="user"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task<Microsoft.AspNet.Identity.IdentityResult> UpdateAsync(IdentityUser user, CancellationToken cancellationToken);
+		Task UpdateAsync(IdentityUser user, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// DeleteAsync a user
@@ -86,7 +86,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// </summary>
 		/// <param name="user"/><param name="cancellationToken"/>
 		/// <returns/>
-		Task<Microsoft.AspNet.Identity.IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken);
+		Task DeleteAsync(IdentityUser user, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Finds a user

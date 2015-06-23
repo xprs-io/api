@@ -14,7 +14,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
@@ -30,17 +29,17 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 			_context = context;
 		}
 
-		public Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancellationToken)
+		public Task CreateAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
+		public Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
+		public Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
 			throw new System.NotImplementedException();
 		}
