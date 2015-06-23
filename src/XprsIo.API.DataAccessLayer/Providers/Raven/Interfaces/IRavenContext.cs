@@ -13,12 +13,14 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces
 {
     public interface IRavenContext : IUnitOfWork, IDisposable
     {
-         
-    }
+		IRepository<string, IdentityUser> IdentityUsers { get; }
+		IRepository<string, IdentityRole> IdentityRoles { get; }
+	}
 }

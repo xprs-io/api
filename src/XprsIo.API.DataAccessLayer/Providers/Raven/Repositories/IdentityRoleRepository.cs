@@ -12,37 +12,45 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Linq;
 using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Interfaces;
-using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
-using XprsIo.API.DataAccessLayer.Providers.Raven.Repositories;
 
-namespace XprsIo.API.DataAccessLayer.Providers.Raven
+namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
-    public class RavenContext : IRavenContext
-    {
-        private readonly IDocumentSession _session;
+	public class IdentityRoleRepository : IRepository<string, IdentityRole>
+	{
+		private readonly IDocumentSession _session;
 
-        public RavenContext(IDocumentSession session)
-        {
-            _session = session;
+		public IdentityRoleRepository(IDocumentSession session)
+		{
+			_session = session;
+		}
 
-			IdentityUsers = new IdentityUserRepository(_session);
-			IdentityRoles = new IdentityRoleRepository(_session);
-        }
+		public IdentityRole Load(string key)
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void SaveChanges()
-        {
-            _session.SaveChanges();
-        }
+		public IQueryable<IdentityRole> Query()
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Dispose()
-        {
-            _session.Dispose();
-        }
+		public void Store(IdentityRole entity)
+		{
+			throw new System.NotImplementedException();
+		}
 
-	    public IRepository<string, IdentityUser> IdentityUsers { get; }
-	    public IRepository<string, IdentityRole> IdentityRoles { get; }
-    }
+		public void Delete(IdentityRole entity)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Delete(string key)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
 }

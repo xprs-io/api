@@ -15,7 +15,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Raven.Client;
+using XprsIo.API.DataAccessLayer.Entities.Identity;
+using XprsIo.API.DataAccessLayer.Interfaces;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Repositories;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
@@ -25,10 +28,13 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
 
         public AsyncRavenContext(IAsyncDocumentSession session)
         {
-            _session = session;
+	        _session = session;
+
+			IdentityUsers = new IdentityUserAsyncRepository(_session);
+			IdentityRoles = new IdentityRoleAsyncRepository(_session);
         }
 
-        public Task SaveChangesAsync()
+	    public Task SaveChangesAsync()
         {
             return _session.SaveChangesAsync();
         }
@@ -42,5 +48,8 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         {
             _session.Dispose();
         }
+
+	    public IAsyncRepository<string, IdentityUser> IdentityUsers { get; }
+	    public IAsyncRepository<string, IdentityRole> IdentityRoles { get; }
     }
 }
