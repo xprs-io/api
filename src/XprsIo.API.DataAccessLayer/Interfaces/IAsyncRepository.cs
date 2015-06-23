@@ -12,20 +12,17 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IAsyncRepository<in TPrimaryKey, TEntity>
+    public interface IAsyncRepository<in TPrimaryKey, TEntity> : IQueryableRepository<TEntity>
     {
         Task<TEntity> LoadAsync([NotNull] TPrimaryKey key);
         Task<TEntity> LoadAsync([NotNull]TPrimaryKey key, CancellationToken ct);
 
-        IQueryable<TEntity> Query();
-        
         Task StoreAsync([NotNull] TEntity entity);
         Task StoreAsync([NotNull] TEntity entity, CancellationToken ct);
 

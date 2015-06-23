@@ -12,17 +12,12 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using JetBrains.Annotations;
+using System.Linq;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IRepository<in TPrimaryKey, TEntity> : IQueryableRepository<TEntity>
-    {
-        TEntity Load([NotNull] TPrimaryKey key);
-		
-        void Store([NotNull] TEntity entity);
-
-        void Delete([NotNull] TEntity entity);
-        void Delete([NotNull] TPrimaryKey key);
-    }
+	public interface IQueryableRepository<out TEntity>
+	{
+		IQueryable<TEntity> Query();
+	}
 }
