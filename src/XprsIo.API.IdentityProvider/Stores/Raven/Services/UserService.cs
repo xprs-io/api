@@ -16,8 +16,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using FluffIt.StaticExtensions;
+using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Extensions;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Queries;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
@@ -39,48 +42,57 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 		/// <exception cref="InvalidOperationException">Invalid user id</exception>
 		public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			return Task.FromResult(user.UserName);
+			return Task.FromResult(user.GetUserName());
 		}
 		
 		public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
 		{
-			user.UserName = userName;
+			user.SetUserName(userName);
+
+			return TaskEx.Completed;
+		}
+
+		/// <exception cref="InvalidOperationException">Invalid user id</exception>
+		public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.GetUserName());
+		}
+		
+		public Task SetNormalizedUserNameAsync(IdentityUser user, string normalizedUserName, CancellationToken cancellationToken)
+		{
+			user.SetUserName(normalizedUserName);
+
 			return TaskEx.Completed;
 		}
 		
-		public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
+		public async Task CreateAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			await _context.IdentityUsers.StoreAsync(user, cancellationToken).ConfigureAwait(false);
+
+			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 		}
 		
-		public Task SetNormalizedUserNameAsync(IdentityUser user, string normalizedName, CancellationToken cancellationToken)
+		public async Task UpdateAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 		}
 		
-		public Task<Microsoft.AspNet.Identity.IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken)
+		public async Task DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
-		}
-		
-		public Task<Microsoft.AspNet.Identity.IdentityResult> UpdateAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
-		
-		public Task<Microsoft.AspNet.Identity.IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
+			_context.IdentityUsers.DeleteAsync(user);
+
+			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 		}
 		
 		public Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			return _context.IdentityUsers.LoadAsync(userId, cancellationToken);
 		}
 		
 		public Task<IdentityUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			return _context.IdentityUsers.QueryByUserName(normalizedUserName)
+				.FirstOrDefaultAsync(cancellationToken);
 		}
 	}
 }
