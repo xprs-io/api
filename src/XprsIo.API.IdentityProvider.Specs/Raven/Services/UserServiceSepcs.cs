@@ -13,7 +13,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 	{
 		Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
 
-		private Because of = () =>
+		Because of = () =>
 		{
 			_result = Machine
 				.GetInstance<IUserService>()
@@ -21,13 +21,13 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 				.Await();
 		};
 
-		private It should_be_the_raven_id =
+		It should_be_the_raven_id =
 			() => { _result.ShouldEqual("IdentityUsers/1"); };
-		private It should_be_qual_to_the_id =
+		It should_be_qual_to_the_id =
 			() => { _user.Id.ShouldEqual("IdentityUsers/1"); };
 
-		private static IdentityUser _user;
-		private static string _result;
+		static IdentityUser _user;
+		static string _result;
 	}
 
 	[Subject(typeof(UserService))]
@@ -35,7 +35,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 	{
 		Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
 
-		private Because of = () =>
+		Because of = () =>
 		{
 			_result = Machine
 				.GetInstance<IUserService>()
@@ -43,13 +43,13 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 				.Await();
 		};
 
-		private It should_be_the_raven_id_without_the_index_name =
+		It should_be_the_raven_id_without_the_index_name =
 			() => { _result.ShouldEqual("1"); };
-		private It should_be_equal_to_the_username =
+		It should_be_equal_to_the_username =
 			() => { _user.GetUserName().ShouldEqual("1"); };
 
-		private static IdentityUser _user;
-		private static string _result;
+		static IdentityUser _user;
+		static string _result;
 	}
 
 	[Subject(typeof(UserService))]
@@ -57,7 +57,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 	{
 		Establish context = () => { _user = new IdentityUser { Id = "1" }; };
 
-		private Because of = () =>
+		Because of = () =>
 		{
 			_exception = Catch.Exception(() =>Machine
 				.GetInstance<IUserService>()
@@ -66,13 +66,13 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 			);
 		};
 
-		private It should_fail =
+		It should_fail =
 			() => { _exception.ShouldBeOfExactType<InvalidOperationException>(); };
-		private It should_have_a_specific_reason =
+		It should_have_a_specific_reason =
 			() => { _exception.Message.ShouldContain("invalid"); };
 
-		private static IdentityUser _user;
-		private static Exception _exception;
+		static IdentityUser _user;
+		static Exception _exception;
 	}
 
 	[Subject(typeof(UserService))]
@@ -80,7 +80,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 	{
 		Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
 
-		private Because of = () =>
+		Because of = () =>
 		{
 			Machine
 				.GetInstance<IUserService>()
@@ -88,12 +88,12 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 				.Await();
 		};
 
-		private It should_be_the_raven_id_without_the_index_name =
+		It should_be_the_raven_id_without_the_index_name =
 			() => { _user.Id.ShouldEqual("IdentityUsers/2"); };
-		private It should_be_equal_to_the_username =
+		It should_be_equal_to_the_username =
 			() => { _user.GetUserName().ShouldEqual("2"); };
 
-		private static IdentityUser _user;
+		static IdentityUser _user;
 	}
 
 	[Subject(typeof(UserService))]
@@ -101,7 +101,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 	{
 		Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
 
-		private Because of = () =>
+		Because of = () =>
 		{
 			_exception = Catch.Exception(() => Machine
 				.GetInstance<IUserService>()
@@ -110,12 +110,12 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
 			);
 		};
 
-		private It should_fail =
+		It should_fail =
 			() => { _exception.ShouldBeOfExactType<InvalidOperationException>(); };
-		private It should_have_a_specific_reason =
+		It should_have_a_specific_reason =
 			() => { _exception.Message.ShouldContain("empty"); };
 
-		private static IdentityUser _user;
-		private static Exception _exception;
+		static IdentityUser _user;
+		static Exception _exception;
 	}
 }
