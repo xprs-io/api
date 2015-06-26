@@ -46,7 +46,7 @@ character limit but keep in mind that subjects longer than 80 characters are a
 sign of a commit that tries to do too much.
 
 ### Allowed `<type>` values:
-* **feat** (new feature for the user, not a new feature for build script)
+* **feature** (new feature for the user, not a new feature for build script)
 * **fix** (bug fix for the user, not a fix to a build script)
 * **docs** (changes to the documentation)
 * **style** (formatting, missing semi colons, etc; no production code change)
@@ -92,7 +92,7 @@ Closes #123, #245, #992
 
 #### Breaking changes
 _This section can be ommitted until the first public release._
-  
+
 All breaking changes have to be mentioned in footer with the description of the
 change, justification and migration notes.
 ```bash
