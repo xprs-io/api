@@ -14,8 +14,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
+using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Queries;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
@@ -29,54 +32,63 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 			_context = context;
 		}
 
-		public Task CreateAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-
 		public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			return Task.FromResult(role.Id);
 		}
 
 		public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			return Task.FromResult(role.Name);
 		}
 
 		public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			role.Name = roleName;
+
+			return TaskEx.Completed;
 		}
 
 		public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			return Task.FromResult(role.Name);
 		}
 
 		public Task SetNormalizedRoleNameAsync(IdentityRole role, string normalizedName, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			role.Name = normalizedName;
+
+			return TaskEx.Completed;
+		}
+
+		public async Task CreateAsync(IdentityRole role, CancellationToken cancellationToken)
+		{
+			await _context.IdentityRoles.StoreAsync(role, cancellationToken);
+
+			await _context.SaveChangesAsync(cancellationToken);
+		}
+
+		public async Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
+		{
+			await _context.SaveChangesAsync(cancellationToken);
+		}
+
+		public async Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
+		{
+			_context.IdentityRoles.DeleteAsync(role);
+
+			await _context.SaveChangesAsync(cancellationToken);
 		}
 
 		public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			return _context.IdentityRoles.LoadAsync(roleId, cancellationToken);
 		}
 
 		public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
 		{
-			throw new System.NotImplementedException();
+			return _context.IdentityRoles.QueryByName(normalizedRoleName)
+				.FirstOrDefaultAsync(cancellationToken);
 		}
 	}
 }
