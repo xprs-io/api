@@ -25,30 +25,6 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 	public interface IRoleService
 	{
 		/// <summary>
-		/// Insert a new role
-		/// 
-		/// </summary>
-		/// <param name="role"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task CreateAsync(IdentityRole role, CancellationToken cancellationToken);
-
-		/// <summary>
-		/// Update a role
-		/// 
-		/// </summary>
-		/// <param name="role"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken);
-
-		/// <summary>
-		/// DeleteAsync a role
-		/// 
-		/// </summary>
-		/// <param name="role"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken);
-
-		/// <summary>
 		/// Returns a role's id
 		/// 
 		/// </summary>
@@ -87,6 +63,30 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 		/// <param name="role"/><param name="normalizedName"/><param name="cancellationToken"/>
 		/// <returns/>
 		Task SetNormalizedRoleNameAsync(IdentityRole role, string normalizedName, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Insert a new role
+		/// 
+		/// </summary>
+		/// <param name="role"/><param name="cancellationToken"/>
+		/// <returns/>
+		Task CreateAsync(IdentityRole role, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Update a role
+		/// 
+		/// </summary>
+		/// <param name="role"/><param name="cancellationToken"/>
+		/// <returns/>
+		Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// DeleteAsync a role
+		/// 
+		/// </summary>
+		/// <param name="role"/><param name="cancellationToken"/>
+		/// <returns/>
+		Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Finds a role by id
