@@ -21,10 +21,10 @@ namespace XprsIo.API.DataAccessLayer.Interfaces
     public interface IAsyncRepository<in TPrimaryKey, TEntity> : IQueryableRepository<TEntity>
     {
         Task<TEntity> LoadAsync([NotNull] TPrimaryKey key);
-        Task<TEntity> LoadAsync([NotNull]TPrimaryKey key, CancellationToken ct);
+        Task<TEntity> LoadAsync([NotNull]TPrimaryKey key, CancellationToken cancellationToken);
 
         Task StoreAsync([NotNull] TEntity entity);
-        Task StoreAsync([NotNull] TEntity entity, CancellationToken ct);
+        Task StoreAsync([NotNull] TEntity entity, CancellationToken cancellationToken);
 
         void DeleteAsync([NotNull] TEntity entity);
         void DeleteAsync([NotNull] TPrimaryKey key);

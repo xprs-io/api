@@ -35,9 +35,9 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 			return _session.LoadAsync<IdentityRole>(key);
 		}
 
-		public Task<IdentityRole> LoadAsync(int key, CancellationToken ct)
+		public Task<IdentityRole> LoadAsync(int key, CancellationToken cancellationToken)
 		{
-			return _session.LoadAsync<IdentityRole>(key, ct);
+			return _session.LoadAsync<IdentityRole>(key, cancellationToken);
 		}
 
 		public IQueryable<IdentityRole> Query()
@@ -50,9 +50,9 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 			return _session.StoreAsync(entity);
 		}
 
-		public Task StoreAsync(IdentityRole entity, CancellationToken ct)
+		public Task StoreAsync(IdentityRole entity, CancellationToken cancellationToken)
 		{
-			return _session.StoreAsync(entity, ct);
+			return _session.StoreAsync(entity, cancellationToken);
 		}
 
 		public void DeleteAsync(IdentityRole entity)
