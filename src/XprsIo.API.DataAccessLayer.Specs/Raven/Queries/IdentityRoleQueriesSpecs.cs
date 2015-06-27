@@ -13,7 +13,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Queries
 		Establish context = () =>
 		{
 			_repository = Enumerable.Range(1, 3)
-				.Select(i => new IdentityRole { Name = i.ToString() })
+				.Select(i => new IdentityRole { Id = i, Name = i.ToString() })
 				.ToQueryableRepository();
 		};
 
@@ -22,7 +22,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Queries
 		It should_contain_a_single_value =
 			() => { _result.Length.ShouldEqual(1); };
 		It should_be_a_user_with_id_2 =
-			() => { _result[0].Id.ShouldEqual("2"); };
+			() => { _result[0].Id.ShouldEqual(2); };
 
 		static IQueryableRepository<IdentityRole> _repository;
 		static IdentityRole[] _result;

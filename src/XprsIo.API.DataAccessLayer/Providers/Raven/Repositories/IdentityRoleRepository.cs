@@ -19,7 +19,7 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
-	public class IdentityRoleRepository : IRepository<string, IdentityRole>
+	public class IdentityRoleRepository : IRepository<int, IdentityRole>
 	{
 		private readonly IDocumentSession _session;
 
@@ -28,7 +28,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 			_session = session;
 		}
 
-		public IdentityRole Load(string key)
+		public IdentityRole Load(int key)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -48,7 +48,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 			throw new System.NotImplementedException();
 		}
 
-		public void Delete(string key)
+		public void Delete(int key)
 		{
 			throw new System.NotImplementedException();
 		}

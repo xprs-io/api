@@ -21,6 +21,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces
     public interface IRavenContext : IUnitOfWork, IDisposable
     {
 		IRepository<string, IdentityUser> IdentityUsers { get; }
-		IRepository<string, IdentityRole> IdentityRoles { get; }
+		IRepository<int, IdentityRole> IdentityRoles { get; }
 	}
 }

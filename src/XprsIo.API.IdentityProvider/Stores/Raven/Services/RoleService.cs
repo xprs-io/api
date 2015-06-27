@@ -12,6 +12,7 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using FluffIt.StaticExtensions;
@@ -34,7 +35,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 
 		public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
 		{
-			return Task.FromResult(role.Id);
+			return Task.FromResult(role.Id.ToString());
 		}
 
 		public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
@@ -80,9 +81,11 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 			await _context.SaveChangesAsync(cancellationToken);
 		}
 
+		/// <exception cref="FormatException"><paramref name="roleId" /> is not in the correct format. It should be a valid Int32 value.</exception>
+		/// <exception cref="OverflowException"><paramref name="roleId" /> represents a number less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />.</exception>
 		public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
 		{
-			return _context.IdentityRoles.LoadAsync(roleId, cancellationToken);
+			return _context.IdentityRoles.LoadAsync(int.Parse(roleId), cancellationToken);
 		}
 
 		public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)

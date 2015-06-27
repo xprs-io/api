@@ -21,6 +21,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces
     public interface IAsyncRavenContext : IAsyncUnitOfWork, IDisposable
     {
 		IAsyncRepository<string, IdentityUser> IdentityUsers { get; }
-		IAsyncRepository<string, IdentityRole> IdentityRoles { get; }
+		IAsyncRepository<int, IdentityRole> IdentityRoles { get; }
     }
 }

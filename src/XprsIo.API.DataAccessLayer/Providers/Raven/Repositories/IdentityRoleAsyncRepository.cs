@@ -21,7 +21,7 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
-	public class IdentityRoleAsyncRepository : IAsyncRepository<string, IdentityRole>
+	public class IdentityRoleAsyncRepository : IAsyncRepository<int, IdentityRole>
 	{
 		private readonly IAsyncDocumentSession _session;
 
@@ -30,12 +30,12 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 			_session = session;
 		}
 
-		public Task<IdentityRole> LoadAsync(string key)
+		public Task<IdentityRole> LoadAsync(int key)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IdentityRole> LoadAsync(string key, CancellationToken ct)
+		public Task<IdentityRole> LoadAsync(int key, CancellationToken ct)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -60,7 +60,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 			throw new System.NotImplementedException();
 		}
 
-		public void DeleteAsync(string key)
+		public void DeleteAsync(int key)
 		{
 			throw new System.NotImplementedException();
 		}

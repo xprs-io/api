@@ -43,6 +43,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         }
 
 	    public IRepository<string, IdentityUser> IdentityUsers { get; }
-	    public IRepository<string, IdentityRole> IdentityRoles { get; }
+	    public IRepository<int, IdentityRole> IdentityRoles { get; }
     }
 }

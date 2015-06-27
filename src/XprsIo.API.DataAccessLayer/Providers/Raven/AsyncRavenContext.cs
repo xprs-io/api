@@ -50,6 +50,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         }
 
 	    public IAsyncRepository<string, IdentityUser> IdentityUsers { get; }
-	    public IAsyncRepository<string, IdentityRole> IdentityRoles { get; }
+	    public IAsyncRepository<int, IdentityRole> IdentityRoles { get; }
     }
 }
