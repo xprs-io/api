@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Machine.Specifications;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Interfaces;
@@ -10,7 +9,7 @@ using XprsIo.API.DataAccessLayer.Specs.Extensions;
 namespace XprsIo.API.DataAccessLayer.Specs.Raven.Queries
 {
 	[Subject(typeof (IdentityUserQueries))]
-	public class When_QueryByUserName
+	public class When_QueryIdentityUserByUserName
 	{
 		Establish context = () =>
 		{
