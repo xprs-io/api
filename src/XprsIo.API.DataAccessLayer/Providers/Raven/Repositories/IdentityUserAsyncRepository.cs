@@ -23,7 +23,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
 	public class IdentityUserAsyncRepository : IAsyncRepository<string, IdentityUser>
 	{
-		private IAsyncDocumentSession _session;
+		private readonly IAsyncDocumentSession _session;
 
 		public IdentityUserAsyncRepository(IAsyncDocumentSession session)
 		{
@@ -32,37 +32,37 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 
 		public Task<IdentityUser> LoadAsync(string key)
 		{
-			throw new System.NotImplementedException();
+			return _session.LoadAsync<IdentityUser>(key);
 		}
 
 		public Task<IdentityUser> LoadAsync(string key, CancellationToken ct)
 		{
-			throw new System.NotImplementedException();
+			return _session.LoadAsync<IdentityUser>(key, ct);
 		}
 		
 		public IQueryable<IdentityUser> Query()
 		{
-			throw new System.NotImplementedException();
+			return _session.Query<IdentityUser>();
 		}
 
 		public Task StoreAsync(IdentityUser entity)
 		{
-			throw new System.NotImplementedException();
+			return _session.StoreAsync(entity);
 		}
 
 		public Task StoreAsync(IdentityUser entity, CancellationToken ct)
 		{
-			throw new System.NotImplementedException();
+			return _session.StoreAsync(entity, ct);
 		}
 
 		public void DeleteAsync(IdentityUser entity)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(entity);
 		}
 
 		public void DeleteAsync(string key)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(key);
 		}
 	}
 }

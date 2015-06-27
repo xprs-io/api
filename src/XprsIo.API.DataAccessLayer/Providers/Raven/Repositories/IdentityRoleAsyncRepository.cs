@@ -32,37 +32,37 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 
 		public Task<IdentityRole> LoadAsync(int key)
 		{
-			throw new System.NotImplementedException();
+			return _session.LoadAsync<IdentityRole>(key);
 		}
 
 		public Task<IdentityRole> LoadAsync(int key, CancellationToken ct)
 		{
-			throw new System.NotImplementedException();
+			return _session.LoadAsync<IdentityRole>(key, ct);
 		}
 
 		public IQueryable<IdentityRole> Query()
 		{
-			throw new System.NotImplementedException();
+			return _session.Query<IdentityRole>();
 		}
 
 		public Task StoreAsync(IdentityRole entity)
 		{
-			throw new System.NotImplementedException();
+			return _session.StoreAsync(entity);
 		}
 
 		public Task StoreAsync(IdentityRole entity, CancellationToken ct)
 		{
-			throw new System.NotImplementedException();
+			return _session.StoreAsync(entity, ct);
 		}
 
 		public void DeleteAsync(IdentityRole entity)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(entity);
 		}
 
 		public void DeleteAsync(int key)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(key);
 		}
 	}
 }

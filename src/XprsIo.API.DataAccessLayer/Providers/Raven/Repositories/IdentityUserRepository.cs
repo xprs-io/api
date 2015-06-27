@@ -30,27 +30,27 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 
 		public IdentityUser Load(string key)
 		{
-			throw new System.NotImplementedException();
+			return _session.Load<IdentityUser>(key);
 		}
 		
 		public IQueryable<IdentityUser> Query()
 		{
-			throw new System.NotImplementedException();
+			return _session.Query<IdentityUser>();
 		}
 
 		public void Store(IdentityUser entity)
 		{
-			throw new System.NotImplementedException();
+			_session.Store(entity);
 		}
 
 		public void Delete(IdentityUser entity)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(entity);
 		}
 
 		public void Delete(string key)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(key);
 		}
 	}
 }

@@ -30,27 +30,27 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 
 		public IdentityRole Load(int key)
 		{
-			throw new System.NotImplementedException();
+			return _session.Load<IdentityRole>(key);
 		}
 
 		public IQueryable<IdentityRole> Query()
 		{
-			throw new System.NotImplementedException();
+			return _session.Query<IdentityRole>();
 		}
 
 		public void Store(IdentityRole entity)
 		{
-			throw new System.NotImplementedException();
+			_session.Store(entity);
 		}
 
 		public void Delete(IdentityRole entity)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(entity);
 		}
 
 		public void Delete(int key)
 		{
-			throw new System.NotImplementedException();
+			_session.Delete(key);
 		}
 	}
 }
