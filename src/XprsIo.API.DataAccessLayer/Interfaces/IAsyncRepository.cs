@@ -58,7 +58,7 @@ namespace XprsIo.API.DataAccessLayer.Interfaces
 		Task<TEntity> LoadAsync([NotNull]TPrimaryKey key, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// Store an instance of <typeparamref name="TEntity"/> in the data source.
+		/// Store an instance of <typeparamref name="TEntity" /> in the data source.
 		/// </summary>
 		/// <param name="entity">The entity to store.</param>
 		Task StoreAsync([NotNull] TEntity entity);

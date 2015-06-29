@@ -28,41 +28,97 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 	{
 		private readonly IAsyncDocumentSession _session;
 
+		/// <summary>
+		/// Creates a new instance of an IdentityUserAsyncRepository mapped to the provided
+		/// RavenDB <paramref name="session" /> .
+		/// </summary>
+		/// <param name="session">A RavenDB session.</param>
 		public IdentityUserAsyncRepository(IAsyncDocumentSession session)
 		{
 			_session = session;
 		}
 
+		/// <summary>
+		/// Fetch a single entity from the data source based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of a <see cref="IdentityUser"/> that will
+		/// automatically be tracked for changes.
+		/// </returns>
 		public Task<IdentityUser> LoadAsync(string key)
 		{
 			return _session.LoadAsync<IdentityUser>(key);
 		}
 
+		/// <summary>
+		/// Fetch a single entity from the data source based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source.
+		/// </param>
+		/// <param name="cancellationToken">
+		/// A cancellation token to stop the execution of the operation.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of a <see cref="IdentityUser"/> that will
+		/// automatically be tracked for changes.
+		/// </returns>
 		public Task<IdentityUser> LoadAsync(string key, CancellationToken cancellationToken)
 		{
 			return _session.LoadAsync<IdentityUser>(key, cancellationToken);
 		}
-		
+
+		/// <summary>
+		/// Initialize a query object to fetch data off a data source.
+		/// </summary>
+		/// <returns>Returns an instance of a query that can be extended or executed
+		/// at a later time.</returns>
 		public IQueryable<IdentityUser> Query()
 		{
 			return _session.Query<IdentityUser>();
 		}
 
+		/// <summary>
+		/// Store an instance of <see cref="IdentityUser"/> in the data source.
+		/// </summary>
+		/// <param name="entity">The entity to store.</param>
 		public Task StoreAsync(IdentityUser entity)
 		{
 			return _session.StoreAsync(entity);
 		}
 
+		/// <summary>
+		/// Store an instance of <see cref="IdentityUser"/> in the data source.
+		/// </summary>
+		/// <param name="entity">The entity to store.</param>
+		/// <param name="cancellationToken">
+		/// A cancellation token to stop the execution of the operation.
+		/// </param>
 		public Task StoreAsync(IdentityUser entity, CancellationToken cancellationToken)
 		{
 			return _session.StoreAsync(entity, cancellationToken);
 		}
 
+		/// <summary>
+		/// Remove an instance of <see cref="IdentityUser"/> from the data
+		/// source.
+		/// </summary>
+		/// <param name="entity">The entity to remove.</param>
 		public void DeleteAsync(IdentityUser entity)
 		{
 			_session.Delete(entity);
 		}
 
+		/// <summary>
+		/// Remove an instance of <see cref="IdentityUser"/> from the data source
+		/// based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source
+		/// </param>
 		public void DeleteAsync(string key)
 		{
 			_session.Delete(key);

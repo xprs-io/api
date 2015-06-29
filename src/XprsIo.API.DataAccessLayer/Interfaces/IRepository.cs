@@ -41,7 +41,7 @@ namespace XprsIo.API.DataAccessLayer.Interfaces
 		TEntity Load([NotNull] TPrimaryKey key);
 
 		/// <summary>
-		/// Store an instance of <typeparamref name="TEntity"/> in the data source.
+		/// Store an instance of <typeparamref name="TEntity" /> in the data source.
 		/// </summary>
 		/// <param name="entity">The entity to store.</param>
 		void Store([NotNull] TEntity entity);

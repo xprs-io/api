@@ -26,31 +26,67 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 	{
 		private readonly IDocumentSession _session;
 
+		/// <summary>
+		/// Creates a new instance of an IdentityUserRepository mapped to the provided
+		/// RavenDB <paramref name="session" /> .
+		/// </summary>
+		/// <param name="session">A RavenDB session.</param>
 		public IdentityUserRepository(IDocumentSession session)
 		{
 			_session = session;
 		}
 
+		/// <summary>
+		/// Fetch a single entity from the data source based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of a <see cref="IdentityUser"/> that will
+		/// automatically be tracked for changes.
+		/// </returns>
 		public IdentityUser Load(string key)
 		{
 			return _session.Load<IdentityUser>(key);
 		}
-		
+
+		/// <summary>
+		/// Initialize a query object to fetch data off a data source.
+		/// </summary>
+		/// <returns>Returns an instance of a query that can be extended or executed
+		/// at a later time.</returns>
 		public IQueryable<IdentityUser> Query()
 		{
 			return _session.Query<IdentityUser>();
 		}
 
+		/// <summary>
+		/// Store an instance of <see cref="IdentityUser"/> in the data source.
+		/// </summary>
+		/// <param name="entity">The entity to store.</param>
 		public void Store(IdentityUser entity)
 		{
 			_session.Store(entity);
 		}
 
+		/// <summary>
+		/// Remove an instance of <see cref="IdentityUser"/> from the data
+		/// source.
+		/// </summary>
+		/// <param name="entity">The entity to remove.</param>
 		public void Delete(IdentityUser entity)
 		{
 			_session.Delete(entity);
 		}
 
+		/// <summary>
+		/// Remove an instance of <see cref="IdentityUser"/> from the data source
+		/// based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source
+		/// </param>
 		public void Delete(string key)
 		{
 			_session.Delete(key);
