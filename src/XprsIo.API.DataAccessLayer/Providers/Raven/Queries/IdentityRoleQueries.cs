@@ -20,9 +20,23 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
 {
+	/// <summary>
+	/// A set of queries for the <see cref="IdentityRole"/> entity.
+	/// </summary>
 	public static class IdentityRoleQueries
 	{
-		/// <exception cref="ArgumentNullException"><paramref name="repository" /> or <paramref name="name" /> is null.</exception>
+		/// <summary>
+		/// Query a <paramref name="repository" /> for all entities matching the
+		/// provided <paramref name="name"/>.
+		/// </summary>
+		/// <param name="repository">The repository to query.</param>
+		/// <param name="name">The role name to look for.</param>
+		/// <exception cref="ArgumentNullException">
+		/// <paramref name="repository" /> or <paramref name="name" /> is null.
+		/// </exception>
+		/// <returns>
+		/// Returns a query object that can be extended or executed later.
+		/// </returns>
 		public static IQueryable<IdentityRole> QueryByName(
 			[NotNull] this IQueryableRepository<IdentityRole> repository,
 			[NotNull] string name)
@@ -32,7 +46,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
 				throw new ArgumentNullException(nameof(repository));
 			}
 
-			if (repository == null)
+			if (name == null)
 			{
 				throw new ArgumentNullException(nameof(name));
 			}

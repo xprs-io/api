@@ -19,6 +19,9 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
+	/// <summary>
+	/// A repository for <see cref="IdentityRole"/> entities.
+	/// </summary>
 	public class IdentityRoleRepository : IRepository<int, IdentityRole>
 	{
 		private readonly IDocumentSession _session;

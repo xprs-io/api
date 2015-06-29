@@ -13,6 +13,10 @@
 // //////////////////////////////////////////////////////////////////////////////////
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
+	/// <summary>
+	/// Represents an external login provider (e.g. an OAuth-compatible service
+	/// like Facebook) associated to a user.
+	/// </summary>
 	public class IdentityUserLogin
 	{
 		public string LoginProvider { get; set; }

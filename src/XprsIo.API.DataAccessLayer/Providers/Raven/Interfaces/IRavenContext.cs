@@ -18,7 +18,10 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces
 {
-    public interface IRavenContext : IUnitOfWork, IDisposable
+	/// <summary>
+	/// A data context for a RavenDB data source.
+	/// </summary>
+	public interface IRavenContext : IUnitOfWork, IDisposable
     {
 		IRepository<string, IdentityUser> IdentityUsers { get; }
 		IRepository<int, IdentityRole> IdentityRoles { get; }

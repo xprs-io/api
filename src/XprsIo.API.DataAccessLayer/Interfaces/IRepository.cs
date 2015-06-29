@@ -16,13 +16,50 @@ using JetBrains.Annotations;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IRepository<in TPrimaryKey, TEntity> : IQueryableRepository<TEntity>
+	/// <summary>
+	/// A generic repository for CRUD operations on data sources that do no require
+	/// any special handling for update operations.
+	/// </summary>
+	/// <typeparam name="TPrimaryKey">
+	/// The type of the primary key used by the entity.
+	/// </typeparam>
+	/// <typeparam name="TEntity">
+	/// The type of the entity supported by the repository.
+	/// </typeparam>
+	public interface IRepository<in TPrimaryKey, TEntity> : IQueryableRepository<TEntity>
     {
-        TEntity Load([NotNull] TPrimaryKey key);
-		
-        void Store([NotNull] TEntity entity);
+		/// <summary>
+		/// Fetch a single entity from the data source based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of a <typeparamref name="TEntity" /> that will
+		/// automatically be tracked for changes.
+		/// </returns>
+		TEntity Load([NotNull] TPrimaryKey key);
 
-        void Delete([NotNull] TEntity entity);
-        void Delete([NotNull] TPrimaryKey key);
+		/// <summary>
+		/// Store an instance of <typeparamref name="TEntity"/> in the data source.
+		/// </summary>
+		/// <param name="entity">The entity to store.</param>
+		void Store([NotNull] TEntity entity);
+
+		/// <summary>
+		/// Remove an instance of <typeparamref name="TEntity" /> from the data
+		/// source.
+		/// </summary>
+		/// <param name="entity">The entity to remove.</param>
+		void Delete([NotNull] TEntity entity);
+
+		/// <summary>
+		/// Remove an instance of <typeparamref name="TEntity" /> from the data source
+		/// based on its primary key.
+		/// </summary>
+		/// <param name="key">
+		/// A unique identifier that represents the entity in the remote data source
+		/// </param>
+		void Delete([NotNull] TPrimaryKey key);
     }
 }

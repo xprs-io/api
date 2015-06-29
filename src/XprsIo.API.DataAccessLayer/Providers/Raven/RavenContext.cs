@@ -20,7 +20,10 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Repositories;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-    public class RavenContext : IRavenContext
+	/// <summary>
+	/// A data context for the RavenDB data source.
+	/// </summary>
+	public class RavenContext : IRavenContext
     {
         private readonly IDocumentSession _session;
 

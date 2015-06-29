@@ -21,6 +21,9 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
+	/// <summary>
+	/// A repository for <see cref="IdentityUser"/> entities.
+	/// </summary>
 	public class IdentityUserAsyncRepository : IAsyncRepository<string, IdentityUser>
 	{
 		private readonly IAsyncDocumentSession _session;

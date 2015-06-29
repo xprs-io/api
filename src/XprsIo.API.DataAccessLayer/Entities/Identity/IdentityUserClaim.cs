@@ -13,6 +13,10 @@
 // //////////////////////////////////////////////////////////////////////////////////
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
+	/// <summary>
+	/// Represents a claim associated to a user. Claims are a lightweight data
+	/// structure to attach authentication-related information to a user.
+	/// </summary>
 	public class IdentityUserClaim
 	{
 		public string Key { get; set; }

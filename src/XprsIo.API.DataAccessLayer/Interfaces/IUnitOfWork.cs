@@ -14,8 +14,15 @@
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-    public interface IUnitOfWork
+	/// <summary>
+	/// A base interface for data contexts that implements the Unit of Work
+	/// pattern.
+	/// </summary>
+	public interface IUnitOfWork
     {
-        void SaveChanges();
+		/// <summary>
+		/// Save all changes from the session.
+		/// </summary>
+		void SaveChanges();
     }
 }

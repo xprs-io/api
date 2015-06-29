@@ -21,10 +21,13 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
+	/// <summary>
+	/// A repository for <see cref="IdentityRole"/> entities.
+	/// </summary>
 	public class IdentityRoleAsyncRepository : IAsyncRepository<int, IdentityRole>
 	{
 		private readonly IAsyncDocumentSession _session;
-
+		
 		public IdentityRoleAsyncRepository(IAsyncDocumentSession session)
 		{
 			_session = session;
