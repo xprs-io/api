@@ -12,29 +12,50 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
-    public class UserSecurityStampService : IUserSecurityStampService
+    public class UserClaimService : IUserClaimService
     {
         private readonly IAsyncRavenContext _context;
 
-        public UserSecurityStampService(IAsyncRavenContext context)
+        public UserClaimService(IAsyncRavenContext context)
         {
             _context = context;
         }
 
-        public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
+        public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
+        public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task ReplaceClaimAsync(
+            IdentityUser user,
+            Claim claim,
+            Claim newClaim,
+            CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }

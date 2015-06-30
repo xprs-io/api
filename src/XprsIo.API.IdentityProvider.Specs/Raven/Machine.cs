@@ -16,7 +16,7 @@ using Moq;
 using SimpleInjector;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
-using XprsIo.API.IdentityProvider.Stores.Raven.Services;
+using XprsIo.API.IdentityProvider.Stores.Raven;
 
 namespace XprsIo.API.IdentityProvider.Specs.Raven
 {

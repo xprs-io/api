@@ -12,48 +12,29 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
-    public class UserLoginService : IUserLoginService
+    public class UserSecurityStampService : IUserSecurityStampService
     {
         private readonly IAsyncRavenContext _context;
 
-        public UserLoginService(IAsyncRavenContext context)
+        public UserSecurityStampService(IAsyncRavenContext context)
         {
             _context = context;
         }
 
-        public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
+        public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task RemoveLoginAsync(
-            IdentityUser user,
-            string loginProvider,
-            string providerKey,
-            CancellationToken cancellationToken)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IdentityUser> FindByLoginAsync(
-            string loginProvider,
-            string providerKey,
-            CancellationToken cancellationToken)
+        public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }

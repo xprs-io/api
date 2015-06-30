@@ -22,7 +22,7 @@ using Microsoft.AspNet.Identity;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Raven
+namespace XprsIo.API.IdentityProvider.Stores
 {
     /// <summary>
     /// A generic ASP.NET Identity Framework 3.0 UserStore facade that forwards

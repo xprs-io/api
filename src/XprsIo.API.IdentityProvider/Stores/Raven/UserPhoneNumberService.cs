@@ -12,45 +12,39 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
-namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
+namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
-    public class UserRoleService : IUserRoleService
+    public class UserPhoneNumberService : IUserPhoneNumberService
     {
         private readonly IAsyncRavenContext _context;
 
-        public UserRoleService(IAsyncRavenContext context)
+        public UserPhoneNumberService(IAsyncRavenContext context)
         {
             _context = context;
         }
 
-        public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+        public Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+        public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
+        public Task<bool> GetPhoneNumberConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+        public Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
