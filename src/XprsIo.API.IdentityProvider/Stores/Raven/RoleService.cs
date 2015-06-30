@@ -61,21 +61,21 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public async Task CreateAsync(IdentityRole role, CancellationToken cancellationToken)
         {
-            await _context.IdentityRoles.StoreAsync(role, cancellationToken);
+            await _context.IdentityRoles.StoreAsync(role, cancellationToken).ConfigureAwait(false);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
         {
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
         {
             _context.IdentityRoles.DeleteAsync(role);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <exception cref="FormatException">
