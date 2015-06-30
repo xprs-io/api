@@ -18,6 +18,9 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Specs.Extensions
 {
+    /// <summary>
+    /// A set of extension methods for <see cref="IEnumerable`1"/>
+    /// </summary>
     public static class EnumerableExtensions
     {
         private class QueryableEnumerableRepository<T> : IQueryableRepository<T>
@@ -35,6 +38,12 @@ namespace XprsIo.API.DataAccessLayer.Specs.Extensions
             }
         }
 
+        /// <summary>
+        /// Converts an instance of <see cref="IEnumerable`1"/> to an instance of <see cref="IQueryableRepository`1"/>.
+        /// </summary>
+        /// <param name="source">The instance to convert.</param>
+        /// <typeparam name="T">The type of entities stored in the IEnumerable.</typeparam>
+        /// <returns>Returns a new <see cref="IQueryableRepository`1"/> based on the provided <see cref="IEnumerable`1"/></returns>
         public static IQueryableRepository<T> ToQueryableRepository<T>(this IEnumerable<T> source)
         {
             return new QueryableEnumerableRepository<T>(source);

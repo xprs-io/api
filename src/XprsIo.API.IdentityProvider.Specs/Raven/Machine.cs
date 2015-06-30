@@ -20,6 +20,9 @@ using XprsIo.API.IdentityProvider.Stores.Raven.Services;
 
 namespace XprsIo.API.IdentityProvider.Specs.Raven
 {
+    /// <summary>
+    /// Base context for all IdentityProvider specifications.
+    /// </summary>
     public static class Machine
     {
         private static readonly Container Container;
@@ -40,8 +43,16 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
             container.Register<IUserService, UserService>();
         }
 
-        /// <exception cref="ActivationException">Thrown when there are errors
-        /// resolving the service instance.</exception>
+        /// <summary>
+        /// Gets an instance of the given <typeparamref name="TService" /> .
+        /// </summary>
+        /// <exception cref="ActivationException">
+        /// Thrown when there are errors resolving the service instance.
+        /// </exception>
+        /// <returns>
+        /// Returns an instance of <typeparamref name="TService" /> according
+        /// to the registration lifetime.
+        /// </returns>
         public static TService GetInstance<TService>() where TService : class
         {
             return Container.GetInstance<TService>();
