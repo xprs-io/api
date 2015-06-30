@@ -21,41 +21,41 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Extensions;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
 {
-	/// <summary>
-	/// A set of queries for the <see cref="IdentityUser"/> entity.
-	/// </summary>
-	public static class IdentityUserQueries
-	{
-		/// <summary>
-		/// Query a <paramref name="repository" /> for all entities matching the
-		/// provided <paramref name="userName" /> .
-		/// </summary>
-		/// <param name="repository">The repository to query.</param>
-		/// <param name="userName">The user name to look for.</param>
-		/// <exception cref="ArgumentNullException">
-		/// <paramref name="repository" /> or <paramref name="userName" /> is null.
-		/// </exception>
-		/// <returns>
-		/// Returns a query object that can be extended or executed later.
-		/// </returns>
-		public static IQueryable<IdentityUser> QueryByUserName(
-			[NotNull] this IQueryableRepository<IdentityUser> repository,
-			[NotNull] string userName)
-		{
-			if (repository == null)
-			{
-				throw new ArgumentNullException(nameof(repository));
-			}
+    /// <summary>
+    /// A set of queries for the <see cref="IdentityUser"/> entity.
+    /// </summary>
+    public static class IdentityUserQueries
+    {
+        /// <summary>
+        /// Query a <paramref name="repository" /> for all entities matching the
+        /// provided <paramref name="userName" /> .
+        /// </summary>
+        /// <param name="repository">The repository to query.</param>
+        /// <param name="userName">The user name to look for.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="repository" /> or <paramref name="userName" /> is null.
+        /// </exception>
+        /// <returns>
+        /// Returns a query object that can be extended or executed later.
+        /// </returns>
+        public static IQueryable<IdentityUser> QueryByUserName(
+            [NotNull] this IQueryableRepository<IdentityUser> repository,
+            [NotNull] string userName)
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
 
-			if (repository == null)
-			{
-				throw new ArgumentNullException(nameof(userName));
-			}
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(userName));
+            }
 
-			var id = userName.ToIdentityUserId();
+            var id = userName.ToIdentityUserId();
 
-			return repository.Query()
-				.Where(u => u.Id == id);
-		}
-	}
+            return repository.Query()
+                .Where(u => u.Id == id);
+        }
+    }
 }

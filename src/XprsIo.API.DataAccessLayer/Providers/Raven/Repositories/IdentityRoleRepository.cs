@@ -19,77 +19,77 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
 {
-	/// <summary>
-	/// A repository for <see cref="IdentityRole"/> entities.
-	/// </summary>
-	public class IdentityRoleRepository : IRepository<int, IdentityRole>
-	{
-		private readonly IDocumentSession _session;
+    /// <summary>
+    /// A repository for <see cref="IdentityRole"/> entities.
+    /// </summary>
+    public class IdentityRoleRepository : IRepository<int, IdentityRole>
+    {
+        private readonly IDocumentSession _session;
 
-		/// <summary>
-		/// Creates a new instance of an IdentityRoleRepository mapped to the provided
-		/// RavenDB <paramref name="session" /> .
-		/// </summary>
-		/// <param name="session">A RavenDB session.</param>
-		public IdentityRoleRepository(IDocumentSession session)
-		{
-			_session = session;
-		}
+        /// <summary>
+        /// Creates a new instance of an IdentityRoleRepository mapped to the provided
+        /// RavenDB <paramref name="session" /> .
+        /// </summary>
+        /// <param name="session">A RavenDB session.</param>
+        public IdentityRoleRepository(IDocumentSession session)
+        {
+            _session = session;
+        }
 
-		/// <summary>
-		/// Fetch a single entity from the data source based on its primary key.
-		/// </summary>
-		/// <param name="key">
-		/// A unique identifier that represents the entity in the remote data source.
-		/// </param>
-		/// <returns>
-		/// Returns a new instance of a <see cref="IdentityRole"/> that will
-		/// automatically be tracked for changes.
-		/// </returns>
-		public IdentityRole Load(int key)
-		{
-			return _session.Load<IdentityRole>(key);
-		}
+        /// <summary>
+        /// Fetch a single entity from the data source based on its primary key.
+        /// </summary>
+        /// <param name="key">
+        /// A unique identifier that represents the entity in the remote data source.
+        /// </param>
+        /// <returns>
+        /// Returns a new instance of a <see cref="IdentityRole"/> that will
+        /// automatically be tracked for changes.
+        /// </returns>
+        public IdentityRole Load(int key)
+        {
+            return _session.Load<IdentityRole>(key);
+        }
 
-		/// <summary>
-		/// Initialize a query object to fetch data off a data source.
-		/// </summary>
-		/// <returns>Returns an instance of a query that can be extended or executed
-		/// at a later time.</returns>
-		public IQueryable<IdentityRole> Query()
-		{
-			return _session.Query<IdentityRole>();
-		}
+        /// <summary>
+        /// Initialize a query object to fetch data off a data source.
+        /// </summary>
+        /// <returns>Returns an instance of a query that can be extended or executed
+        /// at a later time.</returns>
+        public IQueryable<IdentityRole> Query()
+        {
+            return _session.Query<IdentityRole>();
+        }
 
-		/// <summary>
-		/// Store an instance of <see cref="IdentityRole"/> in the data source.
-		/// </summary>
-		/// <param name="entity">The entity to store.</param>
-		public void Store(IdentityRole entity)
-		{
-			_session.Store(entity);
-		}
+        /// <summary>
+        /// Store an instance of <see cref="IdentityRole"/> in the data source.
+        /// </summary>
+        /// <param name="entity">The entity to store.</param>
+        public void Store(IdentityRole entity)
+        {
+            _session.Store(entity);
+        }
 
-		/// <summary>
-		/// Remove an instance of <see cref="IdentityRole"/> from the data
-		/// source.
-		/// </summary>
-		/// <param name="entity">The entity to remove.</param>
-		public void Delete(IdentityRole entity)
-		{
-			_session.Delete(entity);
-		}
+        /// <summary>
+        /// Remove an instance of <see cref="IdentityRole"/> from the data
+        /// source.
+        /// </summary>
+        /// <param name="entity">The entity to remove.</param>
+        public void Delete(IdentityRole entity)
+        {
+            _session.Delete(entity);
+        }
 
-		/// <summary>
-		/// Remove an instance of <see cref="IdentityRole"/> from the data source
-		/// based on its primary key.
-		/// </summary>
-		/// <param name="key">
-		/// A unique identifier that represents the entity in the remote data source
-		/// </param>
-		public void Delete(int key)
-		{
-			_session.Delete(key);
-		}
-	}
+        /// <summary>
+        /// Remove an instance of <see cref="IdentityRole"/> from the data source
+        /// based on its primary key.
+        /// </summary>
+        /// <param name="key">
+        /// A unique identifier that represents the entity in the remote data source
+        /// </param>
+        public void Delete(int key)
+        {
+            _session.Delete(key);
+        }
+    }
 }

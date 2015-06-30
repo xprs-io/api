@@ -14,21 +14,21 @@
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-	/// <summary>
-	/// A generic factory that provides an instance of a data context. This can be
-	/// used by an DI container to inject an data context into other services. This
-	/// <see langword="interface" /> should be used for async implementations of
-	/// the Unit of Work pattern.
-	/// </summary>
-	/// <typeparam name="TContext">The type of the data context.</typeparam>
-	public interface IAsyncContextFactory<out TContext> where TContext : IAsyncUnitOfWork
+    /// <summary>
+    /// A generic factory that provides an instance of a data context. This can be
+    /// used by an DI container to inject an data context into other services. This
+    /// <see langword="interface" /> should be used for async implementations of
+    /// the Unit of Work pattern.
+    /// </summary>
+    /// <typeparam name="TContext">The type of the data context.</typeparam>
+    public interface IAsyncContextFactory<out TContext> where TContext : IAsyncUnitOfWork
     {
-		/// <summary>
-		/// Returns a new instance of a specialized <see cref="IAsyncUnitOfWork"/>
-		/// that can act as a data context. This instance should be ready to be
-		/// used and require no further configuration.
-		/// </summary>
-		/// <returns>Returns a new data context.</returns>
-		TContext GetAsyncContext();
+        /// <summary>
+        /// Returns a new instance of a specialized <see cref="IAsyncUnitOfWork"/>
+        /// that can act as a data context. This instance should be ready to be
+        /// used and require no further configuration.
+        /// </summary>
+        /// <returns>Returns a new data context.</returns>
+        TContext GetAsyncContext();
     }
 }

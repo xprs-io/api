@@ -17,29 +17,29 @@ using System.Collections.Generic;
 
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
-	/// <summary>
-	/// Represents a user that can sign-in to the system.
-	/// </summary>
-	public class IdentityUser
-	{
-		public string Id { get; set; }
-		
-		public string PasswordHash { get; set; }
-		public string PhoneNumber { get; set; }
-		
+    /// <summary>
+    /// Represents a user that can sign-in to the system.
+    /// </summary>
+    public class IdentityUser
+    {
+        public string Id { get; set; }
 
-		public bool IsActive { get; set; }
-		public bool IsPhoneNumberConfirmed { get; set; }
-		public bool IsTwoFactorEnabled { get; set; }
+        public string PasswordHash { get; set; }
+        public string PhoneNumber { get; set; }
 
-		public int AccessFailedCount { get; set; }
-		public bool IsLockoutEnabled { get; set; }
-		public DateTime? LockedEndDateUtc { get; set; }
 
-		public string SecurityStamp { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsPhoneNumberConfirmed { get; set; }
+        public bool IsTwoFactorEnabled { get; set; }
 
-		public ICollection<IdentityUserLogin> Logins { get; set; }
-		public ICollection<IdentityRole> Roles { get; set; }
-		public ICollection<IdentityUserClaim> Claims { get; set; }
-	}
+        public int AccessFailedCount { get; set; }
+        public bool IsLockoutEnabled { get; set; }
+        public DateTime? LockedEndDateUtc { get; set; }
+
+        public string SecurityStamp { get; set; }
+
+        public ICollection<IdentityUserLogin> Logins { get; set; }
+        public ICollection<IdentityRole> Roles { get; set; }
+        public ICollection<IdentityUserClaim> Claims { get; set; }
+    }
 }

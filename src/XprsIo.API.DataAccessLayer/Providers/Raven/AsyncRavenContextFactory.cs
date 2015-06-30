@@ -18,10 +18,10 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-	/// <summary>
-	/// A data context factory for the RavenDB data source.
-	/// </summary>
-	public class AsyncRavenContextFactory : IAsyncContextFactory<IAsyncRavenContext>
+    /// <summary>
+    /// A data context factory for the RavenDB data source.
+    /// </summary>
+    public class AsyncRavenContextFactory : IAsyncContextFactory<IAsyncRavenContext>
     {
         private readonly IDocumentStore _store;
 

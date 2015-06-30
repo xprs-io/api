@@ -11,15 +11,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
-	/// <summary>
-	/// Represents an external login provider (e.g. an OAuth-compatible service
-	/// like Facebook) associated to a user.
-	/// </summary>
-	public class IdentityUserLogin
-	{
-		public string LoginProvider { get; set; }
-		public string ProviderKey { get; set; }
-	}
+    /// <summary>
+    /// Represents an external login provider (e.g. an OAuth-compatible service
+    /// like Facebook) associated to a user.
+    /// </summary>
+    public class IdentityUserLogin
+    {
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+    }
 }

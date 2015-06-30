@@ -17,23 +17,23 @@ using System.Threading.Tasks;
 
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
-	/// <summary>
-	/// A base interface for data contexts that implements the Unit of Work
-	/// pattern.
-	/// </summary>
-	public interface IAsyncUnitOfWork
+    /// <summary>
+    /// A base interface for data contexts that implements the Unit of Work
+    /// pattern.
+    /// </summary>
+    public interface IAsyncUnitOfWork
     {
-		/// <summary>
-		/// Save all changes from the session.
-		/// </summary>
-		Task SaveChangesAsync();
+        /// <summary>
+        /// Save all changes from the session.
+        /// </summary>
+        Task SaveChangesAsync();
 
-		/// <summary>
-		/// Save all changes from the session.
-		/// </summary>
-		/// <param name="cancellationToken">
-		/// A cancellation token to stop the execution of the operation.A cancellation token to 
-		/// </param>
-		Task SaveChangesAsync(CancellationToken cancellationToken);
+        /// <summary>
+        /// Save all changes from the session.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A cancellation token to stop the execution of the operation.A cancellation token to 
+        /// </param>
+        Task SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

@@ -11,15 +11,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
-	/// <summary>
-	/// Represents a claim associated to a user. Claims are a lightweight data
-	/// structure to attach authentication-related information to a user.
-	/// </summary>
-	public class IdentityUserClaim
-	{
-		public string Key { get; set; }
-		public string Value { get; set; }
-	}
+    /// <summary>
+    /// Represents a claim associated to a user. Claims are a lightweight data
+    /// structure to attach authentication-related information to a user.
+    /// </summary>
+    public class IdentityUserClaim
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
+    }
 }

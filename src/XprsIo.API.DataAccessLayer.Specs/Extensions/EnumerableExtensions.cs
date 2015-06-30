@@ -18,26 +18,26 @@ using XprsIo.API.DataAccessLayer.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Specs.Extensions
 {
-	public static class EnumerableExtensions
-	{
-		private class QueryableEnumerableRepository<T> : IQueryableRepository<T>
-		{
-			private readonly IEnumerable<T> _source;
+    public static class EnumerableExtensions
+    {
+        private class QueryableEnumerableRepository<T> : IQueryableRepository<T>
+        {
+            private readonly IEnumerable<T> _source;
 
-			public QueryableEnumerableRepository(IEnumerable<T> source)
-			{
-				_source = source;
-			}
+            public QueryableEnumerableRepository(IEnumerable<T> source)
+            {
+                _source = source;
+            }
 
-			public IQueryable<T> Query()
-			{
-				return _source.AsQueryable();
-			}
-		}
+            public IQueryable<T> Query()
+            {
+                return _source.AsQueryable();
+            }
+        }
 
-		public static IQueryableRepository<T> ToQueryableRepository<T>(this IEnumerable<T> source)
-		{
-			return new QueryableEnumerableRepository<T>(source);
-		}
-	}
+        public static IQueryableRepository<T> ToQueryableRepository<T>(this IEnumerable<T> source)
+        {
+            return new QueryableEnumerableRepository<T>(source);
+        }
+    }
 }

@@ -22,22 +22,22 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Repositories;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-	/// <summary>
-	/// A data context for the RavenDB data source.
-	/// </summary>
-	public class AsyncRavenContext : IAsyncRavenContext
+    /// <summary>
+    /// A data context for the RavenDB data source.
+    /// </summary>
+    public class AsyncRavenContext : IAsyncRavenContext
     {
         private readonly IAsyncDocumentSession _session;
 
         public AsyncRavenContext(IAsyncDocumentSession session)
         {
-	        _session = session;
+            _session = session;
 
-			IdentityUsers = new IdentityUserAsyncRepository(_session);
-			IdentityRoles = new IdentityRoleAsyncRepository(_session);
+            IdentityUsers = new IdentityUserAsyncRepository(_session);
+            IdentityRoles = new IdentityRoleAsyncRepository(_session);
         }
 
-	    public Task SaveChangesAsync()
+        public Task SaveChangesAsync()
         {
             return _session.SaveChangesAsync();
         }
@@ -52,7 +52,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
             _session.Dispose();
         }
 
-	    public IAsyncRepository<string, IdentityUser> IdentityUsers { get; }
-	    public IAsyncRepository<int, IdentityRole> IdentityRoles { get; }
+        public IAsyncRepository<string, IdentityUser> IdentityUsers { get; }
+        public IAsyncRepository<int, IdentityRole> IdentityRoles { get; }
     }
 }
