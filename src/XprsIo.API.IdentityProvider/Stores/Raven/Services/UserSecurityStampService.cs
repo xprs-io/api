@@ -20,23 +20,23 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserSecurityStampService : IUserSecurityStampService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserSecurityStampService : IUserSecurityStampService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserSecurityStampService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserSecurityStampService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

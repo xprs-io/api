@@ -20,30 +20,31 @@ using XprsIo.API.IdentityProvider.Stores.Raven.Services;
 
 namespace XprsIo.API.IdentityProvider.Specs.Raven
 {
-	public static class Machine
-	{
-		private static readonly Container Container;
+    public static class Machine
+    {
+        private static readonly Container Container;
 
-		static Machine()
-		{
-			Container = new Container();
+        static Machine()
+        {
+            Container = new Container();
 
-			InitializeContainer(Container);
+            InitializeContainer(Container);
 
-			Container.Verify();
-		}
+            Container.Verify();
+        }
 
-		private static void InitializeContainer(Container container)
-		{
-			container.Register<IAsyncRavenContext>(() => Mock.Of<IAsyncRavenContext>());
+        private static void InitializeContainer(Container container)
+        {
+            container.Register<IAsyncRavenContext>(() => Mock.Of<IAsyncRavenContext>());
 
-			container.Register<IUserService, UserService>();
-		}
+            container.Register<IUserService, UserService>();
+        }
 
-		/// <exception cref="ActivationException">Thrown when there are errors resolving the service instance.</exception>
-		public static TService GetInstance<TService>() where TService : class
-		{
-			return Container.GetInstance<TService>();
-		}
-	}
+        /// <exception cref="ActivationException">Thrown when there are errors
+        /// resolving the service instance.</exception>
+        public static TService GetInstance<TService>() where TService : class
+        {
+            return Container.GetInstance<TService>();
+        }
+    }
 }

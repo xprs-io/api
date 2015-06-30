@@ -20,23 +20,23 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserTwoFactorService : IUserTwoFactorService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserTwoFactorService : IUserTwoFactorService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserTwoFactorService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserTwoFactorService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

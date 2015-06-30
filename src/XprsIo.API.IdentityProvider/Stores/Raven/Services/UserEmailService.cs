@@ -20,48 +20,51 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserEmailService : IUserEmailService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserEmailService : IUserEmailService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserEmailService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserEmailService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task SetNormalizedEmailAsync(IdentityUser user, string normalizedEmail, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task SetNormalizedEmailAsync(
+            IdentityUser user,
+            string normalizedEmail,
+            CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

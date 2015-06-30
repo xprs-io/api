@@ -18,26 +18,26 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-	/// <summary>
-	/// Stores whether two factor is enabled for a user
-	/// 
-	/// </summary>
-	public interface IUserTwoFactorService
-	{
-		/// <summary>
-		/// Sets whether two factor is enabled for the user
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="enabled"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken);
+    /// <summary>
+    /// Stores whether two factor is enabled for a user
+    /// 
+    /// </summary>
+    public interface IUserTwoFactorService
+    {
+        /// <summary>
+        /// Sets whether two factor is enabled for the user
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="enabled"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Returns whether two factor is enabled for the user
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken);
-	}
+        /// <summary>
+        /// Returns whether two factor is enabled for the user
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken);
+    }
 }

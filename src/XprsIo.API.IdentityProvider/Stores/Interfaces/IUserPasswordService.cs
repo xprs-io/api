@@ -18,34 +18,34 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-	/// <summary>
-	/// Stores a user's password hash
-	/// 
-	/// </summary>
-	public interface IUserPasswordService
-	{
-		/// <summary>
-		/// Set the user password hash
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="passwordHash"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken);
+    /// <summary>
+    /// Stores a user's password hash
+    /// 
+    /// </summary>
+    public interface IUserPasswordService
+    {
+        /// <summary>
+        /// Set the user password hash
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="passwordHash"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Get the user password hash
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken);
+        /// <summary>
+        /// Get the user password hash
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Returns true if a user has a password set
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken);
-	}
+        /// <summary>
+        /// Returns true if a user has a password set
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken);
+    }
 }

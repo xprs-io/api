@@ -24,74 +24,80 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class RoleService : IRoleService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class RoleService : IRoleService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public RoleService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public RoleService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			return Task.FromResult(role.Id.ToString());
-		}
+        public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(role.Id.ToString());
+        }
 
-		public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			return Task.FromResult(role.Name);
-		}
+        public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(role.Name);
+        }
 
-		public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
-		{
-			role.Name = roleName;
+        public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
+        {
+            role.Name = roleName;
 
-			return TaskEx.Completed;
-		}
+            return TaskEx.Completed;
+        }
 
-		public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			return Task.FromResult(role.Name);
-		}
+        public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(role.Name);
+        }
 
-		public Task SetNormalizedRoleNameAsync(IdentityRole role, string normalizedName, CancellationToken cancellationToken)
-		{
-			role.Name = normalizedName;
+        public Task SetNormalizedRoleNameAsync(
+            IdentityRole role,
+            string normalizedName,
+            CancellationToken cancellationToken)
+        {
+            role.Name = normalizedName;
 
-			return TaskEx.Completed;
-		}
+            return TaskEx.Completed;
+        }
 
-		public async Task CreateAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			await _context.IdentityRoles.StoreAsync(role, cancellationToken);
+        public async Task CreateAsync(IdentityRole role, CancellationToken cancellationToken)
+        {
+            await _context.IdentityRoles.StoreAsync(role, cancellationToken);
 
-			await _context.SaveChangesAsync(cancellationToken);
-		}
+            await _context.SaveChangesAsync(cancellationToken);
+        }
 
-		public async Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			await _context.SaveChangesAsync(cancellationToken);
-		}
+        public async Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+        }
 
-		public async Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
-		{
-			_context.IdentityRoles.DeleteAsync(role);
+        public async Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
+        {
+            _context.IdentityRoles.DeleteAsync(role);
 
-			await _context.SaveChangesAsync(cancellationToken);
-		}
+            await _context.SaveChangesAsync(cancellationToken);
+        }
 
-		/// <exception cref="FormatException"><paramref name="roleId" /> is not in the correct format. It should be a valid Int32 value.</exception>
-		/// <exception cref="OverflowException"><paramref name="roleId" /> represents a number less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />.</exception>
-		public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
-		{
-			return _context.IdentityRoles.LoadAsync(int.Parse(roleId), cancellationToken);
-		}
+        /// <exception cref="FormatException"><paramref name="roleId" /> is not in the
+        /// correct format. It should be a valid Int32 value.</exception>
+        /// <exception cref="OverflowException"><paramref name="roleId" /> represents
+        /// a number less than <see cref="F:System.Int32.MinValue" /> or greater than 
+        /// <see cref="F:System.Int32.MaxValue" />.</exception>
+        public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
+        {
+            return _context.IdentityRoles.LoadAsync(int.Parse(roleId), cancellationToken);
+        }
 
-		public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
-		{
-			return _context.IdentityRoles.QueryByName(normalizedRoleName)
-				.FirstOrDefaultAsync(cancellationToken);
-		}
-	}
+        public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
+        {
+            return _context.IdentityRoles.QueryByName(normalizedRoleName)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+    }
 }

@@ -20,50 +20,50 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-	/// <summary>
-	/// Stores user specific claims
-	/// 
-	/// </summary>
-	public interface IUserClaimService
-	{
-		/// <summary>
-		/// Returns the claims for the user
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken);
+    /// <summary>
+    /// Stores user specific claims
+    /// 
+    /// </summary>
+    public interface IUserClaimService
+    {
+        /// <summary>
+        /// Returns the claims for the user
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Add a new user claim
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="claims"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken);
+        /// <summary>
+        /// Add a new user claim
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="claims"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Updates the give claim information with the given new claim information
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="claim"/><param name="newClaim"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task ReplaceClaimAsync(IdentityUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken);
+        /// <summary>
+        /// Updates the give claim information with the given new claim information
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="claim"/><param name="newClaim"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task ReplaceClaimAsync(IdentityUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Remove a user claim
-		/// 
-		/// </summary>
-		/// <param name="user"/><param name="claims"/><param name="cancellationToken"/>
-		/// <returns/>
-		Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken);
+        /// <summary>
+        /// Remove a user claim
+        /// 
+        /// </summary>
+        /// <param name="user"/><param name="claims"/><param name="cancellationToken"/>
+        /// <returns/>
+        Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Get users having a specific claim
-		/// 
-		/// </summary>
-		/// <param name="claim">Claim to look up</param><param name="cancellationToken"/>
-		/// <returns/>
-		Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken);
-	}
+        /// <summary>
+        /// Get users having a specific claim
+        /// 
+        /// </summary>
+        /// <param name="claim">Claim to look up</param><param name="cancellationToken"/>
+        /// <returns/>
+        Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken);
+    }
 }

@@ -21,48 +21,51 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserLockoutService : IUserLockoutService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserLockoutService : IUserLockoutService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserLockoutService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserLockoutService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task<DateTimeOffset?> GetLockoutEndDateAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
+        public Task<DateTimeOffset?> GetLockoutEndDateAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task SetLockoutEndDateAsync(IdentityUser user, DateTimeOffset? lockoutEnd, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
+        public Task SetLockoutEndDateAsync(
+            IdentityUser user,
+            DateTimeOffset? lockoutEnd,
+            CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task<int> IncrementAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
+        public Task<int> IncrementAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task ResetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
+        public Task ResetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task<int> GetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
+        public Task<int> GetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task<bool> GetLockoutEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
+        public Task<bool> GetLockoutEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task SetLockoutEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public Task SetLockoutEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

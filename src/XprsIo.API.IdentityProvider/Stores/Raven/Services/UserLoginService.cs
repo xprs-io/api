@@ -22,33 +22,40 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserLoginService : IUserLoginService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserLoginService : IUserLoginService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserLoginService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserLoginService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task RemoveLoginAsync(IdentityUser user, string loginProvider, string providerKey, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task RemoveLoginAsync(
+            IdentityUser user,
+            string loginProvider,
+            string providerKey,
+            CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<IdentityUser> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<IdentityUser> FindByLoginAsync(
+            string loginProvider,
+            string providerKey,
+            CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

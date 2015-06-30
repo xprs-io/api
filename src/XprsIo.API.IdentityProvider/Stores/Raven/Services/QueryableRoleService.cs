@@ -19,15 +19,15 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class QueryableRoleService : IQueryableRoleService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class QueryableRoleService : IQueryableRoleService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public QueryableRoleService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public QueryableRoleService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public IQueryable<IdentityRole> Roles { get; }
-	}
+        public IQueryable<IdentityRole> Roles { get; }
+    }
 }

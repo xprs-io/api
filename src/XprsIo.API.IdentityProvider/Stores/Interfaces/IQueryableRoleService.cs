@@ -17,16 +17,16 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-	/// <summary>
-	/// Interface that exposes an IQueryable roles
-	/// 
-	/// </summary>
-	public interface IQueryableRoleService
-	{
-		/// <summary>
-		/// IQueryable roles
-		/// 
-		/// </summary>
-		IQueryable<IdentityRole> Roles { get; }
-	}
+    /// <summary>
+    /// Interface that exposes an IQueryable roles
+    /// 
+    /// </summary>
+    public interface IQueryableRoleService
+    {
+        /// <summary>
+        /// IQueryable roles
+        /// 
+        /// </summary>
+        IQueryable<IdentityRole> Roles { get; }
+    }
 }

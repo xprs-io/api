@@ -20,28 +20,28 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserPasswordService : IUserPasswordService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserPasswordService : IUserPasswordService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserPasswordService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserPasswordService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

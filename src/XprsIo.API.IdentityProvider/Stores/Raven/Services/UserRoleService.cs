@@ -21,38 +21,38 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven.Services
 {
-	public class UserRoleService : IUserRoleService
-	{
-		private readonly IAsyncRavenContext _context;
+    public class UserRoleService : IUserRoleService
+    {
+        private readonly IAsyncRavenContext _context;
 
-		public UserRoleService(IAsyncRavenContext context)
-		{
-			_context = context;
-		}
+        public UserRoleService(IAsyncRavenContext context)
+        {
+            _context = context;
+        }
 
-		public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
+        public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+        public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
