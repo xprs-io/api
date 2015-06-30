@@ -37,16 +37,28 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
             IdentityRoles = new IdentityRoleAsyncRepository(_session);
         }
 
+        /// <summary>
+        /// Save all changes from the session.
+        /// </summary>
         public Task SaveChangesAsync()
         {
             return _session.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Save all changes from the session.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A cancellation token to stop the execution of the operation.A cancellation token to 
+        /// </param>
         public Task SaveChangesAsync(CancellationToken cancellationToken)
         {
             return _session.SaveChangesAsync(cancellationToken);
         }
 
+        /// <summary>
+        /// Cleanup the RavenDB session.
+        /// </summary>
         public void Dispose()
         {
             _session.Dispose();

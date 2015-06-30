@@ -30,6 +30,12 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
             _store = store;
         }
 
+        /// <summary>
+        /// Returns a new instance of a specialized <see cref="IAsyncUnitOfWork"/>
+        /// that can act as a data context. This instance should be ready to be
+        /// used and require no further configuration.
+        /// </summary>
+        /// <returns>Returns a new data context.</returns>
         public IRavenContext GetContext()
         {
             return new RavenContext(_store.OpenSession());

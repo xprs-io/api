@@ -35,11 +35,17 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
             IdentityRoles = new IdentityRoleRepository(_session);
         }
 
+        /// <summary>
+        /// Save all changes from the session.
+        /// </summary>
         public void SaveChanges()
         {
             _session.SaveChanges();
         }
 
+        /// <summary>
+        /// Cleanup the RavenDB session.
+        /// </summary>
         public void Dispose()
         {
             _session.Dispose();
