@@ -28,6 +28,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
-        public IQueryable<IdentityRole> Roles { get; }
+        public IQueryable<IdentityRole> Roles
+            => _context.IdentityRoles.Query();
     }
 }
