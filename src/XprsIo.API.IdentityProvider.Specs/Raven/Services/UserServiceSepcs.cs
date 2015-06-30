@@ -24,7 +24,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven.Services
         private It should_be_the_raven_id =
             () => { _result.ShouldEqual("IdentityUsers/1"); };
 
-        private It should_be_qual_to_the_id =
+        private It should_be_equal_to_the_id =
             () => { _user.Id.ShouldEqual("IdentityUsers/1"); };
 
         private static IdentityUser _user;
