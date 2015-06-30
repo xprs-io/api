@@ -24,10 +24,20 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
+    /// <summary>
+    ///     A service that binds a RavenDB data context to a
+    ///     <see cref="UserStore" /> for all generic operations related to an
+    ///     <see cref="IdentityRole" /> entity.
+    /// </summary>
     public class RoleService : IRoleService
     {
         private readonly IAsyncRavenContext _context;
 
+        /// <summary>
+        ///     Creates a new instance of a RoleService based on a RavenDB data
+        ///     context.
+        /// </summary>
+        /// <param name="context">The RavenDB data context to use in this service.</param>
         public RoleService(IAsyncRavenContext context)
         {
             _context = context;
@@ -87,10 +97,16 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         ///     <see cref="Int32.MinValue" /> or greater than
         ///     <see cref="Int32.MaxValue" /> .
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="roleId" /> is null.
+        /// </exception>
         public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
             => _context.IdentityRoles
                 .LoadAsync(int.Parse(roleId), cancellationToken);
 
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="normalizedRoleName" /> is null.
+        /// </exception>
         public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
             => _context.IdentityRoles
                 .QueryByName(normalizedRoleName)

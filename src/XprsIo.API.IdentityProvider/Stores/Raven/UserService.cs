@@ -25,10 +25,20 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
+    /// <summary>
+    ///     A service that binds a RavenDB data context to a
+    ///     <see cref="UserStore" /> for all generic operations related to an
+    ///     <see cref="IdentityUser" /> entity.
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly IAsyncRavenContext _context;
 
+        /// <summary>
+        ///     Creates a new instance of a UserService based on a RavenDB data
+        ///     context.
+        /// </summary>
+        /// <param name="context">The RavenDB data context to use in this service.</param>
         public UserService(IAsyncRavenContext context)
         {
             _context = context;
@@ -40,9 +50,16 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         /// <exception cref="InvalidOperationException">
         ///     Invalid <paramref name="user" /> id
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="user" /> is <see langword="null" /> .
+        /// </exception>
         public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
             => Task.FromResult(user.GetUserName());
 
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="user" /> or <paramref name="userName" /> is
+        ///     <see langword="null" /> .
+        /// </exception>
         public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
         {
             user.SetUserName(userName);
@@ -53,9 +70,16 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         /// <exception cref="InvalidOperationException">
         ///     Invalid <paramref name="user" /> id
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="user" /> is <see langword="null" /> .
+        /// </exception>
         public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
             => Task.FromResult(user.GetUserName());
 
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="user" /> or <paramref name="normalizedUserName" /> is
+        ///     <see langword="null" /> .
+        /// </exception>
         public Task SetNormalizedUserNameAsync(
             IdentityUser user,
             string normalizedUserName,
@@ -89,6 +113,9 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             => _context.IdentityUsers
                 .LoadAsync(userId, cancellationToken);
 
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="normalizedUserName" /> is null.
+        /// </exception>
         public Task<IdentityUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
             => _context.IdentityUsers
                 .QueryByUserName(normalizedUserName)
