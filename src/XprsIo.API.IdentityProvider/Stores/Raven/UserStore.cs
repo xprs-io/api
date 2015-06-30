@@ -25,9 +25,9 @@ using XprsIo.API.IdentityProvider.Stores.Interfaces;
 namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
     /// <summary>
-    /// An ASP.NET Identity Framework 3.0 UserStore implementation for a RavenDB
-    /// database. This class is only a facade. It handles boilerplate exception
-    /// handling and delegates control over to a set of specialized services.
+    /// A generic ASP.NET Identity Framework 3.0 UserStore facade that forwards
+    /// all calls to a set of specialized services. It handles exception
+    /// handling and ensure that the data passed on to the services is clean.
     /// </summary>
     public class UserStore :
         IUserRoleStore<IdentityUser>,
@@ -58,6 +58,24 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         private bool _isDisposed;
 
+        /// <summary>
+        /// Creates a new instance of an Asp.Net IdentityFramework 3.0 UserStore.
+        /// This is a generic UserStore facade that enables more segregated
+        /// implementation of a full featured UserStore.
+        /// </summary>
+        /// <param name="roleService">Handles all calls to <see cref="IRoleStore`1"/>.</param>
+        /// <param name="userService">Handles all calls to <see cref="IUserStore`1"/>.</param>
+        /// <param name="userRoleService">Handles all calls to <see cref="IUserRoleStore`1"/>.</param>
+        /// <param name="userClaimService">Handles all calls to <see cref="IUserClaimStore`1"/>.</param>
+        /// <param name="userPasswordService">Handles all calls to <see cref="IUserPasswordStore`1"/>.</param>
+        /// <param name="userSecurityStampService">Handles all calls to <see cref="IUserSecurityStampStore`1"/>.</param>
+        /// <param name="userEmailService">Handles all calls to <see cref="IUserEmailStore`1"/>.</param>
+        /// <param name="userPhoneNumberService">Handles all calls to <see cref="IUserPhoneNumerStore`1"/>.</param>
+        /// <param name="queryableRoleService">Handles all calls to <see cref="IQueryableRoleStore`1"/>.</param>
+        /// <param name="queryableUserService">Handles all calls to <see cref="IQueryableUserStore`1"/>.</param>
+        /// <param name="userLoginService">Handles all calls to <see cref="IUserLoginStore`1"/>.</param>
+        /// <param name="userTwoFactorService">Handles all calls to <see cref="IUserTwoFactorStore`1"/>.</param>
+        /// <param name="userLockoutService">Handles all calls to <see cref="IUserLockoutStore`1"/>.</param>
         public UserStore(
             IRoleService roleService,
             IUserService userService,
@@ -90,6 +108,9 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         #region Implementation of IDisposable
 
+        /// <summary>
+        /// Ensure that the store cannot be used after dispose is called.
+        /// </summary>
         public void Dispose()
         {
             _isDisposed = true;
