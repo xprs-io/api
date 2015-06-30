@@ -34,14 +34,10 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(role.Id.ToString());
-        }
+            => Task.FromResult(role.Id.ToString());
 
         public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(role.Name);
-        }
+            => Task.FromResult(role.Name);
 
         public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
         {
@@ -51,9 +47,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(role.Name);
-        }
+            => Task.FromResult(role.Name);
 
         public Task SetNormalizedRoleNameAsync(
             IdentityRole role,
@@ -90,18 +84,16 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         /// </exception>
         /// <exception cref="OverflowException">
         ///     <paramref name="roleId" /> represents a number less than
-        ///     <see cref="System.Int32.MinValue" /> or greater than
-        ///     <see cref="System.Int32.MaxValue" /> .
+        ///     <see cref="Int32.MinValue" /> or greater than
+        ///     <see cref="Int32.MaxValue" /> .
         /// </exception>
         public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
-        {
-            return _context.IdentityRoles.LoadAsync(int.Parse(roleId), cancellationToken);
-        }
+            => _context.IdentityRoles
+                .LoadAsync(int.Parse(roleId), cancellationToken);
 
         public Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
-        {
-            return _context.IdentityRoles.QueryByName(normalizedRoleName)
+            => _context.IdentityRoles
+                .QueryByName(normalizedRoleName)
                 .FirstOrDefaultAsync(cancellationToken);
-        }
     }
 }

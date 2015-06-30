@@ -35,17 +35,13 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<string> GetUserIdAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(user.Id);
-        }
+            => Task.FromResult(user.Id);
 
         /// <exception cref="InvalidOperationException">
         ///     Invalid <paramref name="user" /> id
         /// </exception>
         public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(user.GetUserName());
-        }
+            => Task.FromResult(user.GetUserName());
 
         public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
         {
@@ -58,9 +54,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         ///     Invalid <paramref name="user" /> id
         /// </exception>
         public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(user.GetUserName());
-        }
+            => Task.FromResult(user.GetUserName());
 
         public Task SetNormalizedUserNameAsync(
             IdentityUser user,
@@ -92,14 +86,12 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
-        {
-            return _context.IdentityUsers.LoadAsync(userId, cancellationToken);
-        }
+            => _context.IdentityUsers
+                .LoadAsync(userId, cancellationToken);
 
         public Task<IdentityUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
-        {
-            return _context.IdentityUsers.QueryByUserName(normalizedUserName)
+            => _context.IdentityUsers
+                .QueryByUserName(normalizedUserName)
                 .FirstOrDefaultAsync(cancellationToken);
-        }
     }
 }
