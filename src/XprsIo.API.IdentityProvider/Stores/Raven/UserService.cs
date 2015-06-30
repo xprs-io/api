@@ -39,7 +39,9 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             return Task.FromResult(user.Id);
         }
 
-        /// <exception cref="InvalidOperationException">Invalid user id</exception>
+        /// <exception cref="InvalidOperationException">
+        ///     Invalid <paramref name="user" /> id
+        /// </exception>
         public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.GetUserName());
@@ -52,7 +54,9 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             return TaskEx.Completed;
         }
 
-        /// <exception cref="InvalidOperationException">Invalid user id</exception>
+        /// <exception cref="InvalidOperationException">
+        ///     Invalid <paramref name="user" /> id
+        /// </exception>
         public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.GetUserName());

@@ -18,66 +18,60 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Stores a user's email
-    /// 
-    /// </summary>
+    /// <summary>Stores a user's email</summary>
     public interface IUserEmailService
     {
         /// <summary>
-        /// Set the user email
-        /// 
+        ///     Set the <paramref name="user" /> <paramref name="email" />
         /// </summary>
-        /// <param name="user"/><param name="email"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="email"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Get the user email
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Get the <paramref name="user" /> email</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns true if the user email is confirmed
-        /// 
+        ///     Returns <see langword="true" /> if the <paramref name="user" />
+        ///     email is confirmed
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Sets whether the user email is confirmed
-        /// 
+        ///     Sets whether the <paramref name="user" /> email is
+        ///     <paramref name="confirmed" />
         /// </summary>
-        /// <param name="user"/><param name="confirmed"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="confirmed"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Returns the user associated with this email
-        /// 
-        /// </summary>
-        /// <param name="normalizedEmail"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns the user associated with this email</summary>
+        /// <param name="normalizedEmail"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Returns the normalized email
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns the normalized email</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Set the normalized email
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="normalizedEmail"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set the normalized email</summary>
+        /// <param name="user"></param>
+        /// <param name="normalizedEmail"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetNormalizedEmailAsync(IdentityUser user, string normalizedEmail, CancellationToken cancellationToken);
     }
 }

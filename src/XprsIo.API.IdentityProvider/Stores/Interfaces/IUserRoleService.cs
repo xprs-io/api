@@ -19,50 +19,45 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Interface that maps users to their roles
-    /// 
-    /// </summary>
+    /// <summary>Interface that maps users to their roles</summary>
     public interface IUserRoleService
     {
-        /// <summary>
-        /// Adds a user to role
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="roleName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Adds a <paramref name="user" /> to role</summary>
+        /// <param name="user"></param>
+        /// <param name="roleName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Removes the role for the user
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="roleName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Removes the role for the <paramref name="user" /></summary>
+        /// <param name="user"></param>
+        /// <param name="roleName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns the roles for this user
-        /// 
+        ///     Returns the roles for this <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns true if a user is in a role
-        /// 
+        ///     Returns <see langword="true" /> if a <paramref name="user" /> is
+        ///     in a role
         /// </summary>
-        /// <param name="user"/><param name="roleName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="roleName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Returns all users in given role
-        /// 
-        /// </summary>
-        /// <param name="roleName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns all users in given role</summary>
+        /// <param name="roleName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken);
     }
 }

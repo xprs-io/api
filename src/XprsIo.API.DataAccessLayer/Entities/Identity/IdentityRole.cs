@@ -15,13 +15,12 @@
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
     /// <summary>
-    /// Regroup users under a common banner to manage access rights. For instance,
-    /// the "admin" role or the "user" role. 
+    ///     Regroup users under a common banner to manage access rights. For
+    ///     instance, the "admin" role or the "user" role.
     /// </summary>
     public class IdentityRole
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
     }
 }

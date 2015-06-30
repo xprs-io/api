@@ -12,6 +12,7 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
@@ -31,12 +32,12 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

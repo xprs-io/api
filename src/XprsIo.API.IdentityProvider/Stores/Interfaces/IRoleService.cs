@@ -18,90 +18,71 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Interface that exposes basic role management
-    /// 
-    /// </summary>
+    /// <summary>Interface that exposes basic role management</summary>
     public interface IRoleService
     {
-        /// <summary>
-        /// Returns a role's id
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns a role's id</summary>
+        /// <param name="role"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Returns a role's name
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns a role's name</summary>
+        /// <param name="role"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Set a role's name
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="roleName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set a role's name</summary>
+        /// <param name="role"></param>
+        /// <param name="roleName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Get a role's normalized name
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Get a role's normalized name</summary>
+        /// <param name="role"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Set a role's normalized name
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="normalizedName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set a role's normalized name</summary>
+        /// <param name="role"></param>
+        /// <param name="normalizedName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetNormalizedRoleNameAsync(IdentityRole role, string normalizedName, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Insert a new role
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Insert a new <paramref name="role" /></summary>
+        /// <param name="role"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task CreateAsync(IdentityRole role, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Update a role
-        /// 
-        /// </summary>
-        /// <param name="role"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Update a <paramref name="role" /></summary>
+        /// <param name="role"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task UpdateAsync(IdentityRole role, CancellationToken cancellationToken);
 
         /// <summary>
-        /// DeleteAsync a role
-        /// 
+        ///     <see cref="DeleteAsync" /> a <paramref name="role" />
         /// </summary>
-        /// <param name="role"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="role"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task DeleteAsync(IdentityRole role, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Finds a role by id
-        /// 
-        /// </summary>
-        /// <param name="roleId"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Finds a role by id</summary>
+        /// <param name="roleId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Find a role by normalized name
-        /// 
-        /// </summary>
-        /// <param name="normalizedRoleName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Find a role by normalized name</summary>
+        /// <param name="normalizedRoleName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken);
     }
 }

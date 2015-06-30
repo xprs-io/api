@@ -21,26 +21,31 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
     /// <summary>
-    /// Interface that maps users to login providers, i.e. Google, Facebook,
-    /// Twitter, Microsoft
-    /// 
+    ///     Interface that maps users to login providers, i.e. Google, Facebook,
+    ///     Twitter, Microsoft
     /// </summary>
     public interface IUserLoginService
     {
         /// <summary>
-        /// Adds a user login with the specified provider and key
-        /// 
+        ///     Adds a <paramref name="user" /> <paramref name="login" /> with the
+        ///     specified provider and key
         /// </summary>
-        /// <param name="user"/><param name="login"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="login"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Removes the user login with the specified combination if it exists, returns true if found and removed
-        /// 
+        ///     Removes the <paramref name="user" /> login with the specified
+        ///     combination if it exists, returns <see langword="true" /> if
+        ///     found and removed
         /// </summary>
-        /// <param name="user"/><param name="loginProvider"/><param name="providerKey"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="loginProvider"></param>
+        /// <param name="providerKey"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task RemoveLoginAsync(
             IdentityUser user,
             string loginProvider,
@@ -48,19 +53,18 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
             CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns the linked accounts for this user
-        /// 
+        ///     Returns the linked accounts for this <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Returns the user associated with this login
-        /// 
-        /// </summary>
-        /// <param name="loginProvider"/><param name="providerKey"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns the user associated with this login</summary>
+        /// <param name="loginProvider"></param>
+        /// <param name="providerKey"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IdentityUser> FindByLoginAsync(
             string loginProvider,
             string providerKey,

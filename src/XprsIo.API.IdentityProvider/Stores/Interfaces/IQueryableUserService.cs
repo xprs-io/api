@@ -17,16 +17,10 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Interface that exposes an IQueryable users
-    /// 
-    /// </summary>
+    /// <summary>Interface that exposes an IQueryable users</summary>
     public interface IQueryableUserService
     {
-        /// <summary>
-        /// IQueryable users
-        /// 
-        /// </summary>
+        /// <summary>IQueryable users</summary>
         IQueryable<IdentityUser> Users { get; }
     }
 }

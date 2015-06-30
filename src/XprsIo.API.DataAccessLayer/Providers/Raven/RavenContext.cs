@@ -20,9 +20,7 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Repositories;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-    /// <summary>
-    /// A data context for the RavenDB data source.
-    /// </summary>
+    /// <summary>A data context for the RavenDB data source.</summary>
     public class RavenContext : IRavenContext
     {
         private readonly IDocumentSession _session;
@@ -35,15 +33,11 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
             IdentityRoles = new IdentityRoleRepository(_session);
         }
 
-        /// <summary>
-        /// Save all changes from the session.
-        /// </summary>
+        /// <summary>Save all changes from the session.</summary>
         public void SaveChanges()
             => _session.SaveChanges();
 
-        /// <summary>
-        /// Cleanup the RavenDB session.
-        /// </summary>
+        /// <summary>Cleanup the RavenDB session.</summary>
         public void Dispose()
             => _session.Dispose();
 

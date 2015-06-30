@@ -17,16 +17,13 @@ using System.Collections.Generic;
 
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
-    /// <summary>
-    /// Represents a user that can sign-in to the system.
-    /// </summary>
+    /// <summary>Represents a user that can sign-in to the system.</summary>
     public class IdentityUser
     {
         public string Id { get; set; }
 
         public string PasswordHash { get; set; }
         public string PhoneNumber { get; set; }
-
 
         public bool IsActive { get; set; }
         public bool IsPhoneNumberConfirmed { get; set; }

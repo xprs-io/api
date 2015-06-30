@@ -18,34 +18,29 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Stores a user's password hash
-    /// 
-    /// </summary>
+    /// <summary>Stores a user's password hash</summary>
     public interface IUserPasswordService
     {
-        /// <summary>
-        /// Set the user password hash
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="passwordHash"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set the <paramref name="user" /> password hash</summary>
+        /// <param name="user"></param>
+        /// <param name="passwordHash"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Get the user password hash
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Get the <paramref name="user" /> password hash</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns true if a user has a password set
-        /// 
+        ///     Returns <see langword="true" /> if a <paramref name="user" /> has
+        ///     a password set
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken);
     }
 }

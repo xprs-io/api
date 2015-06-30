@@ -12,6 +12,7 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
@@ -31,32 +32,32 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task SetNormalizedEmailAsync(
@@ -64,7 +65,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             string normalizedEmail,
             CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

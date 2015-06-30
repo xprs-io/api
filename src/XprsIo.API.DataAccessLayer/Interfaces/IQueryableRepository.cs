@@ -17,16 +17,18 @@ using System.Linq;
 namespace XprsIo.API.DataAccessLayer.Interfaces
 {
     /// <summary>
-    /// A LINQ enabled generic repository for querying remote data sources.
+    ///     A LINQ enabled generic repository for querying remote data sources.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public interface IQueryableRepository<out TEntity>
     {
         /// <summary>
-        /// Initialize a query object to fetch data off a data source.
+        ///     Initialize a query object to fetch data off a data source.
         /// </summary>
-        /// <returns>Returns an instance of a query that can be extended or executed
-        /// at a later time.</returns>
+        /// <returns>
+        ///     Returns an instance of a query that can be extended or executed
+        ///     at a later time.
+        /// </returns>
         IQueryable<TEntity> Query();
     }
 }

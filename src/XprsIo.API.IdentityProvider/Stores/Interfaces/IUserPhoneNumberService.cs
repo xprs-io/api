@@ -18,42 +18,39 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Stores a user's phoneNumber
-    /// 
-    /// </summary>
+    /// <summary>Stores a user's phoneNumber</summary>
     public interface IUserPhoneNumberService
     {
-        /// <summary>
-        /// Set the user PhoneNumber
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="phoneNumber"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set the <paramref name="user" /> PhoneNumber</summary>
+        /// <param name="user"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Get the user phoneNumber
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Get the <paramref name="user" /> phoneNumber</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns true if the user phone number is confirmed
-        /// 
+        ///     Returns <see langword="true" /> if the <paramref name="user" />
+        ///     phone number is confirmed
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<bool> GetPhoneNumberConfirmedAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Sets whether the user phone number is confirmed
-        /// 
+        ///     Sets whether the <paramref name="user" /> phone number is
+        ///     <paramref name="confirmed" />
         /// </summary>
-        /// <param name="user"/><param name="confirmed"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="confirmed"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken);
     }
 }

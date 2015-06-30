@@ -18,26 +18,26 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Stores whether two factor is enabled for a user
-    /// 
-    /// </summary>
+    /// <summary>Stores whether two factor is enabled for a user</summary>
     public interface IUserTwoFactorService
     {
         /// <summary>
-        /// Sets whether two factor is enabled for the user
-        /// 
+        ///     Sets whether two factor is <paramref name="enabled" /> for the
+        ///     <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="enabled"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="enabled"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns whether two factor is enabled for the user
-        /// 
+        ///     Returns whether two factor is enabled for the
+        ///     <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken);
     }
 }

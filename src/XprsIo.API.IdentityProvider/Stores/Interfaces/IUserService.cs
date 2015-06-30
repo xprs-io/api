@@ -18,93 +18,83 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.IdentityProvider.Stores.Interfaces
 {
-    /// <summary>
-    /// Interface that exposes basic user management apis
-    /// 
-    /// </summary>
+    /// <summary>Interface that exposes basic user management apis</summary>
     public interface IUserService
     {
         /// <summary>
-        /// Returns the user id for a user
-        /// 
+        ///     Returns the <paramref name="user" /> id for a
+        ///     <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetUserIdAsync(IdentityUser user, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Returns the user's name
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Returns the user's name</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Set the user name
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="userName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set the <paramref name="user" /> name</summary>
+        /// <param name="user"></param>
+        /// <param name="userName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns the normalized user name
-        /// 
+        ///     Returns the normalized <paramref name="user" /> name
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Set the normalized user name
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="normalizedUserName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Set the normalized <paramref name="user" /> name</summary>
+        /// <param name="user"></param>
+        /// <param name="normalizedUserName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task SetNormalizedUserNameAsync(
             IdentityUser user,
             string normalizedUserName,
             CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Insert a new user
-        /// 
-        /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Insert a new <paramref name="user" /></summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task CreateAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// UpdateAsync a user
-        /// 
+        ///     <see cref="UpdateAsync" /> a <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task UpdateAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
-        /// DeleteAsync a user
-        /// 
+        ///     <see cref="DeleteAsync" /> a <paramref name="user" />
         /// </summary>
-        /// <param name="user"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task DeleteAsync(IdentityUser user, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Finds a user
-        /// 
-        /// </summary>
-        /// <param name="userId"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <summary>Finds a user</summary>
+        /// <param name="userId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Returns the user associated with this normalized user name
-        /// 
+        ///     Returns the user associated with this normalized user name
         /// </summary>
-        /// <param name="normalizedUserName"/><param name="cancellationToken"/>
-        /// <returns/>
+        /// <param name="normalizedUserName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IdentityUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken);
     }
 }

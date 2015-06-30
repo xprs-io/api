@@ -22,9 +22,7 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Repositories;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-    /// <summary>
-    /// A data context for the RavenDB data source.
-    /// </summary>
+    /// <summary>A data context for the RavenDB data source.</summary>
     public class AsyncRavenContext : IAsyncRavenContext
     {
         private readonly IAsyncDocumentSession _session;
@@ -37,24 +35,19 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
             IdentityRoles = new IdentityRoleAsyncRepository(_session);
         }
 
-        /// <summary>
-        /// Save all changes from the session.
-        /// </summary>
+        /// <summary>Save all changes from the session.</summary>
         public Task SaveChangesAsync()
             => _session.SaveChangesAsync();
 
-        /// <summary>
-        /// Save all changes from the session.
-        /// </summary>
+        /// <summary>Save all changes from the session.</summary>
         /// <param name="cancellationToken">
-        /// A cancellation token to stop the execution of the operation.A cancellation token to 
+        ///     A cancellation token to stop the execution of the operation.A
+        ///     cancellation token to
         /// </param>
         public Task SaveChangesAsync(CancellationToken cancellationToken)
             => _session.SaveChangesAsync(cancellationToken);
 
-        /// <summary>
-        /// Cleanup the RavenDB session.
-        /// </summary>
+        /// <summary>Cleanup the RavenDB session.</summary>
         public void Dispose()
             => _session.Dispose();
 

@@ -20,9 +20,7 @@ using XprsIo.API.IdentityProvider.Stores.Raven;
 
 namespace XprsIo.API.IdentityProvider.Specs.Raven
 {
-    /// <summary>
-    /// Base context for all IdentityProvider specifications.
-    /// </summary>
+    /// <summary>Base context for all IdentityProvider specifications.</summary>
     public static class Machine
     {
         private static readonly Container Container;
@@ -38,20 +36,20 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
 
         private static void InitializeContainer(Container container)
         {
-            container.Register<IAsyncRavenContext>(() => Mock.Of<IAsyncRavenContext>());
+            container.Register(() => Mock.Of<IAsyncRavenContext>());
 
             container.Register<IUserService, UserService>();
         }
 
         /// <summary>
-        /// Gets an instance of the given <typeparamref name="TService" /> .
+        ///     Gets an instance of the given <typeparamref name="TService" /> .
         /// </summary>
         /// <exception cref="ActivationException">
-        /// Thrown when there are errors resolving the service instance.
+        ///     Thrown when there are errors resolving the service instance.
         /// </exception>
         /// <returns>
-        /// Returns an instance of <typeparamref name="TService" /> according
-        /// to the registration lifetime.
+        ///     Returns an instance of <typeparamref name="TService" />
+        ///     according to the registration lifetime.
         /// </returns>
         public static TService GetInstance<TService>() where TService : class
             => Container.GetInstance<TService>();

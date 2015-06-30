@@ -19,23 +19,26 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Extensions
 {
     /// <summary>
-    /// A set of extension methods around the <see cref="IdentityUser"/> entity.
+    ///     A set of extension methods around the <see cref="IdentityUser" />
+    ///     entity.
     /// </summary>
     public static class IdentityUserExtensions
     {
         private const string Index = nameof(IdentityUser) + "s";
 
         /// <summary>
-        /// Extract the user name from the <paramref name="user"/> and returns it.
+        ///     Extract the <paramref name="user" /> name from the
+        ///     <paramref name="user" /> and returns it.
         /// </summary>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="user" /> is <see langword="null" /> .
+        ///     <paramref name="user" /> is <see langword="null" /> .
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// Invalid <paramref name="user" /> id.
+        ///     Invalid <paramref name="user" /> id.
         /// </exception>
         /// <returns>
-        /// Returns the <paramref name="user"/>'s user name,
+        ///     Returns the <paramref name="user" /> 's <paramref name="user" />
+        ///     name,
         /// </returns>
         public static string GetUserName([NotNull] this IdentityUser user)
         {
@@ -48,15 +51,16 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Extensions
         }
 
         /// <summary>
-        /// Sets the user name of a <paramref name="user"/> by overriding its Id.
+        ///     Sets the <paramref name="user" /> name of a
+        ///     <paramref name="user" /> by overriding its Id.
         /// </summary>
         /// <remarks>
-        /// This method should not be called if the <paramref name="user"/> is already
-        /// stored as unique identifiers should remain constant.
+        ///     This method should not be called if the <paramref name="user" />
+        ///     is already stored as unique identifiers should remain constant.
         /// </remarks>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="user" /> or <paramref name="value" /> is 
-        /// <see langword="null" /> .
+        ///     <paramref name="user" /> or <paramref name="value" /> is
+        ///     <see langword="null" /> .
         /// </exception>
         public static void SetUserName([NotNull] this IdentityUser user, [NotNull] string value)
         {
@@ -74,13 +78,14 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Extensions
         }
 
         /// <summary>
-        /// Builds a <see cref="IdentityUser" /> unique identifier from a user name.
+        ///     Builds a <see cref="IdentityUser" /> unique identifier from a
+        ///     user name.
         /// </summary>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="userName" /> is <see langword="null" /> .
+        ///     <paramref name="userName" /> is <see langword="null" /> .
         /// </exception>
         /// <returns>
-        /// Returns a valid <see cref="IdentityUser"/> identifier.
+        ///     Returns a valid <see cref="IdentityUser" /> identifier.
         /// </returns>
         public static string ToIdentityUserId([NotNull] this string userName)
         {
@@ -93,16 +98,16 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Extensions
         }
 
         /// <summary>
-        /// Converts an <see cref="IdentityUser" /> -compatible unique identifier to a
-        /// user name.
+        ///     Converts an <see cref="IdentityUser" /> -compatible unique
+        ///     identifier to a user name.
         /// </summary>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="userId" /> is <see langword="null" /> .
+        ///     <paramref name="userId" /> is <see langword="null" /> .
         /// </exception>
-        /// <exception cref="InvalidOperationException">Invalid user id</exception>
-        /// <returns>
-        /// Returns the user name portion of the identifier.
-        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     Invalid user id
+        /// </exception>
+        /// <returns>Returns the user name portion of the identifier.</returns>
         public static string FromIdentityUserId([NotNull] this string userId)
         {
             if (userId == null)

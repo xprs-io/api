@@ -84,11 +84,15 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        /// <exception cref="FormatException"><paramref name="roleId" /> is not in the
-        /// correct format. It should be a valid Int32 value.</exception>
-        /// <exception cref="OverflowException"><paramref name="roleId" /> represents
-        /// a number less than <see cref="F:System.Int32.MinValue" /> or greater than 
-        /// <see cref="F:System.Int32.MaxValue" />.</exception>
+        /// <exception cref="FormatException">
+        ///     <paramref name="roleId" /> is not in the correct format. It should
+        ///     be a valid <see cref="Int32" /> value.
+        /// </exception>
+        /// <exception cref="OverflowException">
+        ///     <paramref name="roleId" /> represents a number less than
+        ///     <see cref="System.Int32.MinValue" /> or greater than
+        ///     <see cref="System.Int32.MaxValue" /> .
+        /// </exception>
         public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
         {
             return _context.IdentityRoles.LoadAsync(int.Parse(roleId), cancellationToken);

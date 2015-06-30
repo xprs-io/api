@@ -18,9 +18,7 @@ using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven
 {
-    /// <summary>
-    /// A data context factory for the RavenDB data source.
-    /// </summary>
+    /// <summary>A data context factory for the RavenDB data source.</summary>
     public class RavenContextFactory : IContextFactory<IRavenContext>
     {
         private readonly IDocumentStore _store;
@@ -31,9 +29,14 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         }
 
         /// <summary>
-        /// Returns a new instance of a specialized <see cref="IAsyncUnitOfWork"/>
-        /// that can act as a data context. This instance should be ready to be
-        /// used and require no further configuration.
+        ///     <para>
+        ///         Returns a new instance of a specialized
+        ///         <see cref="IAsyncUnitOfWork" />
+        ///     </para>
+        ///     <para>
+        ///         that can act as a data context. This instance should be ready to
+        ///         be used and require no further configuration.
+        ///     </para>
         /// </summary>
         /// <returns>Returns a new data context.</returns>
         public IRavenContext GetContext()
