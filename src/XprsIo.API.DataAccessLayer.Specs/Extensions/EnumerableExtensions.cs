@@ -33,9 +33,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Extensions
             }
 
             public IQueryable<T> Query()
-            {
-                return _source.AsQueryable();
-            }
+                => _source.AsQueryable();
         }
 
         /// <summary>
@@ -45,8 +43,6 @@ namespace XprsIo.API.DataAccessLayer.Specs.Extensions
         /// <typeparam name="T">The type of entities stored in the IEnumerable.</typeparam>
         /// <returns>Returns a new <see cref="IQueryableRepository`1"/> based on the provided <see cref="IEnumerable`1"/></returns>
         public static IQueryableRepository<T> ToQueryableRepository<T>(this IEnumerable<T> source)
-        {
-            return new QueryableEnumerableRepository<T>(source);
-        }
+            => new QueryableEnumerableRepository<T>(source);
     }
 }

@@ -54,8 +54,6 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         /// to the registration lifetime.
         /// </returns>
         public static TService GetInstance<TService>() where TService : class
-        {
-            return Container.GetInstance<TService>();
-        }
+            => Container.GetInstance<TService>();
     }
 }
