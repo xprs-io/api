@@ -39,17 +39,13 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         /// Save all changes from the session.
         /// </summary>
         public void SaveChanges()
-        {
-            _session.SaveChanges();
-        }
+            => _session.SaveChanges();
 
         /// <summary>
         /// Cleanup the RavenDB session.
         /// </summary>
         public void Dispose()
-        {
-            _session.Dispose();
-        }
+            => _session.Dispose();
 
         public IRepository<string, IdentityUser> IdentityUsers { get; }
         public IRepository<int, IdentityRole> IdentityRoles { get; }

@@ -47,9 +47,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// automatically be tracked for changes.
         /// </returns>
         public IdentityUser Load(string key)
-        {
-            return _session.Load<IdentityUser>(key);
-        }
+            => _session.Load<IdentityUser>(key);
 
         /// <summary>
         /// Initialize a query object to fetch data off a data source.
@@ -57,18 +55,14 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// <returns>Returns an instance of a query that can be extended or executed
         /// at a later time.</returns>
         public IQueryable<IdentityUser> Query()
-        {
-            return _session.Query<IdentityUser>();
-        }
+            => _session.Query<IdentityUser>();
 
         /// <summary>
         /// Store an instance of <see cref="IdentityUser"/> in the data source.
         /// </summary>
         /// <param name="entity">The entity to store.</param>
         public void Store(IdentityUser entity)
-        {
-            _session.Store(entity);
-        }
+            => _session.Store(entity);
 
         /// <summary>
         /// Remove an instance of <see cref="IdentityUser"/> from the data
@@ -76,9 +70,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// </summary>
         /// <param name="entity">The entity to remove.</param>
         public void Delete(IdentityUser entity)
-        {
-            _session.Delete(entity);
-        }
+            => _session.Delete(entity);
 
         /// <summary>
         /// Remove an instance of <see cref="IdentityUser"/> from the data source
@@ -88,8 +80,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// A unique identifier that represents the entity in the remote data source
         /// </param>
         public void Delete(string key)
-        {
-            _session.Delete(key);
-        }
+            => _session.Delete(key);
     }
 }

@@ -37,8 +37,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         /// </summary>
         /// <returns>Returns a new data context.</returns>
         public IAsyncRavenContext GetAsyncContext()
-        {
-            return new AsyncRavenContext(_store.OpenAsyncSession());
-        }
+            => new AsyncRavenContext(_store.OpenAsyncSession());
     }
 }

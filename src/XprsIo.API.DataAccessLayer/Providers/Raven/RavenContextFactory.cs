@@ -37,8 +37,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven
         /// </summary>
         /// <returns>Returns a new data context.</returns>
         public IRavenContext GetContext()
-        {
-            return new RavenContext(_store.OpenSession());
-        }
+            => new RavenContext(_store.OpenSession());
     }
 }

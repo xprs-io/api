@@ -49,9 +49,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// automatically be tracked for changes.
         /// </returns>
         public Task<IdentityRole> LoadAsync(int key)
-        {
-            return _session.LoadAsync<IdentityRole>(key);
-        }
+            => _session.LoadAsync<IdentityRole>(key);
 
         /// <summary>
         /// Fetch a single entity from the data source based on its primary key.
@@ -67,9 +65,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// automatically be tracked for changes.
         /// </returns>
         public Task<IdentityRole> LoadAsync(int key, CancellationToken cancellationToken)
-        {
-            return _session.LoadAsync<IdentityRole>(key, cancellationToken);
-        }
+            => _session.LoadAsync<IdentityRole>(key, cancellationToken);
 
         /// <summary>
         /// Initialize a query object to fetch data off a data source.
@@ -77,18 +73,14 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// <returns>Returns an instance of a query that can be extended or executed
         /// at a later time.</returns>
         public IQueryable<IdentityRole> Query()
-        {
-            return _session.Query<IdentityRole>();
-        }
+            => _session.Query<IdentityRole>();
 
         /// <summary>
         /// Store an instance of <see cref="IdentityRole"/> in the data source.
         /// </summary>
         /// <param name="entity">The entity to store.</param>
         public Task StoreAsync(IdentityRole entity)
-        {
-            return _session.StoreAsync(entity);
-        }
+            => _session.StoreAsync(entity);
 
         /// <summary>
         /// Store an instance of <see cref="IdentityRole"/> in the data source.
@@ -98,9 +90,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// A cancellation token to stop the execution of the operation.
         /// </param>
         public Task StoreAsync(IdentityRole entity, CancellationToken cancellationToken)
-        {
-            return _session.StoreAsync(entity, cancellationToken);
-        }
+            => _session.StoreAsync(entity, cancellationToken);
 
         /// <summary>
         /// Remove an instance of <see cref="IdentityRole"/> from the data
@@ -108,9 +98,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// </summary>
         /// <param name="entity">The entity to remove.</param>
         public void DeleteAsync(IdentityRole entity)
-        {
-            _session.Delete(entity);
-        }
+            => _session.Delete(entity);
 
         /// <summary>
         /// Remove an instance of <see cref="IdentityRole"/> from the data source
@@ -120,8 +108,6 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Repositories
         /// A unique identifier that represents the entity in the remote data source
         /// </param>
         public void DeleteAsync(int key)
-        {
-            _session.Delete(key);
-        }
+            => _session.Delete(key);
     }
 }
