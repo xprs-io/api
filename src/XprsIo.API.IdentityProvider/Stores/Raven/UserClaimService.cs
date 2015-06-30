@@ -14,11 +14,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Queries;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
@@ -34,31 +37,68 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var claims = user.Claims
+                .Select(c => new Claim(c.Key, c.Value));
+
+            return Task.FromResult((IList<Claim>)claims.ToList());
         }
 
-        public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        /// <exception cref="NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="claims" /> is null.</exception>
+        public async Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var identityUserClaims = claims
+                .Select(c => new IdentityUserClaim
+                {
+                    Key = c.Type,
+                    Value = c.Value
+                });
 
-        public Task ReplaceClaimAsync(
+            foreach (var claim in identityUserClaims)
+            {
+                user.Claims.Add(claim);
+            }
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
+        
+        public async Task ReplaceClaimAsync(
             IdentityUser user,
             Claim claim,
             Claim newClaim,
             CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var storedClaim = user.Claims
+                .FirstOrDefault(c => c.Key == claim.Type);
+
+            if (storedClaim == null)
+            {
+                return;
+            }
+
+            storedClaim.Value = newClaim.Value;
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        /// <exception cref="NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="claims" /> is null.</exception>
+        public async Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var storedClaims = claims
+                .SelectMany(claim => user.Claims.Where(c => c.Key == claim.Type));
+
+            foreach (var storedClaim in storedClaims)
+            {
+                user.Claims.Remove(storedClaim);
+            }
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => _context.IdentityUsers
+                .QueryByClaim(claim.Type)
+                .ToListAsync(cancellationToken);
     }
 }
