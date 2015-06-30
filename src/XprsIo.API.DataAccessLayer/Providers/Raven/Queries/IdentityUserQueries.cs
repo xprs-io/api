@@ -34,7 +34,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
         /// <param name="userName">The user name to look for.</param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="repository" /> or <paramref name="userName" /> is
-        ///     null.
+        ///     <see langword="null" />.
         /// </exception>
         /// <returns>
         ///     Returns a query object that can be extended or executed later.
@@ -57,6 +57,37 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
 
             return repository.Query()
                 .Where(u => u.Id == id);
+        }
+
+        /// <summary>
+        ///     Query a <paramref name="repository" /> for all entities matching
+        ///     the provided claim <paramref name="key" /> .
+        /// </summary>
+        /// <param name="repository">The repository to query.</param>
+        /// <param name="key">The claim to look for.</param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="repository" /> or <paramref name="key" /> is
+        ///     <see langword="null" /> .
+        /// </exception>
+        /// <returns>
+        ///     Returns a query object that can be extended or executed later.
+        /// </returns>
+        public static IQueryable<IdentityUser> QueryByClaim(
+            [NotNull] this IQueryableRepository<IdentityUser> repository,
+            [NotNull] string key)
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            
+            return repository.Query()
+                .Where(u => u.Claims.Any(c => c.Key == key));
         }
     }
 }
