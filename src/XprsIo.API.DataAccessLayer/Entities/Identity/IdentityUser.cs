@@ -20,7 +20,7 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
     /// <summary>Represents a user that can sign-in to the system.</summary>
     public class IdentityUser
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string PasswordHash { get; set; }
         public string PhoneNumber { get; set; }
@@ -35,6 +35,7 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
 
         public string SecurityStamp { get; set; }
 
+        public ICollection<IdentityUserEmail> Emails { get; set; }
         public ICollection<IdentityUserLogin> Logins { get; set; }
         public ICollection<IdentityRole> Roles { get; set; }
         public ICollection<IdentityUserClaim> Claims { get; set; }

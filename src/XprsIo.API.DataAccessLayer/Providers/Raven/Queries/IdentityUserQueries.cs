@@ -52,11 +52,9 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
             {
                 throw new ArgumentNullException(nameof(userName));
             }
-
-            var id = userName.ToIdentityUserId();
-
+           
             return repository.Query()
-                .Where(u => u.Id == id);
+                .Where(u => u.Emails.Any(e => e.IsPrimary && e.Email == userName));
         }
 
         /// <summary>

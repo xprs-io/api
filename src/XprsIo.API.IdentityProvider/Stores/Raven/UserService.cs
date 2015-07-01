@@ -45,7 +45,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<string> GetUserIdAsync(IdentityUser user, CancellationToken cancellationToken)
-            => Task.FromResult(user.Id);
+            => Task.FromResult(user.Id.ToString());
 
         /// <exception cref="InvalidOperationException">
         ///     Invalid <paramref name="user" /> id
