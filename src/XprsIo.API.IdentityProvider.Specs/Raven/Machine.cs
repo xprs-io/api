@@ -26,57 +26,52 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     /// <summary>Base context for all IdentityProvider specifications.</summary>
     public static class Machine
     {
-        private static readonly Container Container;
+        private static readonly Container BuilderContainer;
+        private static readonly Container ServiceContainer;
 
         static Machine()
         {
-            Container = new Container();
+            BuilderContainer = new Container();
+            ServiceContainer = new Container();
 
-            InitializeContainer(Container);
+            InitializeBuilderContainer(BuilderContainer);
+            InitializeServiceContainer(ServiceContainer);
 
-            Container.Verify();
+            BuilderContainer.Verify();
+            ServiceContainer.Verify();
         }
 
-        private static void InitializeContainer(Container container)
+        private static void InitializeBuilderContainer(Container container)
+        {
+            container.Register(() => new IdentityUserEmail { Email = DefaultEmail });
+            container.Register(() => new IdentityUserClaim { Key = DefaultKey });
+            container.Register(() => new IdentityUserLogin { ProviderKey = DefaultKey });
+            container.Register(() => new IdentityRole { Id = DefaultId });
+            container.Register(() => new IdentityUser { Id = DefaultGuid });
+
+            container.Register<IdentityUserEmailBuilder>();
+            container.Register<IdentityUserClaimBuilder>();
+            container.Register<IdentityUserLoginBuilder>();
+            container.Register<IdentityRoleBuilder>();
+            container.Register<IdentityUserBuilder>();
+        }
+
+        private static void InitializeServiceContainer(Container container)
         {
             container.Register(() => Mock.Of<IAsyncRavenContext>());
 
             container.Register<IUserService, UserService>();
         }
-
-        /// <summary>
-        ///     Gets an instance of the given <typeparamref name="TService" /> .
-        /// </summary>
-        /// <exception cref="ActivationException">
-        ///     Thrown when there are errors resolving the service instance.
-        /// </exception>
-        /// <returns>
-        ///     Returns an instance of <typeparamref name="TService" />
-        ///     according to the registration lifetime.
-        /// </returns>
-        public static TService GetInstance<TService>() where TService : class
-            => Container.GetInstance<TService>();
+        
+        public static TService GetService<TService>() where TService : class
+            => ServiceContainer.GetInstance<TService>();
 
         public static Guid DefaultGuid => new Guid("6574bd30-da34-4c90-9571-91c48e6a5c4c");
         public static string DefaultEmail => "specs@example.com";
         public static string DefaultKey => "key";
         public static int DefaultId => 1;
-
-        public static IdentityUserEmailBuilder IdentityUserEmail
-            => new IdentityUserEmailBuilder(new IdentityUserEmail { Email = DefaultEmail });
-        public static IdentityUserClaimBuilder IdentityUserClaim
-            => new IdentityUserClaimBuilder(new IdentityUserClaim { Key = DefaultKey });
-        public static IdentityUserLoginBuilder IdentityUserLogin
-            => new IdentityUserLoginBuilder(new IdentityUserLogin { ProviderKey = DefaultKey });
-        public static IdentityRoleBuilder IdentityRole
-            => new IdentityRoleBuilder(new IdentityRole { Id = DefaultId });
+        
         public static IdentityUserBuilder IdentityUser
-            => new IdentityUserBuilder(
-                () => IdentityUserEmail,
-                () => IdentityUserLogin,
-                () => IdentityRole,
-                () => IdentityUserClaim,
-                new IdentityUser { Id = DefaultGuid }
-            );
+            => BuilderContainer.GetInstance<IdentityUserBuilder>();
     }
 }

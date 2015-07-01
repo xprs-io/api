@@ -18,7 +18,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
 
         private Because of =
             () => _result = Machine
-                .GetInstance<IUserService>()
+                .GetService<IUserService>()
                 .GetUserIdAsync(_user, CancellationToken.None)
                 .Await();
 
@@ -41,7 +41,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
 
         private Because of =
             () => _result = Machine
-                .GetInstance<IUserService>()
+                .GetService<IUserService>()
                 .GetUserNameAsync(_user, CancellationToken.None)
                 .Await();
 
@@ -64,7 +64,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Because of =
             () => _exception = Catch.Exception(
                 () => Machine
-                    .GetInstance<IUserService>()
+                    .GetService<IUserService>()
                     .GetUserNameAsync(_user, CancellationToken.None)
                     .Await()
             );
@@ -92,7 +92,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
 
         private Because of =
             () => Machine
-                .GetInstance<IUserService>()
+                .GetService<IUserService>()
                 .SetUserNameAsync(_user, "override+" + Machine.DefaultEmail, CancellationToken.None)
                 .Await();
         
@@ -115,7 +115,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Because of =
             () => _exception = Catch.Exception(
                 () => Machine
-                    .GetInstance<IUserService>()
+                    .GetService<IUserService>()
                     .SetUserNameAsync(_user, string.Empty, CancellationToken.None)
                     .Await()
             );
@@ -144,7 +144,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Because of =
             () => _exception = Catch.Exception(
                 () => Machine
-                    .GetInstance<IUserService>()
+                    .GetService<IUserService>()
                     .SetUserNameAsync(_user, "not an email", CancellationToken.None)
                     .Await()
             );
