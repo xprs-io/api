@@ -35,9 +35,9 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
 
         public string SecurityStamp { get; set; }
 
+        public ICollection<IdentityRole> Roles { get; set; }
         public ICollection<IdentityUserEmail> Emails { get; set; }
         public ICollection<IdentityUserLogin> Logins { get; set; }
-        public ICollection<IdentityRole> Roles { get; set; }
         public ICollection<IdentityUserClaim> Claims { get; set; }
     }
 }

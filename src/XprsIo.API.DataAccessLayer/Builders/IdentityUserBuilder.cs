@@ -7,22 +7,22 @@ namespace XprsIo.API.DataAccessLayer.Builders
 {
     public class IdentityUserBuilder : EntityBuilderBase<IdentityUser>
     {
+        private readonly Func<IdentityRoleBuilder> _identityRoleBuilderFactory;
         private readonly Func<IdentityUserEmailBuilder> _identityUserEmailBuilderFactory;
         private readonly Func<IdentityUserLoginBuilder> _identityUserLoginBuilderFactory;
-        private readonly Func<IdentityRoleBuilder> _identityRoleBuilderFactory;
         private readonly Func<IdentityUserClaimBuilder> _identityUserClaimBuilderFactory;
 
         public IdentityUserBuilder(
+            Func<IdentityRoleBuilder> identityRoleBuilderFactory,
             Func<IdentityUserEmailBuilder> identityUserEmailBuilderFactory,
             Func<IdentityUserLoginBuilder> identityUserLoginBuilderFactory,
-            Func<IdentityRoleBuilder> identityRoleBuilderFactory,
             Func<IdentityUserClaimBuilder> identityUserClaimBuilderFactory,
             IdentityUser @default)
             : base(@default)
         {
+            _identityRoleBuilderFactory = identityRoleBuilderFactory;
             _identityUserEmailBuilderFactory = identityUserEmailBuilderFactory;
             _identityUserLoginBuilderFactory = identityUserLoginBuilderFactory;
-            _identityRoleBuilderFactory = identityRoleBuilderFactory;
             _identityUserClaimBuilderFactory = identityUserClaimBuilderFactory;
         }
         
@@ -86,6 +86,20 @@ namespace XprsIo.API.DataAccessLayer.Builders
             return this;
         }
 
+        public IdentityUserBuilder WithRole(Func<IdentityRoleBuilder, IdentityRoleBuilder> builder = null)
+        {
+            if (Context.Roles == null)
+            {
+                Context.Roles = new List<IdentityRole>();
+            }
+
+            var roleBuilder = _identityRoleBuilderFactory.Invoke();
+
+            Context.Roles.Add(builder.SelectOrDefault(b => b.Invoke(roleBuilder), roleBuilder));
+
+            return this;
+        }
+
         public IdentityUserBuilder WithEmail(Func<IdentityUserEmailBuilder, IdentityUserEmailBuilder> builder = null)
         {
             if (Context.Emails == null)
@@ -110,20 +124,6 @@ namespace XprsIo.API.DataAccessLayer.Builders
             var loginBuilder = _identityUserLoginBuilderFactory.Invoke();
 
             Context.Logins.Add(builder.SelectOrDefault(b => b.Invoke(loginBuilder), loginBuilder));
-
-            return this;
-        }
-
-        public IdentityUserBuilder WithRole(Func<IdentityRoleBuilder, IdentityRoleBuilder> builder = null)
-        {
-            if (Context.Roles == null)
-            {
-                Context.Roles = new List<IdentityRole>();
-            }
-
-            var roleBuilder = _identityRoleBuilderFactory.Invoke();
-
-            Context.Roles.Add(builder.SelectOrDefault(b => b.Invoke(roleBuilder), roleBuilder));
 
             return this;
         }
