@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Machine.Specifications;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Extensions;
@@ -8,89 +9,148 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
     [Subject(typeof (IdentityUserExtensions))]
     public class When_GetUserName
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () => { _result = _user.GetUserName(); };
+        private Because of =
+            () => _result = _user
+                .GetUserName();
 
-        private It should_be_the_username_part_of_the_id =
-            () => { _result.ShouldEqual("1"); };
+        private It should_be_the_primary_email =
+            () => _result
+                .ShouldEqual(Machine.DefaultEmail);
 
         private static IdentityUser _user;
         private static string _result;
+    }
+
+    public class When_GetUserName_NoPrimary
+    {
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail();
+
+        private Because of =
+            () => _exception = Catch.Exception(
+                () => _user
+                    .GetUserName()
+            );
+
+        private It should_fail =
+            () => _exception
+                .ShouldBeOfExactType<InvalidOperationException>();
+
+        private It should_have_a_specific_reason =
+            () => _exception.Message
+                .ShouldContain("no primary email");
+
+        private static IdentityUser _user;
+        private static Exception _exception;
     }
 
     [Subject(typeof (IdentityUserExtensions))]
     public class When_SetUserName
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () => { _user.SetUserName("2"); };
+        private Because of =
+            () => _user
+                .SetUserName("override+" + Machine.DefaultEmail);
 
-        private It should_set_the_id_to_the_username =
-            () => { _user.Id.ShouldEqual("IdentityUsers/2"); };
+        private It should_add_a_new_primary_email =
+            () => _user.Emails.First(e => e.IsPrimary).Email
+                .ShouldEqual("override+" + Machine.DefaultEmail);
+
+        private It should_have_the_previous_email_as_secondary =
+            () => _user.Emails.First(e => !e.IsPrimary).Email
+                .ShouldEqual(Machine.DefaultEmail);
+
+        private static IdentityUser _user;
+   }
+
+    [Subject(typeof(IdentityUserExtensions))]
+    public class When_SetUserName_First
+    {
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId();
+
+        private Because of =
+            () => _user
+                .SetUserName("override+" + Machine.DefaultEmail);
+
+        private It should_add_a_new_primary_email =
+            () => _user.Emails.First(e => e.IsPrimary).Email
+                .ShouldEqual("override+" + Machine.DefaultEmail);
+
+        private It should_have_no_secondary_emails =
+            () => _user.Emails.Any(e => !e.IsPrimary)
+                .ShouldBeFalse();
 
         private static IdentityUser _user;
     }
 
-    [Subject(typeof (IdentityUserExtensions))]
-    public class When_Empty_ToIdentityUserId
+    [Subject(typeof(IdentityUserExtensions))]
+    public class When_SetUserName_Empty
     {
-        private Establish context = () => { _userName = string.Empty; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () => { _exception = Catch.Exception(() => _userName.ToIdentityUserId()); };
+        private Because of =
+            () => _exception = Catch.Exception(
+                () => _user
+                    .SetUserName(string.Empty)
+            );
 
         private It should_fail =
-            () => { _exception.ShouldBeOfExactType<InvalidOperationException>(); };
+            () => _exception
+                .ShouldBeOfExactType<InvalidOperationException>();
 
         private It should_have_a_specific_reason =
-            () => { _exception.Message.ShouldContain("invalid"); };
+            () => _exception.Message
+                .ShouldContain("empty");
 
-        private static string _userName;
+        private static IdentityUser _user;
         private static Exception _exception;
     }
 
-    [Subject(typeof (IdentityUserExtensions))]
-    public class When_Value_ToIdentityUserId
+    [Subject(typeof(IdentityUserExtensions))]
+    public class When_SetUserName_Invalid
     {
-        private Establish context = () => { _userName = "1"; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () => { _result = _userName.ToIdentityUserId(); };
-
-        private It should_turn_the_username_as_a_valid_raven_id =
-            () => { _result.ShouldEqual("IdentityUsers/1"); };
-
-        private static string _userName;
-        private static string _result;
-    }
-
-    [Subject(typeof (IdentityUserExtensions))]
-    public class When_Empty_FromIdentityUserId
-    {
-        private Establish context = () => { _id = string.Empty; };
-
-        private Because of = () => { _exception = Catch.Exception(() => _id.FromIdentityUserId()); };
+        private Because of =
+            () => _exception = Catch.Exception(
+                () => _user
+                    .SetUserName("not an email")
+            );
 
         private It should_fail =
-            () => { _exception.ShouldBeOfExactType<InvalidOperationException>(); };
+            () => _exception
+                .ShouldBeOfExactType<InvalidOperationException>();
 
         private It should_have_a_specific_reason =
-            () => { _exception.Message.ShouldContain("invalid"); };
+            () => _exception.Message
+                .ShouldContain("invalid");
 
-        private static string _id;
+        private static IdentityUser _user;
         private static Exception _exception;
-    }
-
-    [Subject(typeof (IdentityUserExtensions))]
-    public class When_Value_FromIdentityUserId
-    {
-        private Establish context = () => { _id = "IdentityUsers/1"; };
-
-        private Because of = () => { _result = _id.FromIdentityUserId(); };
-
-        private It should_be_the_username_part_of_the_id =
-            () => { _result.ShouldEqual("1"); };
-
-        private static string _id;
-        private static string _result;
     }
 }

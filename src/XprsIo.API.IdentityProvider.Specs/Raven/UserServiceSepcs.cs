@@ -11,21 +11,20 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     [Subject(typeof (UserService))]
     public class When_GetUserId
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId();
 
-        private Because of = () =>
-        {
-            _result = Machine
+        private Because of =
+            () => _result = Machine
                 .GetInstance<IUserService>()
                 .GetUserIdAsync(_user, CancellationToken.None)
                 .Await();
-        };
 
         private It should_be_the_raven_id =
-            () => { _result.ShouldEqual("IdentityUsers/1"); };
-
-        private It should_be_equal_to_the_id =
-            () => { _user.Id.ShouldEqual("IdentityUsers/1"); };
+            () => _result
+                .ShouldEqual(Machine.DefaultGuid.ToString());
 
         private static IdentityUser _user;
         private static string _result;
@@ -34,46 +33,49 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     [Subject(typeof (UserService))]
     public class When_GetUserName
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () =>
-        {
-            _result = Machine
+        private Because of =
+            () => _result = Machine
                 .GetInstance<IUserService>()
                 .GetUserNameAsync(_user, CancellationToken.None)
                 .Await();
-        };
 
-        private It should_be_the_raven_id_without_the_index_name =
-            () => { _result.ShouldEqual("1"); };
-
-        private It should_be_equal_to_the_username =
-            () => { _user.GetUserName().ShouldEqual("1"); };
+        private It should_be_the_primary_email =
+            () => _result
+                .ShouldEqual(Machine.DefaultEmail);
 
         private static IdentityUser _user;
         private static string _result;
     }
 
     [Subject(typeof (UserService))]
-    public class When_GetUserName_InvalidSource
+    public class When_GetUserName_NoPrimary
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId();
 
-        private Because of = () =>
-        {
-            _exception = Catch.Exception(
+        private Because of =
+            () => _exception = Catch.Exception(
                 () => Machine
                     .GetInstance<IUserService>()
                     .GetUserNameAsync(_user, CancellationToken.None)
                     .Await()
-                );
-        };
+            );
 
         private It should_fail =
-            () => { _exception.ShouldBeOfExactType<InvalidOperationException>(); };
+            () => _exception
+                .ShouldBeOfExactType<InvalidOperationException>();
 
         private It should_have_a_specific_reason =
-            () => { _exception.Message.ShouldContain("invalid"); };
+            () => _exception.Message
+                .ShouldContain("no primary email");
 
         private static IdentityUser _user;
         private static Exception _exception;
@@ -82,21 +84,21 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     [Subject(typeof (UserService))]
     public class When_SetUserName
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () =>
-        {
-            Machine
+        private Because of =
+            () => Machine
                 .GetInstance<IUserService>()
-                .SetUserNameAsync(_user, "2", CancellationToken.None)
+                .SetUserNameAsync(_user, "override+" + Machine.DefaultEmail, CancellationToken.None)
                 .Await();
-        };
-
-        private It should_be_the_raven_id_without_the_index_name =
-            () => { _user.Id.ShouldEqual("IdentityUsers/2"); };
-
+        
         private It should_be_equal_to_the_username =
-            () => { _user.GetUserName().ShouldEqual("2"); };
+            () => _user.GetUserName()
+                .ShouldEqual("override+" + Machine.DefaultEmail);
 
         private static IdentityUser _user;
     }
@@ -104,23 +106,56 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     [Subject(typeof (UserService))]
     public class When_SetUserName_Empty
     {
-        private Establish context = () => { _user = new IdentityUser { Id = "IdentityUsers/1" }; };
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
 
-        private Because of = () =>
-        {
-            _exception = Catch.Exception(
+        private Because of =
+            () => _exception = Catch.Exception(
                 () => Machine
                     .GetInstance<IUserService>()
                     .SetUserNameAsync(_user, string.Empty, CancellationToken.None)
                     .Await()
-                );
-        };
+            );
 
         private It should_fail =
-            () => { _exception.ShouldBeOfExactType<InvalidOperationException>(); };
+            () => _exception
+                .ShouldBeOfExactType<InvalidOperationException>();
 
         private It should_have_a_specific_reason =
-            () => { _exception.Message.ShouldContain("empty"); };
+            () => _exception.Message
+                .ShouldContain("empty");
+
+        private static IdentityUser _user;
+        private static Exception _exception;
+    }
+
+    [Subject(typeof(UserService))]
+    public class When_SetUserName_Invalid
+    {
+        private Establish context =
+            () => _user = Machine
+                .IdentityUser
+                .WithId()
+                .WithEmail(b => b.WithPrimary());
+
+        private Because of =
+            () => _exception = Catch.Exception(
+                () => Machine
+                    .GetInstance<IUserService>()
+                    .SetUserNameAsync(_user, "not an email", CancellationToken.None)
+                    .Await()
+            );
+
+        private It should_fail =
+            () => _exception
+                .ShouldBeOfExactType<InvalidOperationException>();
+
+        private It should_have_a_specific_reason =
+            () => _exception.Message
+                .ShouldContain("invalid");
 
         private static IdentityUser _user;
         private static Exception _exception;

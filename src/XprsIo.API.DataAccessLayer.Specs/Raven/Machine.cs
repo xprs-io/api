@@ -18,10 +18,8 @@ using SimpleInjector;
 using XprsIo.API.DataAccessLayer.Builders;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
-using XprsIo.API.IdentityProvider.Stores.Interfaces;
-using XprsIo.API.IdentityProvider.Stores.Raven;
 
-namespace XprsIo.API.IdentityProvider.Specs.Raven
+namespace XprsIo.API.DataAccessLayer.Specs.Raven
 {
     /// <summary>Base context for all IdentityProvider specifications.</summary>
     public static class Machine
@@ -40,8 +38,6 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private static void InitializeContainer(Container container)
         {
             container.Register(() => Mock.Of<IAsyncRavenContext>());
-
-            container.Register<IUserService, UserService>();
         }
 
         /// <summary>
@@ -56,7 +52,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         /// </returns>
         public static TService GetInstance<TService>() where TService : class
             => Container.GetInstance<TService>();
-
+        
         public static Guid DefaultGuid => new Guid("6574bd30-da34-4c90-9571-91c48e6a5c4c");
         public static string DefaultEmail => "specs@example.com";
         public static string DefaultKey => "key";
