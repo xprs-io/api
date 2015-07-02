@@ -12,19 +12,16 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
-
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
     /// <summary>
-    ///     Regroup users under a common banner to manage access rights. For
-    ///     instance, the "admin" role or the "user" role.
+    ///     Represents a claim associated to a role. Claims are a lightweight
+    ///     data structure to attach authentication-related information to a
+    ///     role.
     /// </summary>
-    public class IdentityRole
+    public class IdentityRoleClaim
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        public ICollection<IdentityRoleClaim> Claims { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }
