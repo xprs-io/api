@@ -14,6 +14,12 @@ namespace XprsIo.API.DataAccessLayer.Builders
             return this;
         }
 
+        public IdentityUserLoginBuilder WithProviderDisplayName(string value = null)
+        {
+            Context.ProviderDisplayName = value ?? Default.ProviderDisplayName;
+            return this;
+        }
+
         public IdentityUserLoginBuilder WithProviderKey(string value = null)
         {
             Context.ProviderKey = value ?? Default.ProviderKey;
