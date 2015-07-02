@@ -18,6 +18,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
@@ -45,7 +46,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         /// <exception cref="NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="claims" /> is null.</exception>
-        public async Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
             var identityUserClaims = claims
                 .Select(c => new IdentityUserClaim
@@ -59,10 +60,10 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
                 user.Claims.Add(claim);
             }
 
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return TaskEx.Completed;
         }
         
-        public async Task ReplaceClaimAsync(
+        public Task ReplaceClaimAsync(
             IdentityUser user,
             Claim claim,
             Claim newClaim,
@@ -73,17 +74,17 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
             if (storedClaim == null)
             {
-                return;
+                return TaskEx.Completed;
             }
 
             storedClaim.Value = newClaim.Value;
 
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return TaskEx.Completed;
         }
 
         /// <exception cref="NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="claims" /> is null.</exception>
-        public async Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
             var storedClaims = claims
                 .SelectMany(claim => user.Claims.Where(c => c.Key == claim.Type));
@@ -93,7 +94,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
                 user.Claims.Remove(storedClaim);
             }
 
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return TaskEx.Completed;
         }
 
         public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
