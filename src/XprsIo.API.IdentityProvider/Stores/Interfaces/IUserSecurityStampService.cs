@@ -21,6 +21,12 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     /// <summary>Stores a user's security stamp</summary>
     public interface IUserSecurityStampService
     {
+        /// <summary>Get the <paramref name="user" /> security stamp</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken);
+
         /// <summary>
         ///     Set the security <paramref name="stamp" /> for the
         ///     <paramref name="user" />
@@ -30,11 +36,5 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken);
-
-        /// <summary>Get the <paramref name="user" /> security stamp</summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken);
     }
 }

@@ -15,6 +15,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
@@ -30,14 +31,14 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
+        public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
+            => Task.FromResult(user.SecurityStamp);
+
         public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            user.SecurityStamp = stamp;
 
-        public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return TaskEx.Completed;
         }
     }
 }
