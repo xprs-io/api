@@ -15,6 +15,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
@@ -30,24 +31,24 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
+        public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
+            => Task.FromResult(user.PhoneNumber);
+
         public Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            user.PhoneNumber = phoneNumber;
 
-        public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return TaskEx.Completed;
         }
 
         public Task<bool> GetPhoneNumberConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.IsPhoneNumberConfirmed);
 
         public Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.IsPhoneNumberConfirmed = confirmed;
+
+            return TaskEx.Completed;
         }
     }
 }

@@ -21,18 +21,18 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     /// <summary>Stores a user's phoneNumber</summary>
     public interface IUserPhoneNumberService
     {
+        /// <summary>Get the <paramref name="user" /> phoneNumber</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken);
+
         /// <summary>Set the <paramref name="user" /> PhoneNumber</summary>
         /// <param name="user"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken);
-
-        /// <summary>Get the <paramref name="user" /> phoneNumber</summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Returns <see langword="true" /> if the <paramref name="user" />
