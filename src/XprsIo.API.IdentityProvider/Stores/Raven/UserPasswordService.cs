@@ -15,6 +15,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
@@ -30,19 +31,17 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
+        public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
+            => Task.FromResult(user.PasswordHash);
+
         public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            user.PasswordHash = passwordHash;
 
-        public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return TaskEx.Completed;
         }
 
         public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.PasswordHash != null);
     }
 }

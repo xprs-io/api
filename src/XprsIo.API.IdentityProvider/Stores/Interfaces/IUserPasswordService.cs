@@ -21,18 +21,18 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     /// <summary>Stores a user's password hash</summary>
     public interface IUserPasswordService
     {
+        /// <summary>Get the <paramref name="user" /> password hash</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken);
+
         /// <summary>Set the <paramref name="user" /> password hash</summary>
         /// <param name="user"></param>
         /// <param name="passwordHash"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken);
-
-        /// <summary>Get the <paramref name="user" /> password hash</summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Returns <see langword="true" /> if a <paramref name="user" /> has
