@@ -31,7 +31,7 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
 
         public int AccessFailedCount { get; set; }
         public bool IsLockoutEnabled { get; set; }
-        public DateTime? LockedEndDateUtc { get; set; }
+        public DateTimeOffset? LockedEndDateUtc { get; set; }
 
         public string SecurityStamp { get; set; }
 

@@ -74,7 +74,7 @@ namespace XprsIo.API.DataAccessLayer.Builders
             return this;
         }
 
-        public IdentityUserBuilder WithLockedEndDateUtc(DateTime? value = null)
+        public IdentityUserBuilder WithLockedEndDateUtc(DateTimeOffset? value = null)
         {
             Context.LockedEndDateUtc = value ?? Default.LockedEndDateUtc;
             return this;
