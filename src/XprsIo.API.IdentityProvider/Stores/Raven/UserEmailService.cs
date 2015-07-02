@@ -13,10 +13,16 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt;
+using FluffIt.StaticExtensions;
+using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Extensions;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Queries;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
@@ -30,42 +36,47 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
+        public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
+            => Task.FromResult(user.GetUserName());
+
         public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            user.SetUserName(email);
 
-        public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return TaskEx.Completed;
         }
 
         public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.Emails.FirstOrDefault(e => e.IsPrimary).SelectOrDefault(e => e.IsConfirmed));
 
         public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var email = user.Emails.FirstOrDefault(e => e.IsPrimary);
 
-        public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            if (email != null)
+            {
+                email.IsConfirmed = true;
+            }
+
+            return TaskEx.Completed;
         }
 
         public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.GetUserName());
 
         public Task SetNormalizedEmailAsync(
             IdentityUser user,
             string normalizedEmail,
             CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.SetUserName(normalizedEmail);
+
+            return TaskEx.Completed;
         }
+
+        public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+            => _context.IdentityUsers
+                .QueryByEmail(normalizedEmail)
+                .FirstOrDefaultAsync();
     }
 }

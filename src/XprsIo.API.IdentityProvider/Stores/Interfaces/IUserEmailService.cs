@@ -21,6 +21,12 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     /// <summary>Stores a user's email</summary>
     public interface IUserEmailService
     {
+        /// <summary>Get the <paramref name="user" /> email</summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken);
+
         /// <summary>
         ///     Set the <paramref name="user" /> <paramref name="email" />
         /// </summary>
@@ -29,12 +35,6 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken);
-
-        /// <summary>Get the <paramref name="user" /> email</summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Returns <see langword="true" /> if the <paramref name="user" />
@@ -55,12 +55,6 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
         /// <returns></returns>
         Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken);
 
-        /// <summary>Returns the user associated with this email</summary>
-        /// <param name="normalizedEmail"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken);
-
         /// <summary>Returns the normalized email</summary>
         /// <param name="user"></param>
         /// <param name="cancellationToken"></param>
@@ -73,5 +67,11 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task SetNormalizedEmailAsync(IdentityUser user, string normalizedEmail, CancellationToken cancellationToken);
+
+        /// <summary>Returns the user associated with this email</summary>
+        /// <param name="normalizedEmail"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken);
     }
 }
