@@ -27,6 +27,14 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     public interface IUserLoginService
     {
         /// <summary>
+        ///     Returns the linked accounts for this <paramref name="user" />
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken);
+
+        /// <summary>
         ///     Adds a <paramref name="user" /> <paramref name="login" /> with the
         ///     specified provider and key
         /// </summary>
@@ -51,14 +59,6 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
             string loginProvider,
             string providerKey,
             CancellationToken cancellationToken);
-
-        /// <summary>
-        ///     Returns the linked accounts for this <paramref name="user" />
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>Returns the user associated with this login</summary>
         /// <param name="loginProvider"></param>

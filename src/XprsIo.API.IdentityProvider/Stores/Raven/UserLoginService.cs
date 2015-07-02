@@ -14,11 +14,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using Microsoft.AspNet.Identity;
+using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Queries;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
@@ -32,9 +36,26 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
+        {
+            var logins = user.Logins
+                .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName));
+
+            return Task.FromResult((IList<UserLoginInfo>)logins.ToList());
+        }
+
         public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var userLogin = new IdentityUserLogin
+            {
+                LoginProvider = login.LoginProvider,
+                ProviderDisplayName = login.ProviderDisplayName,
+                ProviderKey = login.ProviderKey
+            };
+
+            user.Logins.Add(userLogin);
+
+            return TaskEx.Completed;
         }
 
         public Task RemoveLoginAsync(
@@ -43,20 +64,23 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             string providerKey,
             CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var storedLogins = user.Logins
+                .Where(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey);
 
-        public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            foreach (var login in storedLogins)
+            {
+                user.Logins.Remove(login);
+            }
+
+            return TaskEx.Completed;
         }
 
         public Task<IdentityUser> FindByLoginAsync(
             string loginProvider,
             string providerKey,
             CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => _context.IdentityUsers
+                .QueryByLogin(loginProvider, providerKey)
+                .FirstOrDefaultAsync();
     }
 }
