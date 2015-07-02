@@ -159,5 +159,36 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
                     l.ProviderKey == providerKey
                 ));
         }
+
+        /// <summary>
+        ///     Query a <paramref name="repository" /> for all entities matching
+        ///     the provided <paramref name="role" /> .
+        /// </summary>
+        /// <param name="repository">The repository to query.</param>
+        /// <param name="role">The role to look for.</param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="repository" /> or <paramref name="role" /> is
+        ///     <see langword="null" /> .
+        /// </exception>
+        /// <returns>
+        ///     Returns a query object that can be extended or executed later.
+        /// </returns>
+        public static IQueryable<IdentityUser> QueryByRole(
+            [NotNull] this IQueryableRepository<IdentityUser> repository,
+            [NotNull] string role)
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            if (role == null)
+            {
+                throw new ArgumentNullException(nameof(role));
+            }
+
+            return repository.Query()
+                .Where(u => u.Roles.Any(r => r.Name == role));
+        }
     }
 }
