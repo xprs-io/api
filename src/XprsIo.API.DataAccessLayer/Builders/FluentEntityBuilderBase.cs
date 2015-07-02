@@ -13,18 +13,18 @@
 // //////////////////////////////////////////////////////////////////////////////////
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public abstract class EntityBuilderBase<TEntity>
+    public abstract class FluentEntityBuilderBase<TEntity>
         where TEntity : class, new()
     {
         protected readonly TEntity Default;
         protected readonly TEntity Context = new TEntity();
 
-        protected EntityBuilderBase(TEntity @default)
+        protected FluentEntityBuilderBase(TEntity @default)
         {
             Default = @default;
         }
 
-        public static implicit operator TEntity(EntityBuilderBase<TEntity> b)
+        public static implicit operator TEntity(FluentEntityBuilderBase<TEntity> b)
             => b.Context;
     }
 }

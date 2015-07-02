@@ -5,7 +5,7 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserBuilder : EntityBuilderBase<IdentityUser>
+    public class IdentityUserBuilder : FluentEntityBuilderBase<IdentityUser>
     {
         private readonly Func<IdentityRoleBuilder> _identityRoleBuilderFactory;
         private readonly Func<IdentityUserEmailBuilder> _identityUserEmailBuilderFactory;

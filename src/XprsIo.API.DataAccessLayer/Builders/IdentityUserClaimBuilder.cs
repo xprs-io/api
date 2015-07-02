@@ -2,7 +2,7 @@
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserClaimBuilder : EntityBuilderBase<IdentityUserClaim>
+    public class IdentityUserClaimBuilder : FluentEntityBuilderBase<IdentityUserClaim>
     {
         public IdentityUserClaimBuilder(IdentityUserClaim @default) : base(@default)
         {

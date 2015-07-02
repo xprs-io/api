@@ -2,7 +2,7 @@
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserEmailBuilder : EntityBuilderBase<IdentityUserEmail>
+    public class IdentityUserEmailBuilder : FluentEntityBuilderBase<IdentityUserEmail>
     {
         public IdentityUserEmailBuilder(IdentityUserEmail @default) : base(@default)
         {

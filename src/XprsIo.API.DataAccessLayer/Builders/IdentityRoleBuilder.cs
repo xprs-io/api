@@ -2,7 +2,7 @@
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityRoleBuilder : EntityBuilderBase<IdentityRole>
+    public class IdentityRoleBuilder : FluentEntityBuilderBase<IdentityRole>
     {
         public IdentityRoleBuilder(IdentityRole @default) : base(@default)
         {

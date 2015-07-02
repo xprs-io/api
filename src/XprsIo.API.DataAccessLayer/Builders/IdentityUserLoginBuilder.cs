@@ -2,7 +2,7 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserLoginBuilder : EntityBuilderBase<IdentityUserLogin>
+    public class IdentityUserLoginBuilder : FluentEntityBuilderBase<IdentityUserLogin>
     {
         public IdentityUserLoginBuilder(IdentityUserLogin @default) : base(@default)
         {
