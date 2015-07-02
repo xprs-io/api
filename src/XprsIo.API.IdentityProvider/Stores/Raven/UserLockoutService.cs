@@ -15,6 +15,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
@@ -31,41 +32,39 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<DateTimeOffset?> GetLockoutEndDateAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.LockedEndDateUtc);
 
         public Task SetLockoutEndDateAsync(
             IdentityUser user,
             DateTimeOffset? lockoutEnd,
             CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.LockedEndDateUtc = lockoutEnd;
+
+            return TaskEx.Completed;
         }
 
         public Task<int> IncrementAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(++user.AccessFailedCount);
 
         public Task ResetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.AccessFailedCount = 0;
+
+            return TaskEx.Completed;
         }
 
         public Task<int> GetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.AccessFailedCount);
 
         public Task<bool> GetLockoutEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.IsLockoutEnabled);
 
         public Task SetLockoutEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.IsLockoutEnabled = enabled;
+
+            return TaskEx.Completed;
         }
     }
 }
