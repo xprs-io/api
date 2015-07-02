@@ -17,7 +17,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Interfaces;
-using XprsIo.API.DataAccessLayer.Providers.Raven.Extensions;
 
 namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
 {
@@ -86,6 +85,79 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
             
             return repository.Query()
                 .Where(u => u.Claims.Any(c => c.Key == key));
+        }
+
+        /// <summary>
+        ///     Query a <paramref name="repository" /> for all entities matching
+        ///     the provided email <paramref name="email" /> .
+        /// </summary>
+        /// <param name="repository">The repository to query.</param>
+        /// <param name="email">The email to look for.</param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="repository" /> or <paramref name="email" /> is
+        ///     <see langword="null" /> .
+        /// </exception>
+        /// <returns>
+        ///     Returns a query object that can be extended or executed later.
+        /// </returns>
+        public static IQueryable<IdentityUser> QueryByEmail(
+            [NotNull] this IQueryableRepository<IdentityUser> repository,
+            [NotNull] string email)
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            return repository.Query()
+                .Where(u => u.Emails.Any(e => e.Email == email));
+        }
+
+        /// <summary>
+        ///     Query a <paramref name="repository" /> for all entities matching
+        ///     the provided login <paramref name="loginProvider" /> and
+        ///     <paramref name="providerKey"/>.
+        /// </summary>
+        /// <param name="repository">The repository to query.</param>
+        /// <param name="loginProvider">The login provider to look for.</param>
+        /// <param name="providerKey">The provider key to look for.</param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="repository" /> or <paramref name="loginProvider" />
+        ///     or <paramref name="providerKey"/> is <see langword="null" /> .
+        /// </exception>
+        /// <returns>
+        ///     Returns a query object that can be extended or executed later.
+        /// </returns>
+        public static IQueryable<IdentityUser> QueryByLogin(
+            [NotNull] this IQueryableRepository<IdentityUser> repository,
+            [NotNull] string loginProvider,
+            [NotNull] string providerKey)
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            if (loginProvider == null)
+            {
+                throw new ArgumentNullException(nameof(loginProvider));
+            }
+
+            if (providerKey == null)
+            {
+                throw new ArgumentNullException(nameof(providerKey));
+            }
+
+            return repository.Query()
+                .Where(u => u.Logins.Any(l =>
+                    l.LoginProvider == loginProvider &&
+                    l.ProviderKey == providerKey
+                ));
         }
     }
 }
