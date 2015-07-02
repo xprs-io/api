@@ -14,10 +14,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluffIt.StaticExtensions;
+using Raven.Client;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.DataAccessLayer.Providers.Raven.Queries;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
@@ -31,29 +35,35 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             _context = context;
         }
 
+        public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
+            => Task.FromResult((IList<string>)user.Roles.Select(r => r.Name).ToList());
+
         public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.Roles.Add(new IdentityRole { Name = roleName });
+
+            return TaskEx.Completed;
         }
 
         public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var roles = user.Roles
+                .Where(r => r.Name == roleName);
 
-        public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            foreach (var role in roles)
+            {
+                user.Roles.Remove(role);
+            }
+
+            return TaskEx.Completed;
         }
 
         public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => Task.FromResult(user.Roles.Any(r => r.Name == roleName));
 
         public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            => _context.IdentityUsers
+                .QueryByRole(roleName)
+                .ToListAsync(cancellationToken);
     }
 }

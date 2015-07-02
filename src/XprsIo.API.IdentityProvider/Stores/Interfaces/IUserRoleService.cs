@@ -22,6 +22,14 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     /// <summary>Interface that maps users to their roles</summary>
     public interface IUserRoleService
     {
+        /// <summary>
+        ///     Returns the roles for this <paramref name="user" />
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken);
+
         /// <summary>Adds a <paramref name="user" /> to role</summary>
         /// <param name="user"></param>
         /// <param name="roleName"></param>
@@ -35,14 +43,6 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken);
-
-        /// <summary>
-        ///     Returns the roles for this <paramref name="user" />
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Returns <see langword="true" /> if a <paramref name="user" /> is
