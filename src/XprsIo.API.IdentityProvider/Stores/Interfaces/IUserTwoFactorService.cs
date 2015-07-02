@@ -22,6 +22,15 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
     public interface IUserTwoFactorService
     {
         /// <summary>
+        ///     Returns whether two factor is enabled for the
+        ///     <paramref name="user" />
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken);
+
+        /// <summary>
         ///     Sets whether two factor is <paramref name="enabled" /> for the
         ///     <paramref name="user" />
         /// </summary>
@@ -30,14 +39,5 @@ namespace XprsIo.API.IdentityProvider.Stores.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken);
-
-        /// <summary>
-        ///     Returns whether two factor is enabled for the
-        ///     <paramref name="user" />
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken);
     }
 }
