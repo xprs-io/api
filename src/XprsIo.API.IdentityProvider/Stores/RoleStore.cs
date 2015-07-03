@@ -31,11 +31,19 @@ namespace XprsIo.API.IdentityProvider.Stores
     {
         private readonly IRoleService _roleService;
 
+        private readonly IRoleClaimService _roleClaimService;
+        private readonly IQueryableRoleService _queryableRoleService;
+
         private bool _isDisposed;
 
-        public RoleStore(IRoleService roleService)
+        public RoleStore(
+            IRoleService roleService,
+            IRoleClaimService roleClaimService,
+            IQueryableRoleService queryableRoleService)
         {
             _roleService = roleService;
+            _roleClaimService = roleClaimService;
+            _queryableRoleService = queryableRoleService;
         }
 
         #region Implementation of IDisposable
@@ -314,26 +322,93 @@ namespace XprsIo.API.IdentityProvider.Stores
 
         #region Implementation of IRoleClaimStore<IdentityRole>
 
+        /// <exception cref="OperationCanceledException">
+        ///     The token has had cancellation requested.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     The store as been marked as disposed and should be not used anymore.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="role" /> is <see langword="null" /> .
+        /// </exception>
         public Task<IList<Claim>> GetClaimsAsync(IdentityRole role, CancellationToken cancellationToken = new CancellationToken())
         {
-            throw new System.NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            if (role == null)
+            {
+                throw new ArgumentNullException(nameof(role));
+            }
+
+            return _roleClaimService.GetClaimsAsync(role, cancellationToken);
         }
 
+        /// <exception cref="OperationCanceledException">
+        ///     The token has had cancellation requested.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     The store as been marked as disposed and should be not used anymore.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="role" /> or <paramref name="claim"/> is <see langword="null" /> .
+        /// </exception>
         public Task AddClaimAsync(IdentityRole role, Claim claim, CancellationToken cancellationToken = new CancellationToken())
         {
-            throw new System.NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            if (role == null)
+            {
+                throw new ArgumentNullException(nameof(role));
+            }
+            if (claim == null)
+            {
+                throw new ArgumentNullException(nameof(claim));
+            }
+
+            return _roleClaimService.AddClaimAsync(role, claim, cancellationToken);
         }
 
+        /// <exception cref="OperationCanceledException">
+        ///     The token has had cancellation requested.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     The store as been marked as disposed and should be not used anymore.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="role" /> or <paramref name="claim"/> is <see langword="null" /> .
+        /// </exception>
         public Task RemoveClaimAsync(IdentityRole role, Claim claim, CancellationToken cancellationToken = new CancellationToken())
         {
-            throw new System.NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            if (role == null)
+            {
+                throw new ArgumentNullException(nameof(role));
+            }
+            if (claim == null)
+            {
+                throw new ArgumentNullException(nameof(claim));
+            }
+
+            return _roleClaimService.RemoveClaimAsync(role, claim, cancellationToken);
         }
 
         #endregion
 
         #region Implementation of IQueryableRoleStore<IdentityRole>
 
-        public IQueryable<IdentityRole> Roles { get; }
+        /// <exception cref="ObjectDisposedException" accessor="get">
+        ///     The store as been marked as disposed and should be not used anymore.
+        /// </exception>
+        public IQueryable<IdentityRole> Roles
+        {
+            get
+            {
+                ThrowIfDisposed();
+
+                return _queryableRoleService.Roles;
+            }
+        }
 
         #endregion
 
