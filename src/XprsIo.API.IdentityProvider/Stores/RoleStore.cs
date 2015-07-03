@@ -68,9 +68,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public async Task<IdentityResult> CreateAsync(IdentityRole role, CancellationToken cancellationToken)
         {
@@ -97,9 +95,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public async Task<IdentityResult> UpdateAsync(IdentityRole role, CancellationToken cancellationToken)
         {
@@ -126,9 +122,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public async Task<IdentityResult> DeleteAsync(IdentityRole role, CancellationToken cancellationToken)
         {
@@ -155,9 +149,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetRoleIdAsync(IdentityRole role, CancellationToken cancellationToken)
         {
@@ -182,9 +174,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
         {
@@ -209,9 +199,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
         {
@@ -236,9 +224,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetNormalizedRoleNameAsync(IdentityRole role, CancellationToken cancellationToken)
         {
@@ -263,9 +249,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetNormalizedRoleNameAsync(
             IdentityRole role,
@@ -287,9 +271,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
         {
@@ -304,9 +286,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IdentityRole> FindByNameAsync(
             string normalizedRoleName,

@@ -157,9 +157,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetUserIdAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -184,9 +182,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -211,9 +207,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
         {
@@ -238,9 +232,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -265,9 +257,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetNormalizedUserNameAsync(
             IdentityUser user,
@@ -295,9 +285,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public async Task<IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -324,9 +312,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public async Task<IdentityResult> UpdateAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -353,9 +339,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public async Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -370,15 +354,13 @@ namespace XprsIo.API.IdentityProvider.Stores
 
             return IdentityResult.Success;
         }
-        
+
         /// <exception cref="ObjectDisposedException">
         ///     The associated <see cref="CancellationTokenSource" /> has been
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
@@ -393,9 +375,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IdentityUser> FindByNameAsync(
             string normalizedUserName,
@@ -425,9 +405,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
         {
@@ -456,9 +434,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task RemoveLoginAsync(
             IdentityUser user,
@@ -487,9 +463,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -511,9 +485,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IdentityUser> FindByLoginAsync(
             string loginProvider,
@@ -541,9 +513,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
         {
@@ -568,9 +538,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task RemoveFromRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
         {
@@ -595,9 +563,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IList<string>> GetRolesAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -622,9 +588,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<bool> IsInRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
         {
@@ -646,9 +610,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IList<IdentityUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
         {
@@ -673,9 +635,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -703,9 +663,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
@@ -740,9 +698,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task ReplaceClaimAsync(
             IdentityUser user,
@@ -782,9 +738,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
@@ -813,9 +767,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)
         {
@@ -844,9 +796,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
         {
@@ -871,9 +821,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetPasswordHashAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -898,9 +846,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -929,9 +875,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
         {
@@ -956,9 +900,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetSecurityStampAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -987,9 +929,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
         {
@@ -1014,9 +954,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1041,9 +979,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1068,9 +1004,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
@@ -1092,9 +1026,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<IdentityUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
@@ -1115,9 +1047,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1142,9 +1072,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetNormalizedEmailAsync(
             IdentityUser user,
@@ -1176,9 +1104,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<DateTimeOffset?> GetLockoutEndDateAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1203,9 +1129,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetLockoutEndDateAsync(
             IdentityUser user,
@@ -1233,9 +1157,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<int> IncrementAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1260,9 +1182,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task ResetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1287,9 +1207,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<int> GetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1314,9 +1232,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<bool> GetLockoutEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1341,9 +1257,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetLockoutEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
         {
@@ -1372,9 +1286,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken)
         {
@@ -1399,9 +1311,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1426,9 +1336,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<bool> GetPhoneNumberConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1453,9 +1361,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
@@ -1484,9 +1390,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
         {
@@ -1511,9 +1415,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         ///     disposed.
         /// </exception>
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public Task<bool> GetTwoFactorEnabledAsync(IdentityUser user, CancellationToken cancellationToken)
         {
@@ -1532,9 +1434,7 @@ namespace XprsIo.API.IdentityProvider.Stores
         #region Implementation of IQueryableUserService<IdentityUser>
 
         /// <exception cref="ObjectDisposedException">
-        ///     The associated
-        ///     <see cref="XprsIO.API.IdentityProvider.Stores.UserService" /> has
-        ///     been disposed.
+        ///     The store as been marked as disposed and should be not used anymore.
         /// </exception>
         public IQueryable<IdentityUser> Users
         {
