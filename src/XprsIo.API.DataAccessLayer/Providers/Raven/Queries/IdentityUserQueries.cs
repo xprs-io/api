@@ -84,7 +84,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Queries
             }
             
             return repository.Query()
-                .Where(u => u.Claims.Any(c => c.Key == key));
+                .Where(u => u.Claims.Any(c => c.Type == key));
         }
 
         /// <summary>

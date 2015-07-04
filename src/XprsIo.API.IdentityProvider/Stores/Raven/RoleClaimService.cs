@@ -20,13 +20,13 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         }
 
         public Task<IList<Claim>> GetClaimsAsync(IdentityRole role, CancellationToken cancellationToken)
-            => Task.FromResult((IList<Claim>)role.Claims.Select(c => new Claim(c.Key, c.Value)).ToList());
+            => Task.FromResult((IList<Claim>)role.Claims.Select(c => new Claim(c.Type, c.Value)).ToList());
 
         public Task AddClaimAsync(IdentityRole role, Claim claim, CancellationToken cancellationToken)
         {
             role.Claims.Add(new IdentityRoleClaim
             {
-                Key = claim.Type,
+                Type = claim.Type,
                 Value = claim.Value
             });
 
@@ -36,7 +36,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         public Task RemoveClaimAsync(IdentityRole role, Claim claim, CancellationToken cancellationToken)
         {
             var storedClaims = role.Claims
-                .Where(c => c.Key == claim.Type);
+                .Where(c => c.Type == claim.Type);
 
             foreach (var storedClaim in storedClaims)
             {

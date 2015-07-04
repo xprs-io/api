@@ -10,7 +10,7 @@ namespace XprsIo.API.DataAccessLayer.Builders
 
         public IdentityUserClaimBuilder WithKey(string value = null)
         {
-            Context.Key = value ?? Default.Key;
+            Context.Type = value ?? Default.Type;
             return this;
         }
 

@@ -39,7 +39,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         public Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             var claims = user.Claims
-                .Select(c => new Claim(c.Key, c.Value));
+                .Select(c => new Claim(c.Type, c.Value));
 
             return Task.FromResult((IList<Claim>)claims.ToList());
         }
@@ -51,7 +51,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             var identityUserClaims = claims
                 .Select(c => new IdentityUserClaim
                 {
-                    Key = c.Type,
+                    Type = c.Type,
                     Value = c.Value
                 });
 
@@ -70,7 +70,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             CancellationToken cancellationToken)
         {
             var storedClaim = user.Claims
-                .FirstOrDefault(c => c.Key == claim.Type);
+                .FirstOrDefault(c => c.Type == claim.Type);
 
             if (storedClaim == null)
             {
@@ -87,7 +87,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         public Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
             var storedClaims = claims
-                .SelectMany(claim => user.Claims.Where(c => c.Key == claim.Type));
+                .SelectMany(claim => user.Claims.Where(c => c.Type == claim.Type));
 
             foreach (var storedClaim in storedClaims)
             {
