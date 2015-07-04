@@ -12,6 +12,8 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
     /// <summary>
@@ -21,7 +23,68 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
     /// </summary>
     public class IdentityRoleClaim
     {
-        public string Type { get; set; }
-        public string Value { get; set; }
+        public class MutableIdentityRoleClaimProxy
+        {
+            private readonly IdentityRoleClaim _instance;
+
+            public MutableIdentityRoleClaimProxy(IdentityRoleClaim instance)
+            {
+                _instance = instance;
+            }
+
+            public IdentityRoleClaim Freeze()
+            {
+                return _instance;
+            }
+
+            public MutableIdentityRoleClaimProxy SetType(string value)
+            {
+                _instance.Type = value;
+                return this;
+            }
+
+            public MutableIdentityRoleClaimProxy SetValue(string value)
+            {
+                _instance.Value = value;
+                return this;
+            }
+        }
+
+        public static readonly IdentityRoleClaim Empty = new IdentityRoleClaim();
+
+        public string Type { get; private set; }
+        public string Value { get; private set; }
+
+        private IdentityRoleClaim()
+        {
+            Type = string.Empty;
+            Value = string.Empty;
+        }
+
+        public IdentityRoleClaim(string type, string value)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(type));
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(value));
+            }
+
+            Type = type;
+            Value = value;
+        }
+
+        public MutableIdentityRoleClaimProxy Mutate()
+        {
+            if (this == Empty)
+            {
+                throw new InvalidOperationException("Cannot mutate the default Empty value");
+            }
+
+            return new MutableIdentityRoleClaimProxy(this);
+        }
     }
 }

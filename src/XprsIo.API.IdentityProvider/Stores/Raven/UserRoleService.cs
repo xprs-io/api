@@ -40,7 +40,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task AddToRoleAsync(IdentityUser user, string roleName, CancellationToken cancellationToken)
         {
-            user.Roles.Add(new IdentityRole { Name = roleName });
+            user.Roles.Add(new IdentityRole(0, roleName, new List<IdentityRoleClaim>()));
 
             return TaskEx.Completed;
         }

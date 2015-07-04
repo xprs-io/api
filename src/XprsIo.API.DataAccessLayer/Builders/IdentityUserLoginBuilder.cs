@@ -2,27 +2,40 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserLoginBuilder : FluentEntityBuilderBase<IdentityUserLogin>
+    public class IdentityUserLoginBuilder : FluentEntityBuilderBase<IdentityUserLogin, IdentityUserLoginBuilder>
     {
-        public IdentityUserLoginBuilder(IdentityUserLogin @default) : base(@default)
+        private string _loginProvider;
+        private string _providerDisplayName;
+        private string _providerKey;
+
+        public IdentityUserLoginBuilder(IdentityUserLogin defaultEntity = null)
+            : base(b => new IdentityUserLogin(b._loginProvider, b._providerDisplayName, b._providerKey))
         {
+            if (defaultEntity == null)
+            {
+                defaultEntity = IdentityUserLogin.Empty;
+            }
+
+            _loginProvider = defaultEntity.LoginProvider;
+            _providerDisplayName = defaultEntity.ProviderDisplayName;
+            _providerKey = defaultEntity.ProviderKey;
         }
 
-        public IdentityUserLoginBuilder WithLoginProvider(string value = null)
+        public IdentityUserLoginBuilder WithLoginProvider(string value)
         {
-            Context.LoginProvider = value ?? Default.LoginProvider;
+            _loginProvider = value;
             return this;
         }
 
-        public IdentityUserLoginBuilder WithProviderDisplayName(string value = null)
+        public IdentityUserLoginBuilder WithProviderDisplayName(string value)
         {
-            Context.ProviderDisplayName = value ?? Default.ProviderDisplayName;
+            _providerDisplayName = value;
             return this;
         }
 
-        public IdentityUserLoginBuilder WithProviderKey(string value = null)
+        public IdentityUserLoginBuilder WithProviderKey(string value)
         {
-            Context.ProviderKey = value ?? Default.ProviderKey;
+            _providerKey = value;
             return this;
         }
     }

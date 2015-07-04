@@ -12,6 +12,8 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
     /// <summary>
@@ -21,7 +23,68 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
     /// </summary>
     public class IdentityUserClaim
     {
-        public string Type { get; set; }
-        public string Value { get; set; }
+        public class MutableIdentityUserClaimProxy
+        {
+            private readonly IdentityUserClaim _instance;
+
+            public MutableIdentityUserClaimProxy(IdentityUserClaim instance)
+            {
+                _instance = instance;
+            }
+
+            public IdentityUserClaim Freeze()
+            {
+                return _instance;
+            }
+
+            public MutableIdentityUserClaimProxy SetType(string value)
+            {
+                _instance.Type = value;
+                return this;
+            }
+
+            public MutableIdentityUserClaimProxy SetValue(string value)
+            {
+                _instance.Value = value;
+                return this;
+            }
+        }
+
+        public static readonly IdentityUserClaim Empty = new IdentityUserClaim();
+
+        public string Type { get; private set; }
+        public string Value { get; private set; }
+
+        private IdentityUserClaim()
+        {
+            Type = string.Empty;
+            Value = string.Empty;
+        }
+
+        public IdentityUserClaim(string type, string value)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(type));
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(value));
+            }
+
+            Type = type;
+            Value = value;
+        }
+
+        public MutableIdentityUserClaimProxy Mutate()
+        {
+            if (this == Empty)
+            {
+                throw new InvalidOperationException("Cannot mutate the default Empty value");
+            }
+
+            return new MutableIdentityUserClaimProxy(this);
+        }
     }
 }

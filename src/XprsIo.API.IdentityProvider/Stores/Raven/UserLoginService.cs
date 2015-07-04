@@ -46,12 +46,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken)
         {
-            var userLogin = new IdentityUserLogin
-            {
-                LoginProvider = login.LoginProvider,
-                ProviderDisplayName = login.ProviderDisplayName,
-                ProviderKey = login.ProviderKey
-            };
+            var userLogin = new IdentityUserLogin(login.LoginProvider, login.ProviderDisplayName, login.ProviderKey);
 
             user.Logins.Add(userLogin);
 

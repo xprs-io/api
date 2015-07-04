@@ -36,7 +36,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetPhoneNumberAsync(IdentityUser user, string phoneNumber, CancellationToken cancellationToken)
         {
-            user.PhoneNumber = phoneNumber;
+            user.Mutate().SetPhoneNumber(phoneNumber);
 
             return TaskEx.Completed;
         }
@@ -46,7 +46,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetPhoneNumberConfirmedAsync(IdentityUser user, bool confirmed, CancellationToken cancellationToken)
         {
-            user.IsPhoneNumberConfirmed = confirmed;
+            user.Mutate().SetPhoneNumberConfirmed(confirmed);
 
             return TaskEx.Completed;
         }

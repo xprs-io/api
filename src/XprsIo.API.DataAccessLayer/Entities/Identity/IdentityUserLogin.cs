@@ -12,6 +12,8 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
 {
     /// <summary>
@@ -20,8 +22,82 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
     /// </summary>
     public class IdentityUserLogin
     {
-        public string LoginProvider { get; set; }
-        public string ProviderDisplayName { get; set; }
-        public string ProviderKey { get; set; }
+        public class MutableIdentityUserLoginProxy
+        {
+            private readonly IdentityUserLogin _instance;
+
+            public MutableIdentityUserLoginProxy(IdentityUserLogin instance)
+            {
+                _instance = instance;
+            }
+
+            public IdentityUserLogin Freeze()
+            {
+                return _instance;
+            }
+
+            public MutableIdentityUserLoginProxy SetLoginProvider(string value)
+            {
+                _instance.LoginProvider = value;
+                return this;
+            }
+
+            public MutableIdentityUserLoginProxy SetProviderDisplayName(string value)
+            {
+                _instance.ProviderDisplayName = value;
+                return this;
+            }
+
+            public MutableIdentityUserLoginProxy SetProviderKey(string value)
+            {
+                _instance.ProviderKey = value;
+                return this;
+            }
+        }
+
+        public static readonly IdentityUserLogin Empty = new IdentityUserLogin();
+
+        public string LoginProvider { get; private set; }
+        public string ProviderDisplayName { get; private set; }
+        public string ProviderKey { get; private set; }
+
+        private IdentityUserLogin()
+        {
+            LoginProvider = string.Empty;
+            ProviderDisplayName = string.Empty;
+            ProviderKey = string.Empty;
+        }
+
+        public IdentityUserLogin(string loginProvider, string providerDisplayName, string providerKey)
+        {
+            if (string.IsNullOrEmpty(loginProvider))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(loginProvider));
+            }
+
+            if (string.IsNullOrEmpty(providerDisplayName))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(providerDisplayName));
+            }
+
+            if (string.IsNullOrEmpty(providerKey))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(providerKey));
+            }
+            
+            LoginProvider = loginProvider;
+            ProviderDisplayName = providerDisplayName;
+            ProviderKey = providerKey;
+        }
+
+        public MutableIdentityUserLoginProxy Mutate()
+        {
+            if (this == Empty)
+            {
+                throw new InvalidOperationException("Cannot mutate the default Empty value");
+            }
+
+            return new MutableIdentityUserLoginProxy(this);
+        }
     }
 }

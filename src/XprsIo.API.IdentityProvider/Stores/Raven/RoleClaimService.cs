@@ -24,11 +24,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task AddClaimAsync(IdentityRole role, Claim claim, CancellationToken cancellationToken)
         {
-            role.Claims.Add(new IdentityRoleClaim
-            {
-                Type = claim.Type,
-                Value = claim.Value
-            });
+            role.Claims.Add(new IdentityRoleClaim(claim.Type, claim.Value));
 
             return TaskEx.Completed;
         }

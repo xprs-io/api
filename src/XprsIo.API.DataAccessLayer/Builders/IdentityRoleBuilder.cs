@@ -5,40 +5,46 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityRoleBuilder : FluentEntityBuilderBase<IdentityRole>
+    public class IdentityRoleBuilder : FluentEntityBuilderBase<IdentityRole, IdentityRoleBuilder>
     {
         private readonly Func<IdentityRoleClaimBuilder> _identityRoleClaimBuilderFactory;
 
-        public IdentityRoleBuilder(
-            IdentityRole @default,
-            Func<IdentityRoleClaimBuilder> identityRoleClaimBuilderFactory)
-            : base(@default)
+        private int _id;
+        private string _name;
+        private readonly ICollection<IdentityRoleClaim> _claims;
+
+        public IdentityRoleBuilder(Func<IdentityRoleClaimBuilder> identityRoleClaimBuilderFactory, IdentityRole defaultEntity = null)
+            : base(b => new IdentityRole(b._id, b._name, b._claims))
         {
+            if (defaultEntity == null)
+            {
+                defaultEntity = IdentityRole.Empty;
+            }
+
             _identityRoleClaimBuilderFactory = identityRoleClaimBuilderFactory;
+
+            _id = defaultEntity.Id;
+            _name = defaultEntity.Name;
+            _claims = defaultEntity.Claims;
         }
 
-        public IdentityRoleBuilder WithId(int? value = null)
+        public IdentityRoleBuilder WithId(int value)
         {
-            Context.Id = value ?? Default.Id;
+            _id = value;
             return this;
         }
 
-        public IdentityRoleBuilder WithName(string value = null)
+        public IdentityRoleBuilder WithName(string value)
         {
-            Context.Name = value ?? Default.Name;
+            _name = value;
             return this;
         }
 
         public IdentityRoleBuilder WithClaim(Func<IdentityRoleClaimBuilder, IdentityRoleClaimBuilder> builder = null)
         {
-            if (Context.Claims == null)
-            {
-                Context.Claims = new List<IdentityRoleClaim>();
-            }
-
             var claimBuilder = _identityRoleClaimBuilderFactory.Invoke();
 
-            Context.Claims.Add(builder.SelectOrDefault(b => b.Invoke(claimBuilder), claimBuilder));
+            _claims.Add(builder.SelectOrDefault(b => b.Invoke(claimBuilder), claimBuilder));
 
             return this;
         }

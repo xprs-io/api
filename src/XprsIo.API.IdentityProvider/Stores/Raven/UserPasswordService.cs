@@ -36,7 +36,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetPasswordHashAsync(IdentityUser user, string passwordHash, CancellationToken cancellationToken)
         {
-            user.PasswordHash = passwordHash;
+            user.Mutate().SetPasswordHash(passwordHash);
 
             return TaskEx.Completed;
         }

@@ -2,21 +2,32 @@
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityRoleClaimBuilder : FluentEntityBuilderBase<IdentityRoleClaim>
+    public class IdentityRoleClaimBuilder : FluentEntityBuilderBase<IdentityRoleClaim, IdentityRoleClaimBuilder>
     {
-        public IdentityRoleClaimBuilder(IdentityRoleClaim @default) : base(@default)
+        private string _type;
+        private string _value;
+
+        public IdentityRoleClaimBuilder(IdentityRoleClaim defaultEntity = null)
+            : base(b => new IdentityRoleClaim(b._type, b._value))
         {
+            if (defaultEntity == null)
+            {
+                defaultEntity = IdentityRoleClaim.Empty;
+            }
+
+            _type = defaultEntity.Type;
+            _value = defaultEntity.Value;
         }
 
-        public IdentityRoleClaimBuilder WithKey(string value = null)
+        public IdentityRoleClaimBuilder WithType(string value = null)
         {
-            Context.Type = value ?? Default.Type;
+            _type = value;
             return this;
         }
 
         public IdentityRoleClaimBuilder WithValue(string value = null)
         {
-            Context.Value = value ?? Default.Value;
+            _value = value;
             return this;
         }
     }

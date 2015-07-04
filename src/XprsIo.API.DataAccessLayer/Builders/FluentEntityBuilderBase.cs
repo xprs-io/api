@@ -11,20 +11,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
+
+using System;
+
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public abstract class FluentEntityBuilderBase<TEntity>
-        where TEntity : class, new()
+    public abstract class FluentEntityBuilderBase<TEntity, TBuilder>
+        where TEntity : class
+        where TBuilder : class
     {
-        protected readonly TEntity Default;
-        protected readonly TEntity Context = new TEntity();
+        private readonly Func<TBuilder, TEntity> _finalFactory;
 
-        protected FluentEntityBuilderBase(TEntity @default)
+        protected FluentEntityBuilderBase(Func<TBuilder, TEntity> finalFactory)
         {
-            Default = @default;
+            _finalFactory = finalFactory;
         }
 
-        public static implicit operator TEntity(FluentEntityBuilderBase<TEntity> b)
-            => b.Context;
+        public static implicit operator TEntity(FluentEntityBuilderBase<TEntity, TBuilder> b)
+            => b._finalFactory.Invoke(b as TBuilder);
     }
 }

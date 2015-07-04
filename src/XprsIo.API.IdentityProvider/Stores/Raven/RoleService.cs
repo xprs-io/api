@@ -51,7 +51,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetRoleNameAsync(IdentityRole role, string roleName, CancellationToken cancellationToken)
         {
-            role.Name = roleName;
+            role.Mutate().SetName(roleName);
 
             return TaskEx.Completed;
         }
@@ -64,7 +64,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             string normalizedName,
             CancellationToken cancellationToken)
         {
-            role.Name = normalizedName;
+            role.Mutate().SetName(normalizedName);
 
             return TaskEx.Completed;
         }

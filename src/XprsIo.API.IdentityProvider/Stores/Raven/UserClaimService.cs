@@ -49,11 +49,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         public Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
             var identityUserClaims = claims
-                .Select(c => new IdentityUserClaim
-                {
-                    Type = c.Type,
-                    Value = c.Value
-                });
+                .Select(c => new IdentityUserClaim(c.Type, c.Value));
 
             foreach (var claim in identityUserClaims)
             {
@@ -71,13 +67,8 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         {
             var storedClaim = user.Claims
                 .FirstOrDefault(c => c.Type == claim.Type);
-
-            if (storedClaim == null)
-            {
-                return TaskEx.Completed;
-            }
-
-            storedClaim.Value = newClaim.Value;
+            
+            storedClaim?.Mutate().SetValue(newClaim.Value);
 
             return TaskEx.Completed;
         }

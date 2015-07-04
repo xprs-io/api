@@ -36,7 +36,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetTwoFactorEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
         {
-            user.IsTwoFactorEnabled = enabled;
+            user.Mutate().SetTwoFactorEnabled(enabled);
 
             return TaskEx.Completed;
         }

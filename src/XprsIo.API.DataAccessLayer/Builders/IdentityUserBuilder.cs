@@ -5,139 +5,169 @@ using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserBuilder : FluentEntityBuilderBase<IdentityUser>
+    public class IdentityUserBuilder : FluentEntityBuilderBase<IdentityUser, IdentityUserBuilder>
     {
         private readonly Func<IdentityRoleBuilder> _identityRoleBuilderFactory;
         private readonly Func<IdentityUserEmailBuilder> _identityUserEmailBuilderFactory;
         private readonly Func<IdentityUserLoginBuilder> _identityUserLoginBuilderFactory;
         private readonly Func<IdentityUserClaimBuilder> _identityUserClaimBuilderFactory;
 
+        private Guid _id;
+        private string _passwordHash;
+        private string _phoneNumber;
+        private bool _isActive;
+        private bool _isPhoneNumberConfirmed;
+        private bool _isTwoFactorEnabled;
+        private int _accessFailedCount;
+        private bool _isLockoutEnabled;
+        private DateTimeOffset? _lockedEndDateUtc;
+        private string _securityStamp;
+        private readonly ICollection<IdentityRole> _roles;
+        private readonly ICollection<IdentityUserEmail> _emails;
+        private readonly ICollection<IdentityUserLogin> _logins;
+        private readonly ICollection<IdentityUserClaim> _claims;
+
         public IdentityUserBuilder(
             Func<IdentityRoleBuilder> identityRoleBuilderFactory,
             Func<IdentityUserEmailBuilder> identityUserEmailBuilderFactory,
             Func<IdentityUserLoginBuilder> identityUserLoginBuilderFactory,
             Func<IdentityUserClaimBuilder> identityUserClaimBuilderFactory,
-            IdentityUser @default)
-            : base(@default)
+            IdentityUser defaultEntity = null)
+            : base(b => new IdentityUser(
+                b._id,
+                b._passwordHash,
+                b._phoneNumber,
+                b._isActive,
+                b._isPhoneNumberConfirmed,
+                b._isTwoFactorEnabled,
+                b._accessFailedCount,
+                b._isLockoutEnabled,
+                b._lockedEndDateUtc,
+                b._securityStamp,
+                b._roles,
+                b._emails,
+                b._logins,
+                b._claims
+            ))
         {
+            if (defaultEntity == null)
+            {
+                defaultEntity = IdentityUser.Empty;
+            }
+
             _identityRoleBuilderFactory = identityRoleBuilderFactory;
             _identityUserEmailBuilderFactory = identityUserEmailBuilderFactory;
             _identityUserLoginBuilderFactory = identityUserLoginBuilderFactory;
             _identityUserClaimBuilderFactory = identityUserClaimBuilderFactory;
+
+            _id = defaultEntity.Id;
+            _passwordHash = defaultEntity.PasswordHash;
+            _phoneNumber = defaultEntity.PhoneNumber;
+            _isActive = defaultEntity.IsActive;
+            _isPhoneNumberConfirmed = defaultEntity.IsPhoneNumberConfirmed;
+            _isTwoFactorEnabled = defaultEntity.IsTwoFactorEnabled;
+            _accessFailedCount = defaultEntity.AccessFailedCount;
+            _isLockoutEnabled = defaultEntity.IsLockoutEnabled;
+            _lockedEndDateUtc = defaultEntity.LockedEndDateUtc;
+            _securityStamp = defaultEntity.SecurityStamp;
+            _roles = defaultEntity.Roles;
+            _emails = defaultEntity.Emails;
+            _logins = defaultEntity.Logins;
+            _claims = defaultEntity.Claims;
         }
         
-        public IdentityUserBuilder WithId(Guid? value = null)
+        public IdentityUserBuilder WithId(Guid value)
         {
-            Context.Id = value ?? Default.Id;
+            _id = value;
             return this;
         }
 
-        public IdentityUserBuilder WithPasswordHash(string value = null)
+        public IdentityUserBuilder WithPasswordHash(string value)
         {
-            Context.PasswordHash = value ?? Default.PasswordHash;
+            _passwordHash = value;
             return this;
         }
 
-        public IdentityUserBuilder WithPhoneNumber(string value = null)
+        public IdentityUserBuilder WithPhoneNumber(string value)
         {
-            Context.PhoneNumber = value ?? Default.PhoneNumber;
+            _phoneNumber = value;
             return this;
         }
 
-        public IdentityUserBuilder WithActive(bool value = true)
+        public IdentityUserBuilder WithActive(bool value)
         {
-            Context.IsActive = value;
+            _isActive = value;
             return this;
         }
 
-        public IdentityUserBuilder WithPhoneNumberConfirmed(bool value = true)
+        public IdentityUserBuilder WithPhoneNumberConfirmed(bool value)
         {
-            Context.IsPhoneNumberConfirmed = value;
+            _isPhoneNumberConfirmed = value;
             return this;
         }
 
-        public IdentityUserBuilder WithTwoFactorAuthentication(bool value = true)
+        public IdentityUserBuilder WithTwoFactorAuthentication(bool value)
         {
-            Context.IsTwoFactorEnabled = value;
+            _isTwoFactorEnabled = value;
             return this;
         }
 
-        public IdentityUserBuilder WithAccessFailedCount(int? value = null)
+        public IdentityUserBuilder WithAccessFailedCount(int value)
         {
-            Context.AccessFailedCount = value ?? Default.AccessFailedCount;
+            _accessFailedCount = value;
             return this;
         }
 
-        public IdentityUserBuilder WithLockoutEnabled(bool value = true)
+        public IdentityUserBuilder WithLockoutEnabled(bool value)
         {
-            Context.IsLockoutEnabled = value;
+            _isLockoutEnabled = value;
             return this;
         }
 
-        public IdentityUserBuilder WithLockedEndDateUtc(DateTimeOffset? value = null)
+        public IdentityUserBuilder WithLockedEndDateUtc(DateTimeOffset? value)
         {
-            Context.LockedEndDateUtc = value ?? Default.LockedEndDateUtc;
+            _lockedEndDateUtc = value;
             return this;
         }
 
-        public IdentityUserBuilder WithSecurityStamp(string value = null)
+        public IdentityUserBuilder WithSecurityStamp(string value)
         {
-            Context.SecurityStamp = value ?? Default.SecurityStamp;
+            _securityStamp = value;
             return this;
         }
 
         public IdentityUserBuilder WithRole(Func<IdentityRoleBuilder, IdentityRoleBuilder> builder = null)
         {
-            if (Context.Roles == null)
-            {
-                Context.Roles = new List<IdentityRole>();
-            }
-
             var roleBuilder = _identityRoleBuilderFactory.Invoke();
 
-            Context.Roles.Add(builder.SelectOrDefault(b => b.Invoke(roleBuilder), roleBuilder));
+            _roles.Add(builder.SelectOrDefault(b => b.Invoke(roleBuilder), roleBuilder));
 
             return this;
         }
 
         public IdentityUserBuilder WithEmail(Func<IdentityUserEmailBuilder, IdentityUserEmailBuilder> builder = null)
         {
-            if (Context.Emails == null)
-            {
-                Context.Emails = new List<IdentityUserEmail>();
-            }
-
             var emailBuilder = _identityUserEmailBuilderFactory.Invoke();
 
-            Context.Emails.Add(builder.SelectOrDefault(b => b.Invoke(emailBuilder), emailBuilder));
+            _emails.Add(builder.SelectOrDefault(b => b.Invoke(emailBuilder), emailBuilder));
 
             return this;
         }
 
         public IdentityUserBuilder WithLogin(Func<IdentityUserLoginBuilder, IdentityUserLoginBuilder> builder = null)
         {
-            if (Context.Logins == null)
-            {
-                Context.Logins = new List<IdentityUserLogin>();
-            }
-
             var loginBuilder = _identityUserLoginBuilderFactory.Invoke();
 
-            Context.Logins.Add(builder.SelectOrDefault(b => b.Invoke(loginBuilder), loginBuilder));
+            _logins.Add(builder.SelectOrDefault(b => b.Invoke(loginBuilder), loginBuilder));
 
             return this;
         }
 
         public IdentityUserBuilder WithClaim(Func<IdentityUserClaimBuilder, IdentityUserClaimBuilder> builder = null)
         {
-            if (Context.Claims == null)
-            {
-                Context.Claims = new List<IdentityUserClaim>();
-            }
-
             var claimBuilder = _identityUserClaimBuilderFactory.Invoke();
 
-            Context.Claims.Add(builder.SelectOrDefault(b => b.Invoke(claimBuilder), claimBuilder));
+            _claims.Add(builder.SelectOrDefault(b => b.Invoke(claimBuilder), claimBuilder));
 
             return this;
         }

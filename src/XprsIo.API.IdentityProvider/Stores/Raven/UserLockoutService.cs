@@ -39,17 +39,17 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             DateTimeOffset? lockoutEnd,
             CancellationToken cancellationToken)
         {
-            user.LockedEndDateUtc = lockoutEnd;
+            user.Mutate().SetLockedEndDateUtc(lockoutEnd);
 
             return TaskEx.Completed;
         }
 
         public Task<int> IncrementAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
-            => Task.FromResult(++user.AccessFailedCount);
+            => Task.FromResult(user.Mutate().SetAccessFailedCount(user.AccessFailedCount + 1).Freeze().AccessFailedCount);
 
         public Task ResetAccessFailedCountAsync(IdentityUser user, CancellationToken cancellationToken)
         {
-            user.AccessFailedCount = 0;
+            user.Mutate().SetAccessFailedCount(0);
 
             return TaskEx.Completed;
         }
@@ -62,7 +62,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetLockoutEnabledAsync(IdentityUser user, bool enabled, CancellationToken cancellationToken)
         {
-            user.IsLockoutEnabled = enabled;
+            user.Mutate().SetLockoutEnabled(enabled);
 
             return TaskEx.Completed;
         }

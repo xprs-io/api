@@ -12,6 +12,7 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.Collections.Generic;
 
 namespace XprsIo.API.DataAccessLayer.Entities.Identity
@@ -22,9 +23,72 @@ namespace XprsIo.API.DataAccessLayer.Entities.Identity
     /// </summary>
     public class IdentityRole
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public class MutableIdentityRoleProxy
+        {
+            private readonly IdentityRole _instance;
 
-        public ICollection<IdentityRoleClaim> Claims { get; set; }
+            public MutableIdentityRoleProxy(IdentityRole instance)
+            {
+                _instance = instance;
+            }
+
+            public IdentityRole Freeze()
+            {
+                return _instance;
+            }
+
+            public MutableIdentityRoleProxy SetId(int value)
+            {
+                _instance.Id = value;
+                return this;
+            }
+
+            public MutableIdentityRoleProxy SetName(string value)
+            {
+                _instance.Name = value;
+                return this;
+            }
+
+            public MutableIdentityRoleProxy SetClaims(ICollection<IdentityRoleClaim> value)
+            {
+                _instance.Claims = value;
+                return this;
+            }
+        }
+
+        public static readonly IdentityRole Empty = new IdentityRole();
+
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+
+        public ICollection<IdentityRoleClaim> Claims { get; private set; }
+
+        private IdentityRole()
+        {
+            Name = string.Empty;
+            Claims = new List<IdentityRoleClaim>();
+        }
+
+        public IdentityRole(int id, string name, ICollection<IdentityRoleClaim> claims)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be default or empty", nameof(name));
+            }
+
+            Id = id;
+            Name = name;
+            Claims = claims ?? new IdentityRoleClaim[0];
+        }
+
+        public MutableIdentityRoleProxy Mutate()
+        {
+            if (this == Empty)
+            {
+                throw new InvalidOperationException("Cannot mutate the default Empty value");
+            }
+
+            return new MutableIdentityRoleProxy(this);
+        }
     }
 }

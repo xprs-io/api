@@ -43,12 +43,14 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
 
         private static void InitializeBuilderContainer(Container container)
         {
-            container.Register(() => new IdentityUserEmail { Email = DefaultEmail });
-            container.Register(() => new IdentityUserClaim { Key = DefaultKey });
-            container.Register(() => new IdentityUserLogin { ProviderKey = DefaultKey });
-            container.Register(() => new IdentityRole { Id = DefaultId });
-            container.Register(() => new IdentityUser { Id = DefaultGuid });
+            container.Register<IdentityRoleClaim>(() => new IdentityRoleClaimBuilder().WithType(DefaultKey));
+            container.Register<IdentityUserEmail>(() => new IdentityUserEmailBuilder().WithEmail(DefaultEmail));
+            container.Register<IdentityUserClaim>(() => new IdentityUserClaimBuilder().WithType(DefaultKey));
+            container.Register<IdentityUserLogin>(() => new IdentityUserLoginBuilder().WithProviderKey(DefaultKey));
+            container.Register<IdentityRole>(() => new IdentityRoleBuilder(null).WithId(DefaultId));
+            container.Register<IdentityUser>(() => new IdentityUserBuilder(null, null, null, null).WithId(DefaultGuid));
 
+            container.Register<IdentityRoleClaimBuilder>();
             container.Register<IdentityUserEmailBuilder>();
             container.Register<IdentityUserClaimBuilder>();
             container.Register<IdentityUserLoginBuilder>();

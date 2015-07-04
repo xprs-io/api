@@ -2,21 +2,32 @@
 
 namespace XprsIo.API.DataAccessLayer.Builders
 {
-    public class IdentityUserClaimBuilder : FluentEntityBuilderBase<IdentityUserClaim>
+    public class IdentityUserClaimBuilder : FluentEntityBuilderBase<IdentityUserClaim, IdentityUserClaimBuilder>
     {
-        public IdentityUserClaimBuilder(IdentityUserClaim @default) : base(@default)
+        private string _type;
+        private string _value;
+
+        public IdentityUserClaimBuilder(IdentityUserClaim defaultEntity = null)
+            : base(b => new IdentityUserClaim(b._type, b._value))
         {
+            if (defaultEntity == null)
+            {
+                defaultEntity = IdentityUserClaim.Empty;
+            }
+
+            _type = defaultEntity.Type;
+            _value = defaultEntity.Value;
         }
 
-        public IdentityUserClaimBuilder WithKey(string value = null)
+        public IdentityUserClaimBuilder WithType(string value)
         {
-            Context.Type = value ?? Default.Type;
+            _type = value;
             return this;
         }
 
-        public IdentityUserClaimBuilder WithValue(string value = null)
+        public IdentityUserClaimBuilder WithValue(string value)
         {
-            Context.Value = value ?? Default.Value;
+            _value = value;
             return this;
         }
     }

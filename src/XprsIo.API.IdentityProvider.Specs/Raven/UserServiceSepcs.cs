@@ -13,8 +13,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     {
         private Establish context =
             () => _user = Machine
-                .IdentityUser
-                .WithId();
+                .IdentityUser;
 
         private Because of =
             () => _result = Machine
@@ -36,8 +35,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _result = Machine
@@ -58,8 +56,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
     {
         private Establish context =
             () => _user = Machine
-                .IdentityUser
-                .WithId();
+                .IdentityUser;
 
         private Because of =
             () => _exception = Catch.Exception(
@@ -87,8 +84,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => Machine
@@ -109,8 +105,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _exception = Catch.Exception(
@@ -138,8 +133,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _exception = Catch.Exception(

@@ -12,8 +12,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _result = _user
@@ -32,7 +31,6 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
                 .WithEmail();
 
         private Because of =
@@ -59,11 +57,11 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _user
+                .Mutate()
                 .SetUserName("override+" + Machine.DefaultEmail);
 
         private It should_add_a_new_primary_email =
@@ -82,11 +80,11 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
     {
         private Establish context =
             () => _user = Machine
-                .IdentityUser
-                .WithId();
+                .IdentityUser;
 
         private Because of =
             () => _user
+                .Mutate()
                 .SetUserName("override+" + Machine.DefaultEmail);
 
         private It should_add_a_new_primary_email =
@@ -106,12 +104,12 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _exception = Catch.Exception(
                 () => _user
+                    .Mutate()
                     .SetUserName(string.Empty)
             );
 
@@ -133,12 +131,12 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Extensions
         private Establish context =
             () => _user = Machine
                 .IdentityUser
-                .WithId()
-                .WithEmail(b => b.WithPrimary());
+                .WithEmail(b => b.WithPrimary(true));
 
         private Because of =
             () => _exception = Catch.Exception(
                 () => _user
+                    .Mutate()
                     .SetUserName("not an email")
             );
 

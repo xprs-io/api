@@ -62,7 +62,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         /// </exception>
         public Task SetUserNameAsync(IdentityUser user, string userName, CancellationToken cancellationToken)
         {
-            user.SetUserName(userName);
+            user.Mutate().SetUserName(userName);
 
             return TaskEx.Completed;
         }
@@ -85,7 +85,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             string normalizedUserName,
             CancellationToken cancellationToken)
         {
-            user.SetUserName(normalizedUserName);
+            user.Mutate().SetUserName(normalizedUserName);
 
             return TaskEx.Completed;
         }

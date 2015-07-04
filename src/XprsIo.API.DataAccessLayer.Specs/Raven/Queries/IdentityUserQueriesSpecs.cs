@@ -18,7 +18,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Queries
                     .WithId(g)
                     .WithEmail(b => b
                         .WithEmail(i.ToString() + "+" + Machine.DefaultEmail)
-                        .WithPrimary()
+                        .WithPrimary(true)
                     )
                 )
                 .ToQueryableRepository();
@@ -77,7 +77,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Queries
                     .WithId(g)
                     .WithEmail(b => b
                         .WithEmail(i.ToString() + "+" + Machine.DefaultEmail)
-                        .WithPrimary()
+                        .WithPrimary(true)
                     )
                 )
                 .ToQueryableRepository();
@@ -111,7 +111,7 @@ namespace XprsIo.API.DataAccessLayer.Specs.Raven.Queries
                     .WithId(g)
                     .WithEmail(b => b
                         .WithEmail("1" + i.ToString() + "+" + Machine.DefaultEmail)
-                        .WithPrimary()
+                        .WithPrimary(true)
                     )
                     .WithEmail(b => b.WithEmail("2" + i.ToString() + "+" + Machine.DefaultEmail))
                     .WithEmail(b => b.WithEmail("3" + i.ToString() + "+" + Machine.DefaultEmail))

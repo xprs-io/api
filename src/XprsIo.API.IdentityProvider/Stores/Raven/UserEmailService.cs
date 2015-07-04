@@ -41,7 +41,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetEmailAsync(IdentityUser user, string email, CancellationToken cancellationToken)
         {
-            user.SetUserName(email);
+            user.Mutate().SetUserName(email);
 
             return TaskEx.Completed;
         }
@@ -53,10 +53,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
         {
             var email = user.Emails.FirstOrDefault(e => e.IsPrimary);
 
-            if (email != null)
-            {
-                email.IsConfirmed = true;
-            }
+            email?.Mutate().SetConfirmed(true);
 
             return TaskEx.Completed;
         }
@@ -69,7 +66,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
             string normalizedEmail,
             CancellationToken cancellationToken)
         {
-            user.SetUserName(normalizedEmail);
+            user.Mutate().SetUserName(normalizedEmail);
 
             return TaskEx.Completed;
         }

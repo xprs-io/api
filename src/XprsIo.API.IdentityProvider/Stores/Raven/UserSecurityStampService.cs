@@ -36,7 +36,7 @@ namespace XprsIo.API.IdentityProvider.Stores.Raven
 
         public Task SetSecurityStampAsync(IdentityUser user, string stamp, CancellationToken cancellationToken)
         {
-            user.SecurityStamp = stamp;
+            user.Mutate().SetSecurityStamp(stamp);
 
             return TaskEx.Completed;
         }

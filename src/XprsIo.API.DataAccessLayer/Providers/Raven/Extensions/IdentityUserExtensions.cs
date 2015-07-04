@@ -65,7 +65,7 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Extensions
         ///     <paramref name="user" /> or <paramref name="value" /> is
         ///     <see langword="null" /> .
         /// </exception>
-        public static void SetUserName([NotNull] this IdentityUser user, [NotNull] string value)
+        public static void SetUserName([NotNull] this IdentityUser.MutableIdentityUserProxy user, [NotNull] string value)
         {
             if (user == null)
             {
@@ -77,12 +77,14 @@ namespace XprsIo.API.DataAccessLayer.Providers.Raven.Extensions
                 throw new ArgumentNullException(nameof(value));
             }
 
-            foreach (var email in user.Emails)
+            var emails = user.Freeze().Emails;
+
+            foreach (var email in emails)
             {
-                email.IsPrimary = false;
+                email.Mutate().SetPrimary(false);
             }
 
-            user.Emails.Add(new IdentityUserEmail { Email = value, IsPrimary = true });
+            emails.Add(new IdentityUserEmail(value, false, true));
         }
     }
 }
