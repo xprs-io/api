@@ -1,0 +1,53 @@
+﻿// //////////////////////////////////////////////////////////////////////////////////
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// //////////////////////////////////////////////////////////////////////////////////
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using XprsIo.API.DataAccessLayer.Compiler.Preprocess.Attributes;
+
+namespace XprsIo.API.DataAccessLayer.Compiler.Preprocess.Conventions
+{
+    internal class FluentEntityTemplateAttributeConvention : IConvention<AttributeSyntax>
+    {
+        public static readonly FluentEntityTemplateAttributeConvention Instance = new FluentEntityTemplateAttributeConvention();
+
+        private static readonly string AttributeName =
+            nameof(FluentEntityTemplateAttribute).Replace("Attribute", string.Empty);
+
+        public bool Match(AttributeSyntax candidate)
+        {
+            return candidate.Name.ToString() == AttributeName;
+        }
+
+        public Diagnostic Diagnostic(AttributeSyntax candidate)
+        {
+            // This convention is used as a filter and not a validation.
+            throw new System.NotImplementedException();
+        }
+
+        public AttributeSyntax Transform(AttributeSyntax candidate)
+        {
+            if (!Match(candidate))
+            {
+                return candidate;
+            }
+
+            var sourceIdentifier = candidate.Name.ToString();
+            var targetIdentifier = sourceIdentifier.Substring(0, sourceIdentifier.Length - "Template".Length);
+
+            return candidate.WithName(SyntaxFactory.IdentifierName(targetIdentifier));
+        }
+    }
+}

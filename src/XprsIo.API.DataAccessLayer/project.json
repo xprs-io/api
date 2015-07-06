@@ -7,6 +7,7 @@
   "licenseUrl": "",
 
   "dependencies": {
+    "Microsoft.Framework.Runtime": "1.0.0-beta4",
     "RavenDB.Client": "3.0.3660",
     "SimpleInjector": "2.8.0",
     "JetBrains.Annotations": "8.0.5",
