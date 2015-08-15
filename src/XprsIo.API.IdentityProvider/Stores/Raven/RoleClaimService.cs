@@ -5,20 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
-using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
     public class RoleClaimService : IRoleClaimService
     {
-        private readonly IAsyncRavenContext _context;
-
-        public RoleClaimService(IAsyncRavenContext context)
-        {
-            _context = context;
-        }
-
         public Task<IList<Claim>> GetClaimsAsync(IdentityRole role, CancellationToken cancellationToken)
             => Task.FromResult((IList<Claim>)role.Claims.Select(c => new Claim(c.Type, c.Value)).ToList());
 

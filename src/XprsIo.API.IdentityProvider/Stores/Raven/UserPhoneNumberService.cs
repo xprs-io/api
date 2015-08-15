@@ -12,25 +12,16 @@
 // limitations under the License.
 // //////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using FluffIt.StaticExtensions;
 using XprsIo.API.DataAccessLayer.Entities.Identity;
-using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
 using XprsIo.API.IdentityProvider.Stores.Interfaces;
 
 namespace XprsIo.API.IdentityProvider.Stores.Raven
 {
     public class UserPhoneNumberService : IUserPhoneNumberService
     {
-        private readonly IAsyncRavenContext _context;
-
-        public UserPhoneNumberService(IAsyncRavenContext context)
-        {
-            _context = context;
-        }
-
         public Task<string> GetPhoneNumberAsync(IdentityUser user, CancellationToken cancellationToken)
             => Task.FromResult(user.PhoneNumber);
 
