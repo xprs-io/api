@@ -44,7 +44,7 @@ namespace XprsIo.API.IdentityProvider.Specs.Raven
         private static void InitializeBuilderContainer(Container container)
         {
             container.Register(() => new IdentityUserEmail { Email = DefaultEmail });
-            container.Register(() => new IdentityUserClaim { Key = DefaultKey });
+            container.Register(() => new IdentityUserClaim { Type = DefaultKey });
             container.Register(() => new IdentityUserLogin { ProviderKey = DefaultKey });
             container.Register(() => new IdentityRole { Id = DefaultId });
             container.Register(() => new IdentityUser { Id = DefaultGuid });
