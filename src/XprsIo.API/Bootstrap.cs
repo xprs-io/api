@@ -13,14 +13,20 @@
 // //////////////////////////////////////////////////////////////////////////////////
 
 using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Identity;
 using Raven.Client;
 using Raven.Client.Document;
 using SimpleInjector;
+using SimpleInjector.Extensions.ExecutionContextScoping;
 using XprsIo.API.BusinessLayer.Interfaces;
 using XprsIo.API.BusinessLayer.Services;
+using XprsIo.API.DataAccessLayer.Entities.Identity;
 using XprsIo.API.DataAccessLayer.Interfaces;
 using XprsIo.API.DataAccessLayer.Providers.Raven;
 using XprsIo.API.DataAccessLayer.Providers.Raven.Interfaces;
+using XprsIo.API.IdentityProvider.Stores;
+using XprsIo.API.IdentityProvider.Stores.Interfaces;
+using XprsIo.API.IdentityProvider.Stores.Raven;
 
 namespace XprsIo.API
 {
@@ -28,13 +34,35 @@ namespace XprsIo.API
     {
         public static void InitializeContainer(Container container, IApplicationBuilder app)
         {
+            var executionContextLifestyle = new ExecutionContextScopeLifestyle();
+
             // RavenDB
             container.RegisterSingle<IDocumentStore>(() => new DocumentStore
             {
-                // TODO: Configure store
-            });
+                Url = "http://localhost:8080",
+                DefaultDatabase = "Exploration"
+            }.Initialize());
             container.RegisterSingle<IContextFactory<IRavenContext>, RavenContextFactory>();
             container.RegisterSingle<IAsyncContextFactory<IAsyncRavenContext>, AsyncRavenContextFactory>();
+            container.Register<IAsyncRavenContext>(() => container.GetInstance<IAsyncContextFactory<IAsyncRavenContext>>().GetAsyncContext(), executionContextLifestyle);
+
+            container.RegisterSingle<IQueryableRoleService, QueryableRoleService>();
+            container.RegisterSingle<IQueryableUserService, QueryableUserService>();
+            container.RegisterSingle<IRoleClaimService, RoleClaimService>();
+            container.RegisterSingle<IRoleService, RoleService>();
+            container.RegisterSingle<IUserClaimService, UserClaimService>();
+            container.RegisterSingle<IUserEmailService, UserEmailService>();
+            container.RegisterSingle<IUserLockoutService, UserLockoutService>();
+            container.RegisterSingle<IUserLoginService, UserLoginService>();
+            container.RegisterSingle<IUserPasswordService, UserPasswordService>();
+            container.RegisterSingle<IUserPhoneNumberService, UserPhoneNumberService>();
+            container.RegisterSingle<IUserRoleService, UserRoleService>();
+            container.RegisterSingle<IUserSecurityStampService, UserSecurityStampService>();
+            container.RegisterSingle<IUserService, UserService>();
+            container.RegisterSingle<IUserTwoFactorService, UserTwoFactorService>();
+
+            container.RegisterSingle<IRoleStore<IdentityRole>, RoleStore>();
+            container.RegisterSingle<IUserStore<IdentityUser>, UserStore>();
 
             // BusinessLayer
             container.RegisterSingle<ICommentsService, CommentsService>();

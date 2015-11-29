@@ -14,15 +14,42 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using XprsIo.API.BusinessLayer.Entities;
+using XprsIo.API.DataAccessLayer.Entities.Identity;
 
 namespace XprsIo.API.Controllers
 {
     [Route("api/[controller]")]
-    public class UsersController
+    public class UsersController : Controller
     {
         private const string RouteById = "{id:int}";
+
+        public readonly UserManager<IdentityUser> _userManager;
+        public readonly SignInManager<IdentityUser> _signInManager;
+
+        public UsersController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> SignIn()
+        {
+            var result = await _signInManager.PasswordSignInAsync("debug@example.com", "no password", false, false);
+
+            if (result.Succeeded)
+            {
+                return Json(true);
+            }
+
+            return Json(false);
+        }
 
         [HttpPost]
         public IActionResult Create()
@@ -31,6 +58,7 @@ namespace XprsIo.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<User> Read()
         {
             throw new NotImplementedException();
