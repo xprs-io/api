@@ -6,6 +6,8 @@ using Microsoft.Framework.DependencyInjection;
 using SimpleInjector;
 using SimpleInjector.Diagnostics;
 using SimpleInjector.Extensions.ExecutionContextScoping;
+using XprsIo.API.DataAccessLayer.Entities.Identity;
+using XprsIo.API.IdentityProvider.Stores;
 
 namespace XprsIo.API
 {
@@ -22,6 +24,11 @@ namespace XprsIo.API
             services.AddMvc();
 
             services.AddInstance<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddUserStore<UserStore>()
+                .AddRoleStore<RoleStore>();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
